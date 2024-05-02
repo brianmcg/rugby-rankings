@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Rankings from '@components/Rankings';
+import ResponsiveAppBar from '@components/ResponsiveAppBar';
 import './App.css';
 
 // import viteLogo from '/vite.svg'
@@ -11,7 +12,7 @@ function App() {
   return (
     <>
       <header>
-        <h1>Rugby Rankings</h1>
+        <ResponsiveAppBar />
       </header>
 
       <main>
