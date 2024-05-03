@@ -7,6 +7,9 @@
   "app": {
     "title": "Rugby Rankings",
     "author": "Author: Brian McGrath",
+    "errors": {
+      "fetch": "Failed to load data!"
+    },
     "rankings": {
       "reset": "Reset",
       "predict": "Predict",

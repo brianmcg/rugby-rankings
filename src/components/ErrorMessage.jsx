@@ -1,7 +1,11 @@
+import Translate from '@components/Translate';
+
 function ErrorMessage({ message }) {
   return (
     <div>
-      <p>{message}</p>
+      <p>
+        <Translate text={message} />
+      </p>
     </div>
   );
 }

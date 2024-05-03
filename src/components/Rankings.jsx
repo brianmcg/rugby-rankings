@@ -1,4 +1,4 @@
-import { useEffect, useState, useReducer } from 'react';
+import { useEffect, useReducer } from 'react';
 
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -7,48 +7,56 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 import Translate from '@components/Translate';
+import ErrorMessage from '@components/ErrorMessage';
+import Loading from '@components/Loading';
 import FixtureModal from '@components/FixtureModal';
 import RankingsTable from '@components/RankingsTable';
 import { fetchRankings } from '@utils/client';
 
+import { rankingsReducer } from '@utils/reducers';
+
+const initialState = {
+  initialData: {},
+  data: {},
+  isLoading: true,
+  error: null,
+  reset: false,
+  modalOpen: false,
+};
+
 function Rankings() {
-  const [data, setData] = useState({});
-  const [isLoading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [reset, setReset] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
+  const [state, dispatch] = useReducer(rankingsReducer, initialState);
+
+  const { data, isLoading, error, modalOpen } = state;
 
   const { label, entries } = data;
 
   const fetchData = async () => {
-    setLoading(true);
-
     try {
       const data = await fetchRankings();
-      setData(data);
-      setLoading(false);
+      dispatch({ type: 'success', payload: data });
     } catch (error) {
-      setError(error)
+      dispatch({ type: 'error', payload: error });
     }
   }
 
+  const handleClickReset = () => dispatch({ type: 'reset' });
 
-  const handleClickReset = () => setReset(!reset);
+  const handleClickPredict = () => dispatch({ type: 'open' });
 
-  const handleClickPredict = () => setModalOpen(true);
-
-  const handleModalClose = () => {
-    console.log(entries);
-    setModalOpen(false);
-  }
+  const handleModalClose = amount => dispatch({ type: 'close', payload: amount });
 
   useEffect(() => {
     fetchData();
-  }, [reset]);
+  }, []);
 
 
   if (error) {
-    return <div>Error</div>
+    return <ErrorMessage message="app.errors.fetch" />
+  }
+
+  if (isLoading) {
+    return <Loading />
   }
 
   return (
@@ -57,18 +65,16 @@ function Rankings() {
         <AppBar position="static">
           <Toolbar>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              {isLoading ? null : label}
+              {label}
             </Typography>
             <Button
               color="inherit"
-              disabled={isLoading}
               onClick={handleClickPredict}
             >
               <Translate text="app.rankings.predict" />
             </Button>
             <Button
               color="inherit"
-              disabled={isLoading}
               onClick={handleClickReset}
             >
               <Translate text="app.rankings.reset" />
@@ -78,7 +84,7 @@ function Rankings() {
         </AppBar>
       </Box>
 
-      {isLoading ? null : <RankingsTable entries={entries} />}
+      {<RankingsTable entries={entries} />}
     </>
   );
 }

@@ -25,7 +25,7 @@ export default function TransitionsModal({ open = false, handleClose }) {
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
         open={open}
-        onClose={handleClose}
+        onClose={() => handleClose(10)}
         closeAfterTransition
         slots={{ backdrop: Backdrop }}
         slotProps={{
