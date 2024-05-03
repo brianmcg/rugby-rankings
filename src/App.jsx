@@ -1,27 +1,24 @@
-import { useState } from 'react';
+import { Suspense, ConcurrentMode } from 'react';
+import { ErrorBoundary } from "react-error-boundary";
+import Header from '@components/Header';
 import Rankings from '@components/Rankings';
-import ResponsiveAppBar from '@components/ResponsiveAppBar';
-import './App.css';
+import Footer from '@components/Footer';
+import Loading from '@components/Loading';
+import ErrorMessage from '@components/ErrorMessage';
 
-// import viteLogo from '/vite.svg'
-// import reactLogo from './assets/react.svg'
-// <img src={reactLogo} className="logo react" alt="React logo" />
-// <img src={viteLogo} className="logo" alt="Vite logo" />
 
 function App() {
   return (
     <>
-      <header>
-        <ResponsiveAppBar />
-      </header>
-
+      <Header />
       <main>
-        <Rankings />
+        <ErrorBoundary fallback={<ErrorMessage message="Failed to fetch data!" />}>
+          <Suspense fallback={<Loading />}>
+            <Rankings />
+          </Suspense>
+        </ErrorBoundary>
       </main>
-
-      <footer>
-        <p>Author: Brian McGrath</p>
-      </footer>
+      <Footer />
     </>
   )
 }
