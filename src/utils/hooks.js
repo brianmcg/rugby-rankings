@@ -31,4 +31,4 @@ export function useAsync(asyncCallback, initialState, dependencies) {
   }, dependencies);
 
   return state;
-};
+}

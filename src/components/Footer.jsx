@@ -1,10 +1,11 @@
 import Container from '@mui/material/Container';
+import Translate from '@components/Translate';
 
 function Footer() {
   return (
     <footer>
       <Container>
-        <p>Author: Brian McGrath</p>
+        <p><Translate text="app.author" /></p>
       </Container>
     </footer>
   );

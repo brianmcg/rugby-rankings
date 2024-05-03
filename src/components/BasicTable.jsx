@@ -7,19 +7,9 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+// import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
+import Translate from '@components/Translate';
 
 export default function BasicTable({ entries }) {
   return (
@@ -27,9 +17,9 @@ export default function BasicTable({ entries }) {
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Rank</TableCell>
-            <TableCell>Team</TableCell>
-            <TableCell>Points</TableCell>
+            <TableCell><Translate text="app.rankings.table.rank" /></TableCell>
+            <TableCell><Translate text="app.rankings.table.team" /></TableCell>
+            <TableCell><Translate text="app.rankings.table.points" /></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

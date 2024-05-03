@@ -5,6 +5,16 @@
     "es": "Spanish"
   },
   "app": {
-    "title": "Rugby Rankings"
+    "title": "Rugby Rankings",
+    "author": "Author: Brian McGrath",
+    "rankings": {
+      "reset": "Reset",
+      "predict": "Predict",
+      "table": {
+        "team": "Team",
+        "rank": "Rank",
+        "points": "Points"
+      }
+    }
   }
 }
