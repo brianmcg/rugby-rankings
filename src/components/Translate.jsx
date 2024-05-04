@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next';
 
-function Translate({ text }) {
+function Translate({ text, options = {} }) {
 
   const { t } = useTranslation();
-  return <>{t(text)}</>;
+  return <>{t(text, options)}</>;
 }
 
 export default Translate;

@@ -5,7 +5,7 @@ function Footer() {
   return (
     <footer>
       <Container>
-        <p><Translate text="app.author" /></p>
+        <p><Translate text="app.footer.author" /></p>
       </Container>
     </footer>
   );

@@ -25,6 +25,7 @@
     "react-error-boundary": "^3.1.4",
     "react-fetch-hook": "^1.9.5",
     "react-i18next": "^14.1.1",
+    "react-virtuoso": "^4.7.10",
     "swr": "^2.2.5"
   },
   "devDependencies": {

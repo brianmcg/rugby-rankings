@@ -1,17 +1,23 @@
 import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
 import Translate from '@components/Translate';
-
-// import Logo from '@assets/apple-touch-icon.png';
+import { useTheme } from '@mui/material/styles';
 
 export default function Header() {
+
+  const { palette } = useTheme();
+
+  const styles = {
+    backgroundColor: palette.common.black,
+    color: palette.common.white,
+  };
+
   return (
-    <header>
-      <Container>
+    <header style={styles}>
+      <div color="primary">
         <Typography variant="h1" component="div" sx={{ flexGrow: 1 }}>
-          <Translate text="app.title" />
+          <Translate text="app.header.title" />
         </Typography>
-      </Container>
+      </div>
     </header>
   );
 }

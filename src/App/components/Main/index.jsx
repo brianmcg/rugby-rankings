@@ -1,16 +1,18 @@
 import { useEffect, useReducer } from 'react';
+import Grid from '@mui/material/Grid';
+import Container from '@mui/material/Container';
 import ErrorMessage from '@components/ErrorMessage';
 import Loading from '@components/Loading';
 import { fetchRankings } from '@utils/api';
+import Rankings from './components/Rankings';
+import Matches from './components/Matches';
 import FixtureModal from './components/FixtureModal';
-import RankingsTable from './components/RankingsTable';
 import ControlBar from './components/ControlBar';
 import rankingsReducer, { initialState, ACTIONS } from './reducer';
 
-export default function Rankings() {
+export default function Main() {
   const [state, dispatch] = useReducer(rankingsReducer, initialState);
   const { data, isLoading, fetchError, isModalOpen } = state;
-  const { label, entries } = data;
 
   const fetchData = async () => {
     try {
@@ -33,10 +35,19 @@ export default function Rankings() {
   if (isLoading) return <Loading />
 
   return (
-    <>
-      <ControlBar label={label} handleClickPredict={openModal} handleClickReset={resetData} />
-      <RankingsTable entries={entries} />
+    <main>
+      <ControlBar handleClickInfo={openModal} handleClickReset={resetData} />
+      <Container style={{ marginTop: 32 }}>
+        <Grid container spacing={2} direction="row-reverse">
+          <Grid item xs={12} md={7}>
+            <Matches />
+          </Grid>
+          <Grid item xs={12} md={5}>
+            <Rankings {...data} />
+          </Grid>
+        </Grid>
+      </Container>
       <FixtureModal open={isModalOpen} handleClose={closeModal} />
-    </>
+    </main>
   );
 }

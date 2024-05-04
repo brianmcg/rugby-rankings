@@ -5,18 +5,32 @@
     "es": "Spanish"
   },
   "app": {
-    "title": "Rugby Rankings",
-    "author": "Author: Brian McGrath",
+    "header": {
+      "title": "Rugby Rankings"
+    },
+    "footer": {
+      "author": "Author: Brian McGrath"
+    },
     "errors": {
       "fetch": "Failed to load data!"
     },
-    "rankings": {
-      "reset": "Reset",
-      "predict": "Predict",
-      "table": {
-        "team": "Team",
-        "rank": "Rank",
-        "points": "Points"
+    "main": {
+      "control": {
+        "reset": "Reset",
+        "info": "Info"
+      },
+      "rankings": {
+        "title": "{{label}} Rankings",
+        "expand": "Expand",
+        "collapse": "Collapse",
+        "table": {
+          "team": "Team",
+          "rank": "Rank",
+          "points": "Points"
+        }
+      },
+      "matches": {
+        "title": "Fixtures"
       }
     }
   }
