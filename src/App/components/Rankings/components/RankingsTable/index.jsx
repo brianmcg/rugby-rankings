@@ -1,7 +1,5 @@
 import Container from '@mui/material/Container';
-// import Typography from '@mui/material/Typography';
-import BasicTable from './BasicTable';
-// import { format } from '@utils/date';
+import BasicTable from './components/BasicTable';
 
 function RankingsTable({ entries }) {
   return (

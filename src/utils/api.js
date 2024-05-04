@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { MENS_RANKINGS } from '@constants/urls';
+
+const MENS_RANKINGS_URL = 'https://api.wr-rims-prod.pulselive.com/rugby/v3/rankings/mru';
 
 async function fetchData(url) {
   try {
@@ -10,4 +11,4 @@ async function fetchData(url) {
   }
 }
 
-export const fetchRankings = () => fetchData(MENS_RANKINGS);
+export const fetchRankings = () => fetchData(MENS_RANKINGS_URL);
