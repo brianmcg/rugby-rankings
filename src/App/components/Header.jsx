@@ -1,23 +1,28 @@
 import Typography from '@mui/material/Typography';
 import Translate from '@components/Translate';
-import { useTheme } from '@mui/material/styles';
+import { ParallaxBanner } from 'react-scroll-parallax';
+import backgroundSrc from '@assets/background.png';
 
 export default function Header() {
+  const parallaxStyle = { height: 600, aspectRatio: '2/1' };
 
-  const { palette } = useTheme();
-
-  const styles = {
-    backgroundColor: palette.common.black,
-    color: palette.common.white,
+  const headingStyle = {
+    position: 'absolute',
+    inset: 0,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'white',
   };
 
   return (
-    <header style={styles}>
-      <div color="primary">
-        <Typography variant="h1" component="div" sx={{ flexGrow: 1 }}>
-          <Translate text="app.header.title" />
-        </Typography>
-      </div>
-    </header>
+    <ParallaxBanner
+      style={parallaxStyle}
+      layers={[{ image: backgroundSrc, speed: -30 }]}
+    >
+      <Typography color="inherit" style={headingStyle} variant="h1" component="div" sx={{ flexGrow: 1 }}>
+        <Translate text="app.header.title" />
+      </Typography>
+    </ParallaxBanner>
   );
 }

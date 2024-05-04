@@ -28,7 +28,7 @@ const theme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#c2185b',
+      main: '#2e2e2e',
     },
     secondary: {
       main: '#1b5e20',
@@ -36,12 +36,12 @@ const theme = createTheme({
     background: {
       default: '#e0e0e0',
     },
-    // error: {
-    //   main: "#ff0000",
-    // },
-    // success: {
-    //   main: "#00ff00",
-    // },
+    error: {
+      main: "#e87d3e",
+    },
+    success: {
+      main: "#b4d273",
+    },
   },
 });
 

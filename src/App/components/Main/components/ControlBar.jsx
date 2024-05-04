@@ -10,7 +10,7 @@ const renderOptions = ({ handleClickInfo, handleClickReset }) => {
   return (
     <div>
       <Button
-      color="inherit" variant="outlined"
+        color="inherit" variant="outlined"
         size="large"
         startIcon={<InfoIcon />}
         onClick={handleClickInfo}
@@ -31,7 +31,7 @@ const renderOptions = ({ handleClickInfo, handleClickReset }) => {
 
 export default function ControlBar({ handleClickInfo, handleClickReset }) {
   return (
-    <AppBar position="static">
+    <AppBar style={{ marginTop: -64 }} position="static">
       <Container>
       <Toolbar sx={{ justifyContent: "space-between" }}>
         <div/>
