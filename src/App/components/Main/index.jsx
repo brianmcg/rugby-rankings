@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import ErrorMessage from '@components/ErrorMessage';
 import Loading from '@components/Loading';
-import { fetchRankings } from '@utils/api';
+import { fetchRankings, fetchMatches } from '@utils/api';
 import Rankings from './components/Rankings';
 import Matches from './components/Matches';
 import FixtureModal from './components/FixtureModal';
@@ -12,12 +12,16 @@ import rankingsReducer, { initialState, ACTIONS } from './reducer';
 
 export default function Main() {
   const [state, dispatch] = useReducer(rankingsReducer, initialState);
-  const { data, isLoading, fetchError, isModalOpen } = state;
+  const { rankings, isLoading, fetchError, isModalOpen, matches } = state;
+  const { entries, effective, label } = rankings;
+  const teams = rankings.entries.map(({ team }) => ({ id: team.id, label: team.name }));
 
   const fetchData = async () => {
     try {
-      const data = await fetchRankings();
-      dispatch({ type: ACTIONS.FETCH_SUCCESS, payload: data });
+      const rankings = await fetchRankings();
+      const matches = await fetchMatches(rankings.effective.millis);
+      
+      dispatch({ type: ACTIONS.FETCH_SUCCESS, payload: { rankings, matches } });
     } catch (fetchError) {
       dispatch({ type: ACTIONS.FETCH_ERROR, payload: fetchError });
     }
@@ -37,13 +41,13 @@ export default function Main() {
   return (
     <main>
       <ControlBar handleClickInfo={openModal} handleClickReset={resetData} />
-      <Container style={{ marginTop: 32 }}>
+      <Container sx={{ mt: '32px' }}>
         <Grid container spacing={2} direction="row-reverse">
           <Grid item xs={12} md={7}>
-            <Matches />
+            <Matches matches={matches} teams={teams} />
           </Grid>
           <Grid item xs={12} md={5}>
-            <Rankings {...data} />
+            <Rankings label={label} entries={entries} effective={effective} />
           </Grid>
         </Grid>
       </Container>

@@ -27,7 +27,7 @@ export default function Rankings({ entries, label, effective }) {
         <Button
           style={{ width: '100%' }}
           size="large"
-          color="primary"
+          color="secondary"
           variant="outlined"
           startIcon={expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           onClick={handleExpandClick}

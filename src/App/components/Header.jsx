@@ -4,7 +4,7 @@ import { ParallaxBanner } from 'react-scroll-parallax';
 import backgroundSrc from '@assets/background.png';
 
 export default function Header() {
-  const parallaxStyle = { height: 600, aspectRatio: '2/1' };
+  const parallaxStyle = { height: 480, aspectRatio: '2/1' };
 
   const headingStyle = {
     position: 'absolute',

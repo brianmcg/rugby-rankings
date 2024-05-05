@@ -8,7 +8,12 @@ export const ACTIONS = {
 
 export const initialState = {
   initialData: {},
-  data: {},
+  rankings: {
+    entries: [],
+    label: null,
+    effective: null,
+  },
+  matches: [],
   fetchError: null,
   isLoading: true,
   isModalOpen: false,
@@ -19,8 +24,9 @@ export default function rankingsReducer(state, action) {
     case ACTIONS.FETCH_SUCCESS: {
       return {
         ...state,
-        initialData: action.payload,
-        data: action.payload,
+        initialData: action.payload.rankings,
+        rankings: action.payload.rankings,
+        matches: action.payload.matches,
         isLoading: false,
       };
     }
@@ -34,7 +40,7 @@ export default function rankingsReducer(state, action) {
     case ACTIONS.RESET_DATA: {
       return {
         ...state,
-        data: state.initialData,
+        rankings: state.initialData,
       };
     }
     case ACTIONS.OPEN_MODAL: {
@@ -44,7 +50,7 @@ export default function rankingsReducer(state, action) {
       };
     }
     case ACTIONS.CLOSE_MODAL: {
-      const updatedEntries = state.data.entries.map((entry) => {
+      const updatedEntries = state.rankings.entries.map((entry) => {
         return {
           ...entry,
           pts: entry.pts + action.payload,
@@ -53,7 +59,7 @@ export default function rankingsReducer(state, action) {
 
       return {
         ...state,
-        data: { ...state.data, entries: updatedEntries },
+        rankings: { ...state.rankings, entries: updatedEntries },
         isModalOpen: false,
       };
     }

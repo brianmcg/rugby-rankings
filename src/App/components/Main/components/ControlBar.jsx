@@ -31,9 +31,9 @@ const renderOptions = ({ handleClickInfo, handleClickReset }) => {
 
 export default function ControlBar({ handleClickInfo, handleClickReset }) {
   return (
-    <AppBar style={{ marginTop: -64 }} position="static">
+    <AppBar sx={{ mt: '-64px' }} position="static">
       <Container>
-      <Toolbar sx={{ justifyContent: "space-between" }}>
+      <Toolbar style={{ padding: 0 }} sx={{ justifyContent: "space-between" }}>
         <div/>
         {renderOptions({ handleClickInfo, handleClickReset })}
       </Toolbar>
