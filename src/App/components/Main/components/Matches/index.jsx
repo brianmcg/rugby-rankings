@@ -2,19 +2,27 @@ import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import Translate from '@components/Translate';
-import MatchList from './components/MatchList';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import MatchListItem from './components/MatchListItem';
 
-export default function Matches({ matches, teams }) {
+const renderListItems = (matches, handleUpdateMatch) => {
+  return matches.map(match => 
+    <ListItem key={match.matchId} alignItems="flex-start">
+      <MatchListItem match={match} handleUpdateMatch={handleUpdateMatch} />
+    </ListItem>
+  )
+};
 
+export default function Matches({ matches, handleUpdateMatch }) {
 	return (
 		<Card>
       <CardHeader
         title={<Translate text={"app.main.matches.title"} />}
       />
       <CardContent>
-        <MatchList matches={matches} teams={teams} />
+        <List>{renderListItems(matches, handleUpdateMatch)}</List>
       </CardContent>
-
     </Card>
 	);
 }

@@ -4,19 +4,22 @@ export const ACTIONS = {
   RESET_DATA: 'reset',
   OPEN_MODAL: 'open',
   CLOSE_MODAL: 'close',
+  UPDATE_MATCH: 'update',
 }
 
 export const initialState = {
-  initialData: {},
+  initialRankings: {},
   rankings: {
     entries: [],
     label: null,
     effective: null,
   },
   matches: [],
+  initialMatches: [],
   fetchError: null,
   isLoading: true,
   isModalOpen: false,
+  selectedMatch: null,
 };
 
 export default function rankingsReducer(state, action) {
@@ -24,7 +27,8 @@ export default function rankingsReducer(state, action) {
     case ACTIONS.FETCH_SUCCESS: {
       return {
         ...state,
-        initialData: action.payload.rankings,
+        initialRankings: action.payload.rankings,
+        initialMatches: action.payload.matches,
         rankings: action.payload.rankings,
         matches: action.payload.matches,
         isLoading: false,
@@ -40,7 +44,8 @@ export default function rankingsReducer(state, action) {
     case ACTIONS.RESET_DATA: {
       return {
         ...state,
-        rankings: state.initialData,
+        matches: state.initialMatches,
+        rankings: state.initialRankings,
       };
     }
     case ACTIONS.OPEN_MODAL: {
@@ -50,18 +55,25 @@ export default function rankingsReducer(state, action) {
       };
     }
     case ACTIONS.CLOSE_MODAL: {
-      const updatedEntries = state.rankings.entries.map((entry) => {
-        return {
-          ...entry,
-          pts: entry.pts + action.payload,
-        }
-      });
+      // const updatedEntries = state.rankings.entries.map((entry) => {
+      //   return {
+      //     ...entry,
+      //     pts: entry.pts + action.payload,
+      //   }
+      // });
 
       return {
         ...state,
-        rankings: { ...state.rankings, entries: updatedEntries },
+        // rankings: { ...state.rankings, entries: updatedEntries },
         isModalOpen: false,
       };
+    }
+    case ACTIONS.UPDATE_MATCH: {
+      return {
+        ...state,
+        selectedMatch: action.payload.match,
+        isModalOpen: true,
+      }
     }
     default: {
       return state;

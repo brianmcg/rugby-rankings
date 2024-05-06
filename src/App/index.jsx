@@ -5,6 +5,8 @@ import { CssBaseline } from '@mui/material/';
 import { createTheme, ThemeProvider  } from '@mui/material/styles';
 import { grey } from '@mui/material/colors';
 
+// import SportsRugbyIcon from '@mui/icons-material/SportsRugby';
+
 const theme = createTheme({
   typography: {
     caption: {

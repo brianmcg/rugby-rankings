@@ -6,13 +6,13 @@ import Loading from '@components/Loading';
 import { fetchRankings, fetchMatches } from '@utils/api';
 import Rankings from './components/Rankings';
 import Matches from './components/Matches';
-import FixtureModal from './components/FixtureModal';
+import MatchModal from './components/MatchModal';
 import ControlBar from './components/ControlBar';
 import rankingsReducer, { initialState, ACTIONS } from './reducer';
 
 export default function Main() {
   const [state, dispatch] = useReducer(rankingsReducer, initialState);
-  const { rankings, isLoading, fetchError, isModalOpen, matches } = state;
+  const { rankings, isLoading, fetchError, isModalOpen, matches, selectedMatch } = state;
   const { entries, effective, label } = rankings;
   const teams = rankings.entries.map(({ team }) => ({ id: team.id, label: team.name }));
 
@@ -28,10 +28,10 @@ export default function Main() {
   }
 
   const resetData = () => dispatch({ type: ACTIONS.RESET_DATA });
-  const openModal = () => dispatch({ type: ACTIONS.OPEN_MODAL });
-  const closeModal = amount => dispatch({ type: ACTIONS.CLOSE_MODAL, payload: amount });
+  const handleUpdateMatch = match => dispatch({ type: ACTIONS.UPDATE_MATCH, payload: { match } });
 
-  // import SportsRugbyIcon from '@mui/icons-material/SportsRugby';
+  // const openModal = () => dispatch({ type: ACTIONS.OPEN_MODAL });
+  const closeModal = amount => dispatch({ type: ACTIONS.CLOSE_MODAL, payload: amount });
   
   useEffect(() => {
     fetchData();
@@ -42,18 +42,23 @@ export default function Main() {
 
   return (
     <main>
-      <ControlBar handleClickInfo={openModal} handleClickReset={resetData} />
-      <Container sx={{ mt: '32px' }}>
+      <ControlBar handleClickReset={resetData} />
+      <Container sx={{ mt: 8 }}>
         <Grid container spacing={2} direction="row-reverse">
-          <Grid item xs={12} md={7}>
-            <Matches matches={matches} teams={teams} />
+          <Grid item xs={12} md={8}>
+            <Matches matches={matches} handleUpdateMatch={handleUpdateMatch} />
           </Grid>
-          <Grid item xs={12} md={5}>
+          <Grid item xs={12} md={4}>
             <Rankings label={label} entries={entries} effective={effective} />
           </Grid>
         </Grid>
       </Container>
-      <FixtureModal open={isModalOpen} handleClose={closeModal} />
+      <MatchModal
+        open={isModalOpen}
+        handleClose={closeModal}
+        teams={teams}
+        selectedMatch={selectedMatch}
+      />
     </main>
   );
 }

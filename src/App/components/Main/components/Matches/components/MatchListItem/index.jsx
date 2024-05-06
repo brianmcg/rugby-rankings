@@ -10,7 +10,7 @@ import { formatTime, formatDay } from '@utils/date';
 import Translate from '@components/Translate';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-export default function MatchListItem({ match }) {
+export default function MatchListItem({ match, handleUpdateMatch }) {
   const { venue, teams: matchTeams, scores, status, time } = match;
   const [homeTeam, awayTeam] = matchTeams;
   const [homeScore, awayScore] = scores;
@@ -55,13 +55,13 @@ export default function MatchListItem({ match }) {
         </Grid>
       </Grid>
 
-      <Stack direction="row" justifyContent="right" sx={{ marginTop: 1 }}>
+      <Stack direction="row" justifyContent="center" sx={{ marginTop: 1 }}>
         <Button
           size="small"
           color={isComplete ? "primary" : "secondary" }
           variant="contained"
           startIcon={<SendIcon />}
-          onClick={() => {}}
+          onClick={() => handleUpdateMatch(match)}
         >
           <Translate text={isComplete ? "app.main.matches.update" : "app.main.matches.predict" } />
         </Button>

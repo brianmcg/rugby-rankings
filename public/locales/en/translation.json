@@ -31,6 +31,7 @@
       },
       "matches": {
         "title": "Fixtures",
+        "reset": "Reset",
         "ft": "FT",
         "predict": "Predict",
         "update": "Update",
