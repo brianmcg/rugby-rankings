@@ -31,6 +31,8 @@ export default function Main() {
   const openModal = () => dispatch({ type: ACTIONS.OPEN_MODAL });
   const closeModal = amount => dispatch({ type: ACTIONS.CLOSE_MODAL, payload: amount });
 
+  // import SportsRugbyIcon from '@mui/icons-material/SportsRugby';
+  
   useEffect(() => {
     fetchData();
   }, []);

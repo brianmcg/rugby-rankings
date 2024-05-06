@@ -30,7 +30,11 @@
         }
       },
       "matches": {
-        "title": "Fixtures"
+        "title": "Fixtures",
+        "ft": "FT",
+        "predict": "Predict",
+        "update": "Update",
+        "remove": "Remove"
       }
     }
   }

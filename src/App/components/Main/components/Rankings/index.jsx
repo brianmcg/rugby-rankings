@@ -11,7 +11,7 @@ import { format } from '@utils/date';
 import RankingsTable from './components/RankingsTable';
 
 export default function Rankings({ entries, label, effective }) {
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(true);
   const handleExpandClick = () => setExpanded(!expanded);
 
   return (
