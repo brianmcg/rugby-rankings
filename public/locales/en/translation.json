@@ -35,7 +35,11 @@
         "ft": "FT",
         "predict": "Predict",
         "update": "Update",
-        "remove": "Remove"
+        "remove": "Remove",
+        "team": "Team",
+        "score": "Score",
+        "neutral": "Neutral Venue",
+        "rwc": "Rugby World Cup"
       }
     }
   }

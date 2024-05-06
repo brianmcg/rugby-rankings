@@ -28,9 +28,9 @@ export default function Main() {
   }
 
   const resetData = () => dispatch({ type: ACTIONS.RESET_DATA });
-  const handleUpdateMatch = match => dispatch({ type: ACTIONS.UPDATE_MATCH, payload: { match } });
+  // const handleUpdateMatch = match => dispatch({ type: ACTIONS.UPDATE_MATCH, payload: { match } });
 
-  // const openModal = () => dispatch({ type: ACTIONS.OPEN_MODAL });
+  const openModal = () => dispatch({ type: ACTIONS.OPEN_MODAL });
   const closeModal = amount => dispatch({ type: ACTIONS.CLOSE_MODAL, payload: amount });
   
   useEffect(() => {
@@ -42,11 +42,11 @@ export default function Main() {
 
   return (
     <main>
-      <ControlBar handleClickReset={resetData} />
+      <ControlBar handleClickReset={resetData} handleClickInfo={openModal} />
       <Container sx={{ mt: 8 }}>
         <Grid container spacing={2} direction="row-reverse">
           <Grid item xs={12} md={8}>
-            <Matches matches={matches} handleUpdateMatch={handleUpdateMatch} />
+            <Matches matches={matches} teams={teams} />
           </Grid>
           <Grid item xs={12} md={4}>
             <Rankings label={label} entries={entries} effective={effective} />
@@ -57,7 +57,7 @@ export default function Main() {
         open={isModalOpen}
         handleClose={closeModal}
         teams={teams}
-        selectedMatch={selectedMatch}
+        // selectedMatch={selectedMatch}
       />
     </main>
   );

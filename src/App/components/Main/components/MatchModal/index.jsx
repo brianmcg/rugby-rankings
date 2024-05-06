@@ -66,8 +66,6 @@ const isNumeric = str => {
   return !isNaN(str) && !isNaN(parseFloat(str));
 }
 
-
-
 const NumericFormatCustom = forwardRef(
   function NumericFormatCustom(props, ref) {
     const { onChange, ...other } = props;
@@ -165,22 +163,24 @@ export default function TransitionsModal({ open = false, handleClose, selectedMa
   //   console.log('handleRemove');
   // }
 
-  {/*      <Stack width="100%">
-          {date}
-        <Stack spacing={2} direction="row">
-          <TeamInput options={teams} value={selectedHomeTeam} handleChange={handleHomeTeamChange} />
-          <ScoreInput value={isComplete ? homeScore : null} handleChange={handleHomeScoreChange} />
-          <ScoreInput value={isComplete ? awayScore : null} handleChange={handleAwayScoreChange} />
-          <TeamInput options={teams} value={selectedAwayTeam} handleChange={handleAwayTeamChange} />
-          <IconButton onClick={handleRemove} aria-label="Example" color="error">
-            <CancelIcon />
-          </IconButton>
-        </Stack>
-        <Stack direction="row" spacing={2}>
-          <LabelCheckbox label="Neutral Venue" handleChange={handleNeutralVenueChange} checked={isNeutralVenue} />
-          <LabelCheckbox label="World Cup" handleChange={handleWorldCupChange} checked={isWorldCup} />
-        </Stack>
-      // </Stack>*/}
+  // {     
+  //   <Stack width="100%">
+  //         {date}
+  //       <Stack spacing={2} direction="row">
+  //         <TeamInput options={teams} value={selectedHomeTeam} handleChange={handleHomeTeamChange} />
+  //         <ScoreInput value={isComplete ? homeScore : null} handleChange={handleHomeScoreChange} />
+  //         <ScoreInput value={isComplete ? awayScore : null} handleChange={handleAwayScoreChange} />
+  //         <TeamInput options={teams} value={selectedAwayTeam} handleChange={handleAwayTeamChange} />
+  //         <IconButton onClick={handleRemove} aria-label="Example" color="error">
+  //           <CancelIcon />
+  //         </IconButton>
+  //       </Stack>
+  //       <Stack direction="row" spacing={2}>
+  //         <LabelCheckbox label="Neutral Venue" handleChange={handleNeutralVenueChange} checked={isNeutralVenue} />
+  //         <LabelCheckbox label="World Cup" handleChange={handleWorldCupChange} checked={isWorldCup} />
+  //       </Stack>
+  //      </Stack>
+  // }
 
   return (
     <div>

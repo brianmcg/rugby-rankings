@@ -6,22 +6,22 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import MatchListItem from './components/MatchListItem';
 
-const renderListItems = (matches, handleUpdateMatch) => {
+const renderListItems = (matches, teams) => {
   return matches.map(match => 
     <ListItem key={match.matchId} alignItems="flex-start">
-      <MatchListItem match={match} handleUpdateMatch={handleUpdateMatch} />
+      <MatchListItem match={match} teams={teams} />
     </ListItem>
   )
 };
 
-export default function Matches({ matches, handleUpdateMatch }) {
+export default function Matches({ matches, teams }) {
 	return (
 		<Card>
       <CardHeader
         title={<Translate text={"app.main.matches.title"} />}
       />
       <CardContent>
-        <List>{renderListItems(matches, handleUpdateMatch)}</List>
+        <List>{renderListItems(matches, teams)}</List>
       </CardContent>
     </Card>
 	);

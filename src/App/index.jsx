@@ -9,9 +9,9 @@ import { grey } from '@mui/material/colors';
 
 const theme = createTheme({
   typography: {
-    caption: {
-      color: grey[500]
-    }
+    // caption: {
+    //   color: grey[500]
+    // }
   },
   components: {
     MuiButton: {
@@ -25,6 +25,17 @@ const theme = createTheme({
     MuiPaper: {
         styleOverrides: {
           rounded: { borderRadius: 0 },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          borderRadius: 0,
+          // "&:hover .MuiOutlinedInput-notchedOutline": {
+          //   borderRadius: 20,
+          //   borderColor: "red"
+          // }
+        }
       },
     },
   },
