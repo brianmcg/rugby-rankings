@@ -120,7 +120,7 @@ function LabelCheckbox({ label, checked = false, handleChange }) {
 }
 
 export default function TransitionsModal({ open = false, handleClose, selectedMatch }) {
-  console.log(selectedMatch);
+  // console.log(selectedMatch);
   // const { venue, teams: matchTeams, scores, status, competition, time } = match;
 
   // const isNeutralVenue = isWorldCup || matchTeams.map(({ name }) => name).includes(venue?.country);

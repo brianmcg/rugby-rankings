@@ -7,33 +7,39 @@ import { fetchRankings, fetchMatches } from '@utils/api';
 import Rankings from './components/Rankings';
 import Matches from './components/Matches';
 import MatchModal from './components/MatchModal';
-import ControlBar from './components/ControlBar';
+// import ControlBar from './components/ControlBar';
 import rankingsReducer, { initialState, ACTIONS } from './reducer';
 
 export default function Main() {
   const [state, dispatch] = useReducer(rankingsReducer, initialState);
-  const { rankings, isLoading, fetchError, isModalOpen, matches, selectedMatch } = state;
+  const { rankings, isLoading, fetchError, isModalOpen, matches } = state;
   const { entries, effective, label } = rankings;
-  const teams = rankings.entries.map(({ team }) => ({ id: team.id, label: team.name }));
+  const teams = rankings.entries.map(entry => entry.team);
 
-  const fetchData = async () => {
-    try {
-      const rankings = await fetchRankings();
-      const matches = await fetchMatches(rankings.effective.millis);
-      
-      dispatch({ type: ACTIONS.FETCH_SUCCESS, payload: { rankings, matches } });
-    } catch (fetchError) {
-      dispatch({ type: ACTIONS.FETCH_ERROR, payload: fetchError });
-    }
-  }
+  
 
   const resetData = () => dispatch({ type: ACTIONS.RESET_DATA });
-  // const handleUpdateMatch = match => dispatch({ type: ACTIONS.UPDATE_MATCH, payload: { match } });
 
-  const openModal = () => dispatch({ type: ACTIONS.OPEN_MODAL });
+  // console.log('render:main', matches);
+  
+  const updateRankings = () => {
+    // console.log('updateRankings');
+  };
+
   const closeModal = amount => dispatch({ type: ACTIONS.CLOSE_MODAL, payload: amount });
   
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const fetchedRankings = await fetchRankings();
+        const fetchedMatches = await fetchMatches(fetchedRankings);
+        
+        dispatch({ type: ACTIONS.FETCH_SUCCESS, payload: { rankings: fetchedRankings, matches: fetchedMatches } });
+      } catch (fetchError) {
+        dispatch({ type: ACTIONS.FETCH_ERROR, payload: fetchError });
+      }
+    }
+    // console.log('useEffect');
     fetchData();
   }, []);
 
@@ -42,11 +48,16 @@ export default function Main() {
 
   return (
     <main>
-      <ControlBar handleClickReset={resetData} handleClickInfo={openModal} />
+      {/*<ControlBar handleClickReset={resetData} handleClickInfo={openModal} />*/}
       <Container sx={{ mt: 8 }}>
         <Grid container spacing={2} direction="row-reverse">
           <Grid item xs={12} md={8}>
-            <Matches matches={matches} teams={teams} />
+            <Matches
+              matches={matches}
+              teams={teams}
+              updateRankings={updateRankings}
+              resetData={resetData}
+            />
           </Grid>
           <Grid item xs={12} md={4}>
             <Rankings label={label} entries={entries} effective={effective} />

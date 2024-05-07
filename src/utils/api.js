@@ -15,8 +15,9 @@ async function fetchData(url, params) {
 
 export const fetchRankings = (sport = 'mru') => fetchData(`${MENS_RANKINGS_URL}/${sport}`);
 
-export const fetchMatches = async (millis, sport = 'mru') => {
-  const startDate = subtractWeeks(millis, 1, 'week');
+export const fetchMatches = async (rankings, sport = 'mru') => {
+  const teamIds = rankings.entries.map(({ team }) => team.id );
+  const startDate = subtractWeeks(rankings.effective.millis, 1, 'week');
   const endDate = addMonths(startDate, 1, 'month');
 
   const queryParams = {
@@ -30,5 +31,10 @@ export const fetchMatches = async (millis, sport = 'mru') => {
 
   const { content } = await fetchData(FIXTURES, queryParams);
 
-  return content;
+  // Filter out matches thatinlude a team not in the rankings.
+  return content.filter(match => {
+    return match.teams.reduce((memo, team) => {
+      return memo && teamIds.includes(team.id);
+    }, true);
+  });
 }

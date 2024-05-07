@@ -1,257 +1,142 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Stack from '@mui/material/Stack';
-import Grid from '@mui/material/Grid';
-import Button from '@mui/material/Button';
-import CancelIcon from '@mui/icons-material/Cancel';
-
-import IconButton from '@mui/material/IconButton';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import { formatTime, formatDay } from '@utils/date';
-import Translate from '@components/Translate';
+import { formatDay } from '@utils/date';
+import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Translate from '@components/Translate';
+import LabelSwitch from '@components/LabelSwitch';
+import TeamInput from './components/TeamInput';
+import ScoreInput from './components/ScoreInput';
+import ListItem from '@mui/material/ListItem';
 
-import { forwardRef } from 'react';
-
-import TextField from '@mui/material/TextField';
-
-import Autocomplete from '@mui/material/Autocomplete';
-
-import { NumericFormat } from 'react-number-format';
-
-import FormGroup from '@mui/material/FormGroup';
-
-import FormControlLabel from '@mui/material/FormControlLabel';
-
-import FormControl from '@mui/material/FormControl';
-
-import Switch from '@mui/material/Switch';
-
-const inputStyle = { fontSize: '0.875rem',  };
-
-function TeamInput({ options, value, label, handleChange }) {
-  return (
-    <Autocomplete
-      sx={{ width: '30ch' }}
-      onChange={handleChange}
-      size="small"
-      disablePortal
-      value={value}
-      id='combo-box'
-      options={options}
-      renderInput={(params) => (
-      <TextField
-        {...params}
-        inputProps = {{...params.inputProps, style: inputStyle}}
-        label={label}
-      />
-      )}
-    />
-  );
-}
+const inputStyle = { fontSize: '0.875rem'  };
 
 const isNumeric = str => {
-  if (typeof str != "string") {
+  if (typeof str !== 'string') {
     return false;
   }
   return !isNaN(str) && !isNaN(parseFloat(str));
 }
 
-const NumericFormatCustom = forwardRef(
-  function NumericFormatCustom(props, ref) {
-    const { onChange, ...other } = props;
-
-    return (
-      <NumericFormat
-        {...other}
-        getInputRef={ref}
-        onValueChange={(values) => {
-          onChange({
-            target: {
-              name: props.name,
-              value: values.value,
-            },
-          });
-        }}
-        valueIsNumericString
-      />
-    );
-  },
-);
-
-function ScoreInput({ handleChange, value }) {
-  const validate = input => input !== null;
-
-  const [error, setError] = useState(!validate(value));
-
-  const onChange = e => {
-    handleChange(e);
-    setError(!validate(e.target.value));
-  }
-
-  return (
-    <FormControl sx={{ width: '6ch' }}>
-      <TextField
-        sx={{ mt: '-5px' }}
-        size="small"
-        label={<Translate text="app.main.matches.score" />}
-        value={value}
-        error={error}
-        onChange={onChange}
-        name="numberformat"
-        inputProps={{ style: inputStyle }}
-        InputProps={{ inputComponent: NumericFormatCustom }}
-        InputLabelProps={{style: inputStyle}}
-        variant="standard"
-      />
-    </FormControl>
-  );
-}
-
-function LabelSwitch({ label, checked = false, handleChange }) {
-  return (
-    <FormGroup>
-      <FormControlLabel
-        control={<Switch
-        defaultChecked={checked} />}
-        label={<Typography variant="caption">{label}</Typography>}
-        onChange={handleChange}
-      />
-    </FormGroup>
-  );
-}
-
-export default function MatchListItem({ match, teams }) {
-  const { venue, teams: matchTeams, scores, status, competition, time } = match;
-  const [homeTeam, awayTeam] = matchTeams;
-  const [homeScore, awayScore] = scores;
+export default function MatchListItem({ match, teams, handleClickDelete, updateRankings }) {
+  console.log('render:match', match);
+  const { venue, teams: matchTeams = [], scores = [], status, competition, time, matchId } = match;
   const isComplete = status === 'C';
   const { palette } = useTheme();
-  const color = isComplete ? palette.success.main : palette.error.main;
-  const isWorldCup = !!competition.toLowerCase().match(/rugby world cup/);
-  const isNeutralVenue = isWorldCup || matchTeams.map(({ name }) => name).includes(venue?.country);
-  const selectedHomeTeam = teams.find(team => team.label === homeTeam.name);
-  const selectedAwayTeam = teams.find(team => team.label === awayTeam.name);
 
+  const [homeTeam, setHomeTeam] = useState(teams.find(team => team.id === matchTeams[0]?.id) || null);
+  const [awayTeam, setAwayTeam] = useState(teams.find(team => team.id === matchTeams[1]?.id) || null);
+  const [homeScore, setHomeScore] = useState(isComplete ? scores[0] : null);
+  const [awayScore, setAwayScore] = useState(isComplete ? scores[1] : null);
+  const [isNeutralVenue, setNeutralVenue] = useState(matchTeams.map(({ name }) => name).includes(venue?.country));
+  const [isWorldCup, setWorldCup] = useState(!!competition?.toLowerCase().match(/rugby world cup/));
+
+  const homeTeamOptions = teams.filter(team => team.id !== awayTeam?.id);
+  const awayTeamOptions = teams.filter(team => team.id !== homeTeam?.id);
+  const infoLabel = [formatDay(time.millis), venue?.name].filter(item => item).join(' | ');
+  const isValid = !!(homeTeam && awayTeam && homeScore && awayScore);
+  const color = isValid ? palette.success.main : palette.error.main;
+
+  // const safeCallback = useCallback(updateRankings, [updateRankings]);
+
+  // useEffect(() => safeCallback(
+  //   { homeTeam, awayTeam, homeScore, awayScore, isNeutralVenue, isWorldCup }),
+  //   [homeTeam, awayTeam, homeScore, awayScore, isNeutralVenue, isWorldCup, safeCallback],
+  // );
+  // 
+  
+  useEffect(() => {
+
+  });
   const handleHomeTeamChange = (e, value) => {
-    console.log('handleHomeTeamChange', value);
+    console.log('handleHomeTeamChange');
+    // setHomeTeam(value)
   };
+
+  const handleAwayTeamChange = (e, value) => setAwayTeam(value);
 
   const handleHomeScoreChange = (e) => {
     const value = e.target.value;
-    const parsedValue = isNumeric(value) ? parseInt(value, 10) : null;
-    console.log('handleHomeScoreChange', parsedValue);
-  };
-
-  const handleAwayTeamChange = (e, value) => {
-    console.log('handleAwayTeamChange', value);
+    // setHomeScore(isNumeric(value) ? parseInt(value, 10) : null);
   };
 
   const handleAwayScoreChange = (e) => {
     const value = e.target.value;
-    const parsedValue = isNumeric(value) ? parseInt(value, 10) : null;
-    console.log('handleAwayScoreChange', parsedValue);
+    // setAwayScore(isNumeric(value) ? parseInt(value, 10) : null);
   };
 
-  const handleNeutralVenueChange = (e, value) => {
-    console.log('handleNeutralVenueChange', value);
-  };
+  const handleNeutralVenueChange = (e, value) => setNeutralVenue(value);
 
   const handleWorldCupChange = (e, value) => {
-    console.log('handleWorldCupChange', value);
-  };
+    if (value) {
+      // setNeutralVenue(value);
+    }
 
-  const handleRemove = () => {
-    console.log('handleRemove');
+    // setWorldCup(value);
   }
 
-  const infoLabel = [
-    formatDay(time.millis),
-    formatTime(time.millis),
-    venue?.name
-  ].filter(item => item).join(' | ');
-
   return (
-    <Paper
-      elevation={3}
-      sx={{ padding: 2, width: '100%', borderLeft: `solid 4px ${color}` }}
-    >
-      <Stack direction="row" justifyContent="space-between" sx={{ mb: 2 }}>
-        <Typography variant="caption" color={palette.grey[500]}>{infoLabel}</Typography>
-        <IconButton
-          sx={{ padding: 0 }}
-          onClick={handleRemove}
-          aria-label="Example"
-          size="small"
-        >
-          <DeleteIcon fontSize="small" />
-        </IconButton>
-      </Stack>
+    <ListItem key={match.matchId} alignItems="flex-start">
+      <Paper
+        elevation={3}
+        sx={{ padding: 2, width: '100%', borderLeft: `solid 4px ${color}` }}
+      >
+        <Stack direction="row" justifyContent="space-between" sx={{ mb: 2 }}>
+          <Typography variant="caption" color={palette.grey[500]}>{infoLabel}</Typography>
+          <IconButton
+            sx={{ padding: 0 }}
+            onClick={() => handleClickDelete(matchId)}
+            aria-label="Example"
+            size="small"
+          >
+            <DeleteIcon fontSize="small" />
+          </IconButton>
+        </Stack>
 
-      <Stack direction="row" spacing={1} justifyContent="space-between" sx={{ mb: 2 }}>
-        <TeamInput
-          required
-          options={teams}
-          value={selectedHomeTeam}
-          handleChange={handleHomeTeamChange}
-          label={<Translate text="app.main.matches.team" />}
-        />
-        <ScoreInput value={isComplete ? homeScore : null} handleChange={handleHomeScoreChange} />
-        <Divider orientation="vertical" flexItem />
-        <ScoreInput value={isComplete ? awayScore : null} handleChange={handleAwayScoreChange} />
-        <TeamInput
-          options={teams}
-          value={selectedAwayTeam}
-          handleChange={handleAwayTeamChange}
-          label={<Translate text="app.main.matches.team" />}
-        />
-  
-      </Stack>
-
-      <Stack direction="row">
-        <LabelSwitch
-          label={<Translate text="app.main.matches.neutral" />}
-          handleChange={handleNeutralVenueChange}
-          checked={isNeutralVenue}
-        />
-        <LabelSwitch
-          label={<Translate text="app.main.matches.rwc" />}
-          handleChange={handleWorldCupChange}
-          checked={isWorldCup}
+        <Stack direction="row" spacing={1} sx={{ mb: 2 }}>
+          <TeamInput
+            inputStyle={inputStyle}
+            options={homeTeamOptions}
+            value={homeTeam}
+            handleChange={handleHomeTeamChange}
+            label={<Translate text="app.main.matches.team" />}
           />
-      </Stack>
+          <ScoreInput
+            value={homeScore}
+            handleChange={handleHomeScoreChange}
+            inputStyle={inputStyle}
+          />
+          <ScoreInput
+            value={awayScore}
+            handleChange={handleAwayScoreChange}
+            inputStyle={inputStyle}
+          />
+          <TeamInput
+            inputStyle={inputStyle}
+            options={awayTeamOptions}
+            value={awayTeam}
+            handleChange={handleAwayTeamChange}
+            label={<Translate text="app.main.matches.team" />}
+          />
+        </Stack>
 
-   {/*   <Grid container sx={{ marginTop: 1 }}>
-        <Grid item xs={5} sx={{ paddingRight: 1  }}>
-          <Stack direction="row" alignItems="right" justifyContent="right">
-            <TeamInput
-              label={<Translate text="app.main.matches.home" />}
-              options={teams}
-              value={selectedHomeTeam}
-              handleChange={handleHomeTeamChange}
-            />
-          </Stack>
-        </Grid>
+        <Stack direction="row" justifyContent="left">
+          <LabelSwitch
+            label={<Translate text="app.main.matches.neutral" />}
+            handleChange={handleNeutralVenueChange}
+            checked={isNeutralVenue}
+          />
+          <LabelSwitch
+            label={<Translate text="app.main.matches.rwc" />}
+            handleChange={handleWorldCupChange}
+            checked={isWorldCup}
+          />
+        </Stack>
 
-        <Grid item xs={2} >
-          <Stack direction="row" spacing={1} alignItems="center" justifyContent="center">
-            <ScoreInput value={isComplete ? homeScore : null} handleChange={handleHomeScoreChange} />
-            <Divider orientation="vertical" flexItem />
-            <ScoreInput value={isComplete ? awayScore : null} handleChange={handleAwayScoreChange} />
-          </Stack>
-        </Grid>
-
-        <Grid item xs={5} sx={{ paddingLeft: 1 }}>
-          <Stack direction="row" alignItems="left" justifyContent="left">
-            <TeamInput options={teams} value={selectedAwayTeam} handleChange={handleAwayTeamChange} />
-          </Stack>
-        </Grid>
-      </Grid>*/}
-
-    
-
-    </Paper>
+      </Paper>
+    </ListItem>
   );
 }

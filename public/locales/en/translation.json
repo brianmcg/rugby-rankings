@@ -32,9 +32,7 @@
       "matches": {
         "title": "Fixtures",
         "reset": "Reset",
-        "ft": "FT",
-        "predict": "Predict",
-        "update": "Update",
+        "add": "Add",
         "remove": "Remove",
         "team": "Team",
         "score": "Score",
