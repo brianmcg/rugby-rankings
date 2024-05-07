@@ -4,7 +4,7 @@ export const ACTIONS = {
   RESET_DATA: 'reset',
   OPEN_MODAL: 'open',
   CLOSE_MODAL: 'close',
-  UPDATE_MATCH: 'update',
+  UPDATE_RANKINGS: 'update',
 }
 
 export const initialState = {
@@ -68,12 +68,9 @@ export default function rankingsReducer(state, action) {
         isModalOpen: false,
       };
     }
-    case ACTIONS.UPDATE_MATCH: {
-      return {
-        ...state,
-        selectedMatch: action.payload.match,
-        isModalOpen: true,
-      }
+    case ACTIONS.UPDATE_RANKINGS: {
+      console.log('UPDATE_RANKINGS', action.payload);
+      return state;
     }
     default: {
       return state;

@@ -6,27 +6,21 @@ import Loading from '@components/Loading';
 import { fetchRankings, fetchMatches } from '@utils/api';
 import Rankings from './components/Rankings';
 import Matches from './components/Matches';
-import MatchModal from './components/MatchModal';
+// import MatchModal from './components/MatchModal';
 // import ControlBar from './components/ControlBar';
 import rankingsReducer, { initialState, ACTIONS } from './reducer';
 
 export default function Main() {
   const [state, dispatch] = useReducer(rankingsReducer, initialState);
-  const { rankings, isLoading, fetchError, isModalOpen, matches } = state;
+  const { rankings, isLoading, fetchError, matches } = state;
   const { entries, effective, label } = rankings;
   const teams = rankings.entries.map(entry => entry.team);
 
-  
-
   const resetData = () => dispatch({ type: ACTIONS.RESET_DATA });
-
-  // console.log('render:main', matches);
   
-  const updateRankings = () => {
-    // console.log('updateRankings');
-  };
+  const updateRankings = match => dispatch({ type: ACTIONS.UPDATE_RANKINGS, payload: match });
 
-  const closeModal = amount => dispatch({ type: ACTIONS.CLOSE_MODAL, payload: amount });
+  // const closeModal = amount => dispatch({ type: ACTIONS.CLOSE_MODAL, payload: amount });
   
   useEffect(() => {
     const fetchData = async () => {
@@ -39,7 +33,7 @@ export default function Main() {
         dispatch({ type: ACTIONS.FETCH_ERROR, payload: fetchError });
       }
     }
-    // console.log('useEffect');
+
     fetchData();
   }, []);
 
@@ -64,12 +58,11 @@ export default function Main() {
           </Grid>
         </Grid>
       </Container>
-      <MatchModal
+{/*      <MatchModal
         open={isModalOpen}
         handleClose={closeModal}
         teams={teams}
-        // selectedMatch={selectedMatch}
-      />
+      />*/}
     </main>
   );
 }

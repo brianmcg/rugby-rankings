@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
@@ -11,30 +11,34 @@ import Stack from '@mui/material/Stack';
 import AddIcon from '@mui/icons-material/Add';
 import RefreshIcon from '@mui/icons-material/Refresh';
 
-export default function Matches(props) {
-  const [matches, setMatches] = useState(props.matches);
+const generateMatchId = () => `${Date.now().toString(36)}${Math.random()}`;
 
-  // console.log('render:matches', matches);
+export default function Matches({ matches: initialMatches = [], teams = [], updateRankings }) {
+  const [matches, setMatches] = useState(initialMatches);
 
-  const handleClickAdd = () => {
-    const match = {
-      time: Date.now(),
-      matchId: `${Date.now().toString(36)}${Math.random()}`,
-    };
-
-    setMatches([ ...matches, match ])
+  const onMatchAdded = () => {
+    const match = { time: Date.now() };
+    setMatches([ ...matches, match ]);
   };
 
-  const handleClickDelete = matchId => {
+  const onMatchChanged = match => {
+    const updatedMatches = matches.map(m => (m.matchId === match.matchId) ? match : m);
+    setMatches(updatedMatches);
+  }
+
+  const onMatchRemoved = matchId => {
     const updatedMatches = matches.filter(match => match.matchId !== matchId);
     setMatches(updatedMatches);
   };
 
-  const handleClickReset = () => {
-    // props.resetData();
-    console.log('handleClickReset');
-    // setMatches([...props.matches]);
+  const onReset = () => {
+    const updatedMatches = initialMatches.map(match => ({ ...match, matchId: generateMatchId() }));
+    setMatches(updatedMatches);
   };
+
+  const safeCallback = useCallback(updateRankings, [updateRankings]);
+
+  useEffect(() => safeCallback(matches), [matches, safeCallback]);
 
 	return (
 		<Card>
@@ -45,7 +49,7 @@ export default function Matches(props) {
           <Button
             variant="contained"
             startIcon={<RefreshIcon />}
-            onClick={() => handleClickReset()}
+            onClick={() => onReset()}
           >
           <Translate text="app.main.matches.reset" />
           </Button>
@@ -53,14 +57,17 @@ export default function Matches(props) {
       <CardContent>
         <List> {
           matches.map(match => 
-            
-            <MatchListItem
-              match={match}
-              teams={props.teams}
-              handleClickDelete={handleClickDelete}
-              updateRankings={props.updateRankings}
-            />
-     
+            (
+              <ListItem alignItems="flex-start" key={match.matchId}>
+                <MatchListItem
+                  
+                  match={match}
+                  teams={teams}
+                  onRemove={onMatchRemoved}
+                  onChange={onMatchChanged}
+                />
+              </ListItem>
+            )
           )
         }
         </List>
@@ -68,7 +75,7 @@ export default function Matches(props) {
           <Button
             variant="contained"
             startIcon={<AddIcon />}
-            onClick={() => handleClickAdd()}
+            onClick={() => onMatchAdded()}
           >
           <Translate text="app.main.matches.add" />
           </Button>
