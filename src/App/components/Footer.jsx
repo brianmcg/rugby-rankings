@@ -5,7 +5,7 @@ import Divider from '@mui/material/Divider';
 function Footer() {
   return (
     <footer style={{ marginTop: 20 }}>
-      <Container fluid maxWidth="xl">
+      <Container maxWidth="xl">
         <Divider />
         <p><Translate text="app.footer.author" /></p>
       </Container>

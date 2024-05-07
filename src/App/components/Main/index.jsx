@@ -6,9 +6,25 @@ import Loading from '@components/Loading';
 import { fetchRankings, fetchMatches } from '@utils/api';
 import Rankings from './components/Rankings';
 import Matches from './components/Matches';
+import { ACTIONS } from './actions';
+import { rankingsReducer } from './reducers';
 // import MatchModal from './components/MatchModal';
 // import ControlBar from './components/ControlBar';
-import rankingsReducer, { initialState, ACTIONS } from './reducer';
+
+const initialState = {
+  initialRankings: {},
+  rankings: {
+    entries: [],
+    label: null,
+    effective: null,
+  },
+  matches: [],
+  initialMatches: [],
+  fetchError: null,
+  isLoading: true,
+  isModalOpen: false,
+  selectedMatch: null,
+};
 
 export default function Main() {
   const [state, dispatch] = useReducer(rankingsReducer, initialState);
@@ -43,7 +59,7 @@ export default function Main() {
   return (
     <main>
       {/*<ControlBar handleClickReset={resetData} handleClickInfo={openModal} />*/}
-      <Container sx={{ mt: 8 }} fluid maxWidth="xl">
+      <Container sx={{ mt: 8 }} maxWidth="xl">
         <Grid container spacing={2} direction="row-reverse">
           <Grid item xs={12} md={8}>
             <Matches

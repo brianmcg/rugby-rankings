@@ -1,28 +1,6 @@
-export const ACTIONS = {
-  FETCH_SUCCESS: 'success',
-  FETCH_ERROR: 'error',
-  RESET_DATA: 'reset',
-  OPEN_MODAL: 'open',
-  CLOSE_MODAL: 'close',
-  UPDATE_RANKINGS: 'update',
-}
+import { ACTIONS } from './actions';
 
-export const initialState = {
-  initialRankings: {},
-  rankings: {
-    entries: [],
-    label: null,
-    effective: null,
-  },
-  matches: [],
-  initialMatches: [],
-  fetchError: null,
-  isLoading: true,
-  isModalOpen: false,
-  selectedMatch: null,
-};
-
-export default function rankingsReducer(state, action) {
+export function rankingsReducer(state, action) {
   switch (action.type) {
     case ACTIONS.FETCH_SUCCESS: {
       return {
@@ -69,7 +47,7 @@ export default function rankingsReducer(state, action) {
       };
     }
     case ACTIONS.UPDATE_RANKINGS: {
-      console.log('UPDATE_RANKINGS', JSON.stringify(action.payload));
+      console.log('UPDATE_RANKINGS', action.payload);
       return state;
     }
     default: {

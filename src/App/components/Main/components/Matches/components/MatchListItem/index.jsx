@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useCallback, useReducer } from 'react';
 import { useTheme } from '@mui/material/styles';
 import Stack from '@mui/material/Stack';
 import Paper from '@mui/material/Paper';
@@ -10,20 +10,17 @@ import Translate from '@components/Translate';
 import LabelSwitch from '@components/LabelSwitch';
 import { useEffectAfterMount } from '@utils/hooks';
 import { isNumeric } from '@utils/number';
+import { ACTIONS } from './actions';
+import { matchReducer } from './reducers';
 import TeamInput from './components/TeamInput';
 import ScoreInput from './components/ScoreInput';
 
 const inputStyle = { fontSize: '0.875rem'  };
 
-const isMatchComplete = match => {
-  const { homeTeam, awayTeam, homeScore, awayScore } = match;
-  return !!homeTeam && !!awayTeam && homeScore !== null && awayScore !== null;
-}
-
-export default function MatchListItem({ match: initialMatch, teams, onRemove, onChange }) {
+export default function MatchListItem({ match, teams, onRemove, onChange }) {
   const { palette } = useTheme();
 
-  const [match, setMatch] = useState(initialMatch);
+  const [state, dispatch] = useReducer(matchReducer, match);
 
   const {
     homeTeam,
@@ -35,55 +32,59 @@ export default function MatchListItem({ match: initialMatch, teams, onRemove, on
     matchId,
     isNeutralVenue,
     isWorldCup,
-  } = match;
+    isComplete,
+  } = state;
 
-  const homeTeamOptions = teams.filter(team => team.id !== awayTeam?.id);
-  const awayTeamOptions = teams.filter(team => team.id !== homeTeam?.id);
-  const infoLabel = [formatDay(time.millis), venue?.name].filter(item => item).join(' | ');
-  const isValid = isMatchComplete(match);
-  const color = isValid ? palette.success.main : palette.error.main;
-
-  const safeCallback = useCallback(onChange, [onChange]);
-  
-  useEffectAfterMount(() => safeCallback(match), [match]);
-
-  const handleHomeTeamChange = (e, value) => {
-    setMatch({ ... match, homeTeam: value });
+  const handleHomeTeamChange = (e, homeTeam) => {
+    dispatch({ type: ACTIONS.CHANGE_HOME_TEAM, payload: { homeTeam } });
   };
 
-  const handleAwayTeamChange = (e, value) => {
-    setMatch({ ... match, awayTeam: value });
+  const handleAwayTeamChange = (e, awayTeam) => {
+    dispatch({ type: ACTIONS.CHANGE_AWAY_TEAM, payload: { awayTeam } });
   }
 
   const handleHomeScoreChange = (e) => {
     const value = e.target.value;
-    setMatch({ ... match, homeScore: isNumeric(value) ? parseInt(value, 10) : null });
+    const homeScore = isNumeric(value) ? parseInt(value, 10) : null;
+    dispatch({ type: ACTIONS.CHANGE_HOME_SCORE, payload: { homeScore } });
   };
 
   const handleAwayScoreChange = (e) => {
     const value = e.target.value;
-    setMatch({ ... match, awayScore: isNumeric(value) ? parseInt(value, 10) : null });
+    const awayScore = isNumeric(value) ? parseInt(value, 10) : null;
+    dispatch({ type: ACTIONS.CHANGE_AWAY_SCORE, payload: { awayScore } });
+    
   };
 
-  const handleNeutralVenueChange = (e, value) => {
-    setMatch({ ... match, isNeutralVenue: value });
+  const handleNeutralVenueChange = (e, isNeutralVenue) => {
+    dispatch({ type: ACTIONS.CHANGE_IS_NEUTRAL_VENUE, payload: { isNeutralVenue } });
   }
 
-  const handleWorldCupChange = (e, value) => {
-    setMatch({
-      ... match,
-      isWorldCup: value,
-      isNeutralVenue: value || match.isNeutralVenue,
-    });
+  const handleWorldCupChange = (e, isWorldCup) => {
+    dispatch({ type: ACTIONS.CHANGE_IS_WORLD_CUP, payload: { isWorldCup } });
   }
+
+  const safeCallback = useCallback(onChange, [onChange]);
+  
+  useEffectAfterMount(() => {
+    if (state.isComplete) {
+      safeCallback(state)
+    }
+  }, [state]);
 
   return (
     <Paper
       elevation={3}
-      sx={{ padding: 2, width: '100%', borderLeft: `solid 4px ${color}` }}
+      sx={{
+        padding: 2,
+        width: '100%',
+        borderLeft: `solid 4px ${isComplete ? palette.success.main : palette.error.main}`,
+      }}
     >
       <Stack direction="row" justifyContent="space-between" sx={{ mb: 2 }}>
-        <Typography variant="caption" color={palette.grey[500]}>{infoLabel}</Typography>
+        <Typography variant="caption" color={palette.grey[500]}>
+          {[formatDay(time.millis), venue?.name].filter(item => item).join(' | ')}
+        </Typography>
         <IconButton
           sx={{ padding: 0 }}
           onClick={() => onRemove(matchId)}
@@ -97,24 +98,16 @@ export default function MatchListItem({ match: initialMatch, teams, onRemove, on
       <Stack direction="row" justifyContent="center" spacing={1} sx={{ mb: 2 }}>
         <TeamInput
           inputStyle={inputStyle}
-          options={homeTeamOptions}
+          options={teams.filter(team => team.id !== awayTeam?.id)}
           value={homeTeam}
           onChange={handleHomeTeamChange}
           label={<Translate text="app.main.matches.team" />}
         />
-        <ScoreInput
-          value={homeScore}
-          onChange={handleHomeScoreChange}
-          inputStyle={inputStyle}
-        />
-        <ScoreInput
-          value={awayScore}
-          onChange={handleAwayScoreChange}
-          inputStyle={inputStyle}
-        />
+        <ScoreInput value={homeScore} onChange={handleHomeScoreChange} inputStyle={inputStyle} />
+        <ScoreInput value={awayScore} onChange={handleAwayScoreChange} inputStyle={inputStyle} />
         <TeamInput
           inputStyle={inputStyle}
-          options={awayTeamOptions}
+          options={teams.filter(team => team.id !== homeTeam?.id)}
           value={awayTeam}
           onChange={handleAwayTeamChange}
           label={<Translate text="app.main.matches.team" />}
