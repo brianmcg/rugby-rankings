@@ -10,6 +10,7 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import AddIcon from '@mui/icons-material/Add';
 import RefreshIcon from '@mui/icons-material/Refresh';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const generateMatchId = () => `${Date.now().toString(36)}${Math.random()}`;
 
@@ -36,6 +37,8 @@ export default function Matches({ matches: initialMatches = [], teams = [], upda
     setMatches(updatedMatches);
   };
 
+  const onRemove = () => setMatches([]);
+
   const safeCallback = useCallback(updateRankings, [updateRankings]);
 
   useEffect(() => safeCallback(matches), [matches, safeCallback]);
@@ -46,13 +49,22 @@ export default function Matches({ matches: initialMatches = [], teams = [], upda
           <CardHeader
             title={<Translate text={"app.main.matches.title"} />}
           />
-          <Button
-            variant="contained"
-            startIcon={<RefreshIcon />}
-            onClick={() => onReset()}
-          >
-          <Translate text="app.main.matches.reset" />
-          </Button>
+          <div>
+            <Button
+              variant="contained"
+              startIcon={<RefreshIcon />}
+              onClick={() => onReset()}
+            >
+              <Translate text="app.main.matches.reset" />
+            </Button>
+            <Button
+              variant="contained"
+              startIcon={<DeleteIcon />}
+              onClick={() => onRemove()}
+            >
+              <Translate text="app.main.matches.clear" />
+            </Button>
+          </div>
         </Stack>
       <CardContent>
         <List> {
