@@ -52,7 +52,7 @@ export default function MatchListItem({ match: initialMatch, teams, onRemove, on
 
   const handleHomeScoreChange = (e) => {
     const value = e.target.value;
-    setMatch({ ... match, homeScore: value });
+    setMatch({ ... match, homeScore: isNumeric(value) ? parseInt(value, 10) : null });
   };
 
   const handleAwayScoreChange = (e) => {
@@ -99,12 +99,12 @@ export default function MatchListItem({ match: initialMatch, teams, onRemove, on
         />
         <ScoreInput
           value={homeScore}
-          handleChange={handleHomeScoreChange}
+          onChange={handleHomeScoreChange}
           inputStyle={inputStyle}
         />
         <ScoreInput
           value={awayScore}
-          handleChange={handleAwayScoreChange}
+          onChange={handleAwayScoreChange}
           inputStyle={inputStyle}
         />
         <TeamInput

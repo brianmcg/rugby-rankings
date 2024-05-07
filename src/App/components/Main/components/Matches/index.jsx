@@ -60,7 +60,6 @@ export default function Matches({ matches: initialMatches = [], teams = [], upda
             (
               <ListItem alignItems="flex-start" key={match.matchId}>
                 <MatchListItem
-                  
                   match={match}
                   teams={teams}
                   onRemove={onMatchRemoved}

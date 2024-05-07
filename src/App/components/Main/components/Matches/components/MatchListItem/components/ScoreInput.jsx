@@ -1,4 +1,5 @@
-import { forwardRef } from 'react';
+import { forwardRef, useMemo } from 'react';
+import debounce from 'lodash.debounce';
 import { NumericFormat } from 'react-number-format';
 import Translate from '@components/Translate';
 import TextField from '@mui/material/TextField';
@@ -26,7 +27,11 @@ const NumericFormatCustom = forwardRef(
   },
 );
 
-export default function ScoreInput({ handleChange, value, inputStyle }) {
+export default function ScoreInput({ onChange, value, inputStyle }) {
+  const debouncedOnChange = useMemo(() => {
+    return debounce(onChange, 500);
+  }, [onChange]);
+
   return (
     <FormControl sx={{ width: '6ch' }}>
       <TextField
@@ -35,7 +40,7 @@ export default function ScoreInput({ handleChange, value, inputStyle }) {
         label={<Translate text="app.main.matches.score" />}
         value={value}
         error={value === null}
-        onChange={handleChange}
+        onChange={debouncedOnChange}
         name="numberformat"
         inputProps={{ style: inputStyle }}
         InputProps={{ inputComponent: NumericFormatCustom }}
