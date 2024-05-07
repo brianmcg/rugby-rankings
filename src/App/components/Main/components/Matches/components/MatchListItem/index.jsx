@@ -89,7 +89,7 @@ export default function MatchListItem({ match: initialMatch, teams, onRemove, on
         </IconButton>
       </Stack>
 
-      <Stack direction="row" spacing={1} sx={{ mb: 2 }}>
+      <Stack direction="row" justifyContent="center" spacing={1} sx={{ mb: 2 }}>
         <TeamInput
           inputStyle={inputStyle}
           options={homeTeamOptions}

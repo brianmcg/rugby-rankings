@@ -11,9 +11,6 @@ import { format } from '@utils/date';
 import RankingsTable from './components/RankingsTable';
 
 export default function Rankings({ entries, label, effective }) {
-  const [expanded, setExpanded] = useState(true);
-  const handleExpandClick = () => setExpanded(!expanded);
-
   return (
     <Card>
       <CardHeader
@@ -21,20 +18,9 @@ export default function Rankings({ entries, label, effective }) {
         subheader={format(effective.millis)}
       />
       <CardContent>
-        <RankingsTable entries={entries} expanded={expanded} />
+        <RankingsTable entries={entries} />
       </CardContent>
-      <CardActions disableSpacing>
-        <Button
-          style={{ width: '100%' }}
-          size="large"
-          color="secondary"
-          variant="outlined"
-          startIcon={expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-          onClick={handleExpandClick}
-        >
-          <Translate text={expanded ? 'app.main.rankings.collapse' : 'app.main.rankings.expand'} />
-        </Button>
-      </CardActions>
+
     </Card>
   );
 }

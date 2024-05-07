@@ -43,7 +43,7 @@ export default function Main() {
   return (
     <main>
       {/*<ControlBar handleClickReset={resetData} handleClickInfo={openModal} />*/}
-      <Container sx={{ mt: 8 }}>
+      <Container sx={{ mt: 8 }} fluid maxWidth="xl">
         <Grid container spacing={2} direction="row-reverse">
           <Grid item xs={12} md={8}>
             <Matches
