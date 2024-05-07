@@ -8,11 +8,7 @@ import Translate from '@components/Translate';
 import RankCell from './components/RankCell';
 import PointsCell from './components/PointsCell';
 
-const SHOW_ROWS = 16;
-
-export default function RankingsTable({ entries, expanded }) {
-  const rows = expanded ? [...entries] : entries.filter((entry, i) => i < SHOW_ROWS);
-
+export default function RankingsTable({ entries }) {
   return (
    <TableContainer>
       <Table size="small">
@@ -26,7 +22,7 @@ export default function RankingsTable({ entries, expanded }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map(({ pos, previousPos, pts, previousPts,team }) => (
+          {entries.map(({ pos, previousPos, pts, previousPts,team }) => (
             <TableRow
               key={team.id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

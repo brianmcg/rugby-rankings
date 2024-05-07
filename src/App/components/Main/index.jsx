@@ -18,7 +18,7 @@ export default function Main() {
 
   const resetData = () => dispatch({ type: ACTIONS.RESET_DATA });
   
-  const updateRankings = match => dispatch({ type: ACTIONS.UPDATE_RANKINGS, payload: match });
+  const updateRankings = matches => dispatch({ type: ACTIONS.UPDATE_RANKINGS, payload: matches });
 
   // const closeModal = amount => dispatch({ type: ACTIONS.CLOSE_MODAL, payload: amount });
   
@@ -43,7 +43,7 @@ export default function Main() {
   return (
     <main>
       {/*<ControlBar handleClickReset={resetData} handleClickInfo={openModal} />*/}
-      <Container sx={{ mt: 8 }}>
+      <Container sx={{ mt: 8 }} fluid maxWidth="xl">
         <Grid container spacing={2} direction="row-reverse">
           <Grid item xs={12} md={8}>
             <Matches

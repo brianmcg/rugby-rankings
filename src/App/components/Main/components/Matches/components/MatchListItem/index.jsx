@@ -15,6 +15,11 @@ import ScoreInput from './components/ScoreInput';
 
 const inputStyle = { fontSize: '0.875rem'  };
 
+const isMatchComplete = match => {
+  const { homeTeam, awayTeam, homeScore, awayScore } = match;
+  return !!homeTeam && !!awayTeam && homeScore !== null && awayScore !== null;
+}
+
 export default function MatchListItem({ match: initialMatch, teams, onRemove, onChange }) {
   const { palette } = useTheme();
 
@@ -35,7 +40,7 @@ export default function MatchListItem({ match: initialMatch, teams, onRemove, on
   const homeTeamOptions = teams.filter(team => team.id !== awayTeam?.id);
   const awayTeamOptions = teams.filter(team => team.id !== homeTeam?.id);
   const infoLabel = [formatDay(time.millis), venue?.name].filter(item => item).join(' | ');
-  const isValid = !!(homeTeam && awayTeam && homeScore && awayScore);
+  const isValid = isMatchComplete(match);
   const color = isValid ? palette.success.main : palette.error.main;
 
   const safeCallback = useCallback(onChange, [onChange]);
@@ -89,7 +94,7 @@ export default function MatchListItem({ match: initialMatch, teams, onRemove, on
         </IconButton>
       </Stack>
 
-      <Stack direction="row" spacing={1} sx={{ mb: 2 }}>
+      <Stack direction="row" justifyContent="center" spacing={1} sx={{ mb: 2 }}>
         <TeamInput
           inputStyle={inputStyle}
           options={homeTeamOptions}

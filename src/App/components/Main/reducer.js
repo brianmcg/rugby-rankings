@@ -69,7 +69,7 @@ export default function rankingsReducer(state, action) {
       };
     }
     case ACTIONS.UPDATE_RANKINGS: {
-      console.log('UPDATE_RANKINGS', action.payload);
+      console.log('UPDATE_RANKINGS', JSON.stringify(action.payload));
       return state;
     }
     default: {

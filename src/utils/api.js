@@ -23,11 +23,11 @@ export const fetchRankings = (sport = 'mru') => fetchData(`${MENS_RANKINGS_URL}/
 
 export const fetchMatches = async (rankings, sport = 'mru') => {
   const teamIds = rankings.entries.map(({ team }) => team.id );
-  const startDate = subtractWeeks(rankings.effective.millis, 1, 'week');
-  const endDate = addMonths(startDate, 1, 'month');
+  // const startDate = subtractWeeks(rankings.effective.millis, 1, 'week');
+  const endDate = addMonths(rankings.effective.millis, 1, 'month');
 
   const queryParams = {
-    startDate: formatApiDate(startDate),
+    startDate: formatApiDate(rankings.effective.millis),
     endDate: formatApiDate(endDate),
     sort: 'asc',
     pageSize: 100,
@@ -51,15 +51,16 @@ export const fetchMatches = async (rankings, sport = 'mru') => {
     const teams = rankings.entries.map(entry => entry.team);
 
     return {
-        homeTeam: teams.find(team => team.id === matchTeams[0]?.id) || null,
-        awayTeam: teams.find(team => team.id === matchTeams[1]?.id) || null,
-        homeScore: isComplete ? scores[0] : null,
-        awayScore: isComplete ? scores[1] : null,
-        isNeutralVenue: rankings.entries.map(({ name }) => name).includes(venue?.country),
-        isWorldCup: !!competition?.toLowerCase().match(/rugby world cup/),
-        venue,
-        matchId,
-        time,
-      };
+      homeTeam: teams.find(team => team.id === matchTeams[0]?.id) || null,
+      awayTeam: teams.find(team => team.id === matchTeams[1]?.id) || null,
+      homeScore: isComplete ? scores[0] : null,
+      awayScore: isComplete ? scores[1] : null,
+      isNeutralVenue: rankings.entries.map(({ name }) => name).includes(venue?.country),
+      isWorldCup: !!competition?.toLowerCase().match(/rugby world cup/),
+      isComplete,
+      venue,
+      matchId,
+      time,
+    };
   })
 }
