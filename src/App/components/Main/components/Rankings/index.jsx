@@ -1,14 +1,31 @@
-import { useState } from 'react';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import Button from '@mui/material/Button';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import Translate from '@components/Translate';
 import { format } from '@utils/date';
-import RankingsTable from './components/RankingsTable';
+// import RankingsTable from './components/RankingsTable';
+
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import RankCell from './components/RankCell';
+import PointsCell from './components/PointsCell';
+
+const renderTableRows = (entries) => (
+  entries.map(({ pos, previousPos, pts, previousPts,team }) => (
+    <TableRow
+      key={team.id}
+      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+    >
+      <RankCell pos={pos} previousPos={previousPos} />
+      <TableCell>{team.name}</TableCell>
+      <PointsCell pts={pts} previousPts={previousPts} />
+    </TableRow>
+  ))
+);
 
 export default function Rankings({ entries, label, effective }) {
   return (
@@ -18,9 +35,23 @@ export default function Rankings({ entries, label, effective }) {
         subheader={format(effective.millis)}
       />
       <CardContent>
-        <RankingsTable entries={entries} />
+        <TableContainer>
+          <Table size="small">
+            <TableHead>
+              <TableRow>
+                <TableCell><Translate text="app.main.rankings.table.rank" /></TableCell>
+                <TableCell>
+                  <Translate text="app.main.rankings.table.team" />
+                </TableCell>
+                <TableCell><Translate text="app.main.rankings.table.points" /></TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {renderTableRows(entries)}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </CardContent>
-
     </Card>
   );
 }
