@@ -1,4 +1,3 @@
-import { useState, useEffect, useCallback } from 'react';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
@@ -11,56 +10,27 @@ import Stack from '@mui/material/Stack';
 import AddIcon from '@mui/icons-material/Add';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { createMatch } from './helpers';
 
-const generateMatchId = () => `${Date.now().toString(36)}${Math.random()}`;
-
-export default function Matches({ matches: initialMatches = [], teams = [], updateRankings }) {
-  const [matches, setMatches] = useState(initialMatches);
-
-  const onMatchAdded = () => {
-    const match = { time: Date.now() };
-    setMatches([ ...matches, match ]);
-  };
-
-  const onMatchChanged = match => {
-    const updatedMatches = matches.map(m => (m.matchId === match.matchId) ? match : m);
-    setMatches(updatedMatches);
-  }
-
-  const onMatchRemoved = matchId => {
-    const updatedMatches = matches.filter(match => match.matchId !== matchId);
-    setMatches(updatedMatches);
-  };
-
-  const onReset = () => {
-    const updatedMatches = initialMatches.map(match => ({ ...match, matchId: generateMatchId() }));
-    setMatches(updatedMatches);
-  };
-
-  const onRemove = () => setMatches([]);
-
-  const safeCallback = useCallback(updateRankings, [updateRankings]);
-
-  useEffect(() => safeCallback(matches), [matches, safeCallback]);
-
+export default function Matches({ matches = [], teams = [], openModal, clear, remove, reset }) {
 	return (
 		<Card>
         <Stack direction="row" justifyContent="space-between">
           <CardHeader
             title={<Translate text={"app.main.matches.title"} />}
           />
-          <div>
+          <div style={{ margin: 16 }}>
             <Button
               variant="contained"
               startIcon={<RefreshIcon />}
-              onClick={() => onReset()}
+              onClick={() => reset()}
             >
               <Translate text="app.main.matches.reset" />
             </Button>
             <Button
               variant="contained"
               startIcon={<DeleteIcon />}
-              onClick={() => onRemove()}
+              onClick={() => clear()}
             >
               <Translate text="app.main.matches.clear" />
             </Button>
@@ -70,12 +40,12 @@ export default function Matches({ matches: initialMatches = [], teams = [], upda
         <List> {
           matches.map(match => 
             (
-              <ListItem alignItems="flex-start" key={match.matchId}>
+              <ListItem alignItems="flex-start" key={`${match.matchId}-${match.updated}`}>
                 <MatchListItem
                   match={match}
                   teams={teams}
-                  onRemove={onMatchRemoved}
-                  onChange={onMatchChanged}
+                  onClickRemove={remove}
+                  onClickEdit={openModal}
                 />
               </ListItem>
             )
@@ -86,7 +56,7 @@ export default function Matches({ matches: initialMatches = [], teams = [], upda
           <Button
             variant="contained"
             startIcon={<AddIcon />}
-            onClick={() => onMatchAdded()}
+            onClick={() => openModal(createMatch())}
           >
           <Translate text="app.main.matches.add" />
           </Button>

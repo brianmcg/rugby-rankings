@@ -13,21 +13,16 @@ async function fetchData(url, params) {
   }
 }
 
-// const parseMatches = (matches, rankings) => {
-//   return matches.reduce((memo, match) => {
-
-//   }, [])
-// }
 
 export const fetchRankings = (sport = 'mru') => fetchData(`${MENS_RANKINGS_URL}/${sport}`);
 
 export const fetchMatches = async (rankings, sport = 'mru') => {
   const teamIds = rankings.entries.map(({ team }) => team.id );
-  // const startDate = subtractWeeks(rankings.effective.millis, 1, 'week');
-  const endDate = addMonths(rankings.effective.millis, 1, 'month');
+  const startDate = subtractWeeks(rankings.effective.millis, 1, 'week');
+  const endDate = addMonths(startDate, 1, 'month');
 
   const queryParams = {
-    startDate: formatApiDate(rankings.effective.millis),
+    startDate: formatApiDate(startDate),
     endDate: formatApiDate(endDate),
     sort: 'asc',
     pageSize: 100,
@@ -57,6 +52,7 @@ export const fetchMatches = async (rankings, sport = 'mru') => {
       awayScore: isComplete ? scores[1] : null,
       isNeutralVenue: rankings.entries.map(({ name }) => name).includes(venue?.country),
       isWorldCup: !!competition?.toLowerCase().match(/rugby world cup/),
+      updated: Date.now(),
       isComplete,
       venue,
       matchId,

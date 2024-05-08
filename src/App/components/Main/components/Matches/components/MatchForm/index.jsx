@@ -17,10 +17,17 @@ import ScoreInput from './components/ScoreInput';
 
 const inputStyle = { fontSize: '0.875rem'  };
 
-export default function MatchListItem({ match, teams, onRemove, onChange }) {
+const isMatchComplete = match => {
+  const { homeTeam, awayTeam, homeScore, awayScore } = match;
+  return !!homeTeam && !!awayTeam && homeScore !== null && awayScore !== null;
+};
+
+export default function MatchForm({ match, teams, onRemove, onChange }) {
   const { palette } = useTheme();
 
-  const [state, dispatch] = useReducer(matchReducer, match);
+  // const [state, dispatch] = useReducer(matchReducer, match);
+  
+  console.log('render');
 
   const {
     homeTeam,
@@ -33,44 +40,46 @@ export default function MatchListItem({ match, teams, onRemove, onChange }) {
     isNeutralVenue,
     isWorldCup,
     isComplete,
-  } = state;
+  } = match;
 
   const handleHomeTeamChange = (e, homeTeam) => {
-    dispatch({ type: ACTIONS.CHANGE_HOME_TEAM, payload: { homeTeam } });
+    const { awayTeam, homeScore, awayScore } = match;
+    const isComplete = isMatchComplete({ homeTeam, awayTeam, homeScore, awayScore });
+
+    onChange({ ...match, homeTeam, isComplete });
   };
 
   const handleAwayTeamChange = (e, awayTeam) => {
-    dispatch({ type: ACTIONS.CHANGE_AWAY_TEAM, payload: { awayTeam } });
+    const { homeTeam, homeScore, awayScore } = match;
+    const isComplete = isMatchComplete({ homeTeam, awayTeam, homeScore, awayScore });
+
+    onChange({ ...match, awayTeam, isComplete });
   }
 
   const handleHomeScoreChange = (e) => {
     const value = e.target.value;
     const homeScore = isNumeric(value) ? parseInt(value, 10) : null;
-    dispatch({ type: ACTIONS.CHANGE_HOME_SCORE, payload: { homeScore } });
   };
 
   const handleAwayScoreChange = (e) => {
     const value = e.target.value;
     const awayScore = isNumeric(value) ? parseInt(value, 10) : null;
-    dispatch({ type: ACTIONS.CHANGE_AWAY_SCORE, payload: { awayScore } });
     
   };
 
   const handleNeutralVenueChange = (e, isNeutralVenue) => {
-    dispatch({ type: ACTIONS.CHANGE_IS_NEUTRAL_VENUE, payload: { isNeutralVenue } });
   }
 
   const handleWorldCupChange = (e, isWorldCup) => {
-    dispatch({ type: ACTIONS.CHANGE_IS_WORLD_CUP, payload: { isWorldCup } });
   }
 
-  const safeCallback = useCallback(onChange, [onChange]);
+  // const safeCallback = useCallback(onChange, [onChange]);
   
-  useEffectAfterMount(() => {
-    if (state.isComplete) {
-      safeCallback(state)
-    }
-  }, [state]);
+  // useEffectAfterMount(() => {
+  //   if (state.isComplete) {
+  //     safeCallback(state)
+  //   }
+  // }, [state]);
 
   return (
     <Paper

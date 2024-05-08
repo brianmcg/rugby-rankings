@@ -31,8 +31,10 @@
       },
       "matches": {
         "title": "Fixtures",
+        "predict": "Predict",
+        "update": "Update",
         "reset": "Reset",
-        "clear": "Clear All",
+        "clear": "Clear",
         "add": "Add",
         "remove": "Remove",
         "team": "Team",

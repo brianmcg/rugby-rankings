@@ -9,12 +9,20 @@ import Divider from '@mui/material/Divider';
 import { formatTime, formatDay } from '@utils/date';
 import Translate from '@components/Translate';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
-export default function MatchListItem({ match, handleUpdateMatch }) {
-  const { venue, teams: matchTeams, scores, status, time } = match;
-  const [homeTeam, awayTeam] = matchTeams;
-  const [homeScore, awayScore] = scores;
-  const isComplete = status === 'C';
+export default function MatchListItem({ match, onClickEdit, onClickRemove }) {
+  const {
+    homeTeam,
+    awayTeam,
+    homeScore,
+    awayScore,
+    venue,
+    time,
+    matchId,
+    isComplete,
+  } = match;
+
   const { palette } = useTheme();
   const color = isComplete ? palette.primary.main : palette.secondary.main;
 
@@ -60,8 +68,8 @@ export default function MatchListItem({ match, handleUpdateMatch }) {
           size="small"
           color={isComplete ? "primary" : "secondary" }
           variant="contained"
-          startIcon={<SendIcon />}
-          onClick={() => handleUpdateMatch(match)}
+          startIcon={<EditIcon />}
+          onClick={() => onClickEdit(match)}
         >
           <Translate text={isComplete ? "app.main.matches.update" : "app.main.matches.predict" } />
         </Button>
@@ -71,7 +79,7 @@ export default function MatchListItem({ match, handleUpdateMatch }) {
           color={isComplete ? "primary" : "secondary" }
           variant="contained"
           startIcon={<DeleteIcon />}
-          onClick={() => {}}
+          onClick={() => onClickRemove(matchId)}
         >
           <Translate text="app.main.matches.remove" />
         </Button>
