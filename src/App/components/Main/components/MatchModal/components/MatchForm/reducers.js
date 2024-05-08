@@ -1,12 +1,16 @@
 import { ACTIONS } from './actions';
+import { validateScore, validateTeam } from './helpers';
 
 const isMatchComplete = match => {
   const { homeTeam, awayTeam, homeScore, awayScore } = match;
-  return !!homeTeam && !!awayTeam && homeScore !== null && awayScore !== null;
+
+  return validateTeam(homeTeam)
+    && validateTeam(awayTeam)
+    && validateScore(homeScore)
+    && validateScore(awayScore);
 }
 
 export const matchReducer = (state, action) => {
-
   switch (action.type) {
     case ACTIONS.CHANGE_HOME_TEAM: {
       const { homeTeam } = action.payload;
@@ -46,7 +50,7 @@ export const matchReducer = (state, action) => {
     case ACTIONS.CHANGE_IS_WORLD_CUP: {
       const { isWorldCup } = action.payload;
       const isComplete = isMatchComplete(state);
-      const isNeutralVenue = isWorldCup || state.isNeutralVenue;
+      const isNeutralVenue = isWorldCup;
 
       return { ...state, isWorldCup, isNeutralVenue, isComplete };
     }

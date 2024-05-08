@@ -1,5 +1,6 @@
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
+import { validateTeam } from '../helpers';
 
 export default function TeamInput({ options, value, label, onChange }) {
   return (
@@ -13,7 +14,7 @@ export default function TeamInput({ options, value, label, onChange }) {
       renderInput={(params) => (
         <TextField
           {...params}
-          error={value === null}
+          error={!validateTeam(value)}
           label={label}
         />
       )}

@@ -3,11 +3,12 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import Typography from '@mui/material/Typography';
 
-export default function LabelSwitch({ label, checked, handleChange }) {
+export default function LabelSwitch({ label, checked, onChange, disabled }) {
   return (
     <FormGroup>
       <FormControlLabel
-        control={<Switch checked={!!checked} onChange={handleChange} />}
+        disabled={disabled}
+        control={<Switch checked={!!checked} onChange={onChange} />}
         label={<Typography variant="caption">{label}</Typography>}
       />
     </FormGroup>

@@ -22,25 +22,24 @@ const initialState = {
 
 export default function Main() {
   const [state, dispatch] = useReducer(rankingsReducer, initialState);
-  const { rankings, isLoading, isError, matches, selectedMatch } = state;
+  const { rankings, matches, selectedMatch, isLoading, isError } = state;
   const { entries, effective, label } = rankings;
   const teams = rankings?.entries?.map(entry => entry.team);
 
   const openModal = match => dispatch({ type: ACTIONS.OPEN_MODAL, payload: { match } });
   const closeModal = () => dispatch({ type: ACTIONS.CLOSE_MODAL });
-
   const removeMatch = matchId => dispatch({ type: ACTIONS.REMOVE_MATCH, payload: { matchId } });
   const clearMatches = () => dispatch({ type: ACTIONS.CLEAR_MATCHES });
   const resetMatches = () => dispatch({ type: ACTIONS.RESET_MATCHES });
   const addMatch = match => dispatch({ type: ACTIONS.ADD_MATCH, payload: { match } });
   const updateMatch = match => dispatch({ type: ACTIONS.UPDATE_MATCH, payload: { match } });
 
-  // const updateRankings = useCallback(() => dispatch(
-  //   { type: ACTIONS.UPDATE_RANKINGS, payload: matches }),
-  //   [matches],
-  // );
+  const updateRankings = useCallback(() => dispatch(
+    { type: ACTIONS.UPDATE_RANKINGS, payload: { matches } }),
+    [matches],
+  );
   
-  // useEffect(() => updateRankings(matches), [matches, updateRankings]);
+  useEffect(() => updateRankings(matches), [matches, updateRankings]);
   
   useEffect(() => {
     const fetchData = async () => {
@@ -56,7 +55,6 @@ export default function Main() {
 
     fetchData();
   }, []);
-
 
   if (isError) return <ErrorMessage message="app.errors.fetch" />
   if (isLoading) return <Loading />

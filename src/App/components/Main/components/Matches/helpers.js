@@ -14,10 +14,6 @@ export const createMatch = () => {
       millis: date.getTime(),
       gmtOffset: date.getTimezoneOffset() / 60,
     },
-    venue: {
-      name: null,
-      city: null,
-      country: null,
-    },
+    venue: null,
   };
 };

@@ -95,13 +95,14 @@ export default function MatchForm({ match: initalMatch, teams, onCreate, onUpdat
 
       <Stack direction="row" justifyContent="left">
         <LabelSwitch
+          disabled={isWorldCup}
           label={<Translate text="app.main.modal.neutral" />}
-          handleChange={handleNeutralVenueChange}
+          onChange={handleNeutralVenueChange}
           checked={isNeutralVenue}
         />
         <LabelSwitch
           label={<Translate text="app.main.modal.rwc" />}
-          handleChange={handleWorldCupChange}
+          onChange={handleWorldCupChange}
           checked={isWorldCup}
         />
       </Stack>
