@@ -41,7 +41,7 @@ const onClearMatches = state => ({
 });
 
 const onResetRankings = (state, payload) => {
-  console.log('UPDATE_RANKINGS', payload);
+  // console.log('UPDATE_RANKINGS', payload);
   return state;
 };
 
