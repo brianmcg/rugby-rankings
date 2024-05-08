@@ -1,9 +1,83 @@
+const calculatePointsChanges = (entries, match) => {
+  let ratingGap;
+  let ratingChange;
 
+  const { homeTeam, awayTeam, homeScore, awayScore, isNeutralVenue, isWorldCup } = match;
 
-const applyMatch = (entries, match) => {
-  return entries.map(entry => ({ ...entry, pts: entry.pts + 0.5 }));
+  const homeEntry = entries.find(entry => entry.team.id === homeTeam.id);
+  const awayEntry = entries.find(entry => entry.team.id === awayTeam.id);
+
+  if (isNeutralVenue) {
+    ratingGap = homeEntry.pts - awayEntry.pts;
+  } else {
+    ratingGap = homeEntry.pts - awayEntry.pts + 3;
+  }
+
+  if (ratingGap > 10) {
+    ratingGap = 10;
+  } else if (ratingGap < -10) {
+    ratingGap = -10;
+  }
+
+  if (homeScore > awayScore) {
+    ratingChange = 1 - (0.1 * ratingGap);
+  } else if (homeScore < awayScore) {
+    ratingChange = 1 + (0.1 * ratingGap);
+  } else {
+    ratingChange = 0.1 * ratingGap;
+  }
+
+  if (Math.abs(homeScore - awayScore) > 15) {
+    ratingChange = ratingChange * 1.5;
+  }
+
+  if (isWorldCup) {
+    ratingChange = ratingChange * 2;
+  }
+
+  if (homeScore > awayScore) {
+    const updatedHomeEntry = { ...homeEntry, pts: homeEntry.pts + ratingChange };
+    const updatedAwayEntry = { ...awayEntry, pts: awayEntry.pts - ratingChange };
+
+    return entries.map(entry => {
+      if (entry.team.id === updatedHomeEntry.team.id) {
+        return updatedHomeEntry;
+      }
+
+      if (entry.team.id === updatedAwayEntry.team.id) {
+        return updatedAwayEntry;
+      }
+
+      return entry;
+    });
+  }
+
+  const updatedHomeEntry = { ...homeEntry, pts: homeEntry.pts - ratingChange };
+  const updatedAwayEntry = { ...awayEntry, pts: awayEntry.pts + ratingChange };
+
+  return entries.map(entry => {
+    if (entry.team.id === updatedHomeEntry.team.id) {
+      return updatedHomeEntry;
+    }
+
+    if (entry.team.id === updatedAwayEntry.team.id) {
+      return updatedAwayEntry;
+    }
+
+    return entry;
+  });
 };
 
-export const applyMatches = (entries = [], matches = []) => {
-  return matches.reduce((memo, match) => applyMatch(memo, match), entries);
-};
+export const calculateRankingChange = (entries = [], matches = []) => (
+  matches
+    .reduce((memo, match) => {
+      if (match.isComplete) {
+        return calculatePointsChanges(memo, match);
+      }
+      return memo;
+    }, entries)
+    .sort((entryA, entryB) => {
+      return entryB.pts - entryA.pts;
+    })
+    .map((entry, i) => ({ ...entry, pos: i + 1 }))
+);

@@ -1,5 +1,5 @@
 import { ACTIONS } from './actions';
-import { applyMatches } from './helpers';
+import { calculateRankingChange } from './helpers';
 
 let matchIdCounter = 0;
 
@@ -65,7 +65,7 @@ const onUpdateMatch = (state, payload) => {
 };
 
 const onUpdateRankings = (state, payload) => {
-  const entries = applyMatches(state.initialRankings?.entries, payload.matches);
+  const entries = calculateRankingChange(state.initialRankings?.entries, payload.matches);
 
   const rankings = { ...state.rankings, entries };
 
