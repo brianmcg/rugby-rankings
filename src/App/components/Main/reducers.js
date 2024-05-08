@@ -1,5 +1,7 @@
 import { ACTIONS } from './actions';
 
+let matchIdCounter = 0;
+
 const onFetchSuccess = (state, payload) => ({
   ...state,
   initialRankings: payload.rankings,
@@ -40,10 +42,35 @@ const onClearMatches = state => ({
   matches: [],
 });
 
-const onResetRankings = (state, payload) => {
-  // console.log('UPDATE_RANKINGS', payload);
+const onAddMatch = (state, payload) => {
+  const match = {
+    ...payload.match,
+    matchId: `new-${matchIdCounter++}`
+  };
+  
+  return { ...state, selectedMatch: null,  matches: [...state.matches, match] };
+};
+
+const onUpdateMatch = (state, payload) => {
+  const matches = state.matches.map(match => {
+    if (match.matchId === payload.match.matchId) {
+      return { ...payload.match };
+    }
+
+    return match;
+  });
+
+  return { ...state, selectedMatch: null, matches };
+};
+
+const onUpdateRankings = (state, payload) => {
+  console.log('UPDATE_RANKINGS', payload);
+
+
+
   return state;
 };
+
 
 export function rankingsReducer(state, { type, payload }) {
   switch (type) {
@@ -54,7 +81,9 @@ export function rankingsReducer(state, { type, payload }) {
     case ACTIONS.CLOSE_MODAL: return onCloseModal(state);
     case ACTIONS.REMOVE_MATCH: return onRemoveMatch(state, payload);
     case ACTIONS.CLEAR_MATCHES: return onClearMatches(state);
-    case ACTIONS.UPDATE_RANKINGS: return onResetRankings(state, payload);
+    case ACTIONS.ADD_MATCH: return onAddMatch(state, payload);
+    case ACTIONS.UPDATE_MATCH: return onUpdateMatch(state, payload);
+    case ACTIONS.UPDATE_RANKINGS: return onUpdateRankings(state, payload);
     default: return state;
   }
 }

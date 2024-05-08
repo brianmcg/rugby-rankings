@@ -36,11 +36,15 @@
         "reset": "Reset",
         "clear": "Clear",
         "add": "Add",
-        "remove": "Remove",
+        "remove": "Remove"
+      },
+      "modal": {
+        "title": "Predict Score",
         "team": "Team",
         "score": "Score",
         "neutral": "Neutral Venue",
-        "rwc": "Rugby World Cup"
+        "rwc": "Rugby World Cup",
+        "confirm": "Confirm"
       }
     }
   }

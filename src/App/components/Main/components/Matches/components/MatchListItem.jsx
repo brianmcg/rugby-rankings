@@ -2,7 +2,6 @@ import { useTheme } from '@mui/material/styles';
 import Stack from '@mui/material/Stack';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
-import SendIcon from '@mui/icons-material/Send';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
@@ -31,9 +30,9 @@ export default function MatchListItem({ match, onClickEdit, onClickRemove }) {
       elevation={3}
       sx={{ padding: 2, width: '100%', borderLeft: `solid 4px ${color}` }}
     >
-      <Stack direction="row" justifyContent="space-between">
-        <Typography variant="caption">{formatDay(time.millis)}</Typography>
-        <Typography variant="caption" align="right">{venue?.name}</Typography>
+      <Stack direction="row" justifyContent="space-between" sx={{ mb: 2 }}>
+        <Typography sx={{ opacity: 0.6 }}variant="caption">{formatDay(time.millis)}</Typography>
+        <Typography sx={{ opacity: 0.6 }}variant="caption" align="right">{venue?.name}</Typography>
       </Stack>
 
       <Grid container sx={{ marginTop: 1 }}>

@@ -9,17 +9,22 @@ export const parseMatchResponse = (response, rankings) => {
       const isComplete = status === 'C';
 
       const teams = rankings.entries.map(entry => entry.team);
+      const homeTeam = teams.find(team => team.id === matchTeams[0]?.id) || null;
+      const awayTeam = teams.find(team => team.id === matchTeams[1]?.id) || null;
+      const homeScore = isComplete ? scores[0] : null;
+      const awayScore = isComplete ? scores[1] : null;
+      const isNeutralVenue = venue !== null && homeTeam.name !== venue?.country;
+      const isWorldCup = !!competition?.toLowerCase().match(/rugby world cup/);
 
       return [
         ...memo,
-          {
-          homeTeam: teams.find(team => team.id === matchTeams[0]?.id) || null,
-          awayTeam: teams.find(team => team.id === matchTeams[1]?.id) || null,
-          homeScore: isComplete ? scores[0] : null,
-          awayScore: isComplete ? scores[1] : null,
-          isNeutralVenue: rankings.entries.map(({ name }) => name).includes(venue?.country),
-          isWorldCup: !!competition?.toLowerCase().match(/rugby world cup/),
-          updated: Date.now(),
+        {
+          homeTeam,
+          awayTeam,
+          homeScore,
+          awayScore,
+          isNeutralVenue,
+          isWorldCup,
           isComplete,
           venue,
           matchId,

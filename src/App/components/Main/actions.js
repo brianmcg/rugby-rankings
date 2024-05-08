@@ -7,5 +7,6 @@ export const ACTIONS = {
   UPDATE_RANKINGS: 'update',
   REMOVE_MATCH: 'remove',
   CLEAR_MATCHES: 'clear',
+  ADD_MATCH: 'add',
 };
 

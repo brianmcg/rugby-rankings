@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { formatApiDate, addMonths, subtractWeeks } from '@utils/date';
+import { formatApiDate, addWeeks } from '@utils/date';
 import { parseMatchResponse } from '@utils/parsers';
 
 const MENS_RANKINGS_URL = 'https://api.wr-rims-prod.pulselive.com/rugby/v3/rankings';
@@ -18,11 +18,11 @@ async function fetchData(url, params) {
 export const fetchRankings = (sport = 'mru') => fetchData(`${MENS_RANKINGS_URL}/${sport}`);
 
 export const fetchMatches = async (rankings, sport = 'mru') => {
-  const startDate = subtractWeeks(rankings.effective.millis, 1, 'week');
-  const endDate = addMonths(startDate, 1, 'month');
+  // const startDate = subtractWeeks(rankings.effective.millis, 1, 'week');
+  const endDate = addWeeks(rankings.effective.millis, 1);
 
   const queryParams = {
-    startDate: formatApiDate(startDate),
+    startDate: formatApiDate(rankings.effective.millis),
     endDate: formatApiDate(endDate),
     sort: 'asc',
     pageSize: 100,

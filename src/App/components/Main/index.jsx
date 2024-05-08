@@ -28,16 +28,19 @@ export default function Main() {
 
   const openModal = match => dispatch({ type: ACTIONS.OPEN_MODAL, payload: { match } });
   const closeModal = () => dispatch({ type: ACTIONS.CLOSE_MODAL });
+
   const removeMatch = matchId => dispatch({ type: ACTIONS.REMOVE_MATCH, payload: { matchId } });
   const clearMatches = () => dispatch({ type: ACTIONS.CLEAR_MATCHES });
   const resetMatches = () => dispatch({ type: ACTIONS.RESET_MATCHES });
+  const addMatch = match => dispatch({ type: ACTIONS.ADD_MATCH, payload: { match } });
+  const updateMatch = match => dispatch({ type: ACTIONS.UPDATE_MATCH, payload: { match } });
 
-  const updateRankings = useCallback(() => dispatch(
-    { type: ACTIONS.UPDATE_RANKINGS, payload: matches }),
-    [matches],
-  );
+  // const updateRankings = useCallback(() => dispatch(
+  //   { type: ACTIONS.UPDATE_RANKINGS, payload: matches }),
+  //   [matches],
+  // );
   
-  useEffect(() => updateRankings(matches), [matches, updateRankings]);
+  // useEffect(() => updateRankings(matches), [matches, updateRankings]);
   
   useEffect(() => {
     const fetchData = async () => {
@@ -77,7 +80,13 @@ export default function Main() {
           </Grid>
         </Grid>
       </Container>
-      <MatchModal selectedMatch={selectedMatch} handleClose={closeModal} teams={teams} />
+      <MatchModal
+        match={selectedMatch}
+        teams={teams}
+        onClose={closeModal}
+        onCreate={addMatch}
+        onUpdate={updateMatch}
+      />
     </main>
   );
 }

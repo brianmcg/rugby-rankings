@@ -1,12 +1,11 @@
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
-export default function TeamInput({ options, value, label, onChange, inputStyle }) {
+export default function TeamInput({ options, value, label, onChange }) {
   return (
     <Autocomplete
       sx={{ width: '30ch' }}
       onChange={onChange}
-      size="small"
       disablePortal
       value={value}
       options={options}
@@ -15,7 +14,6 @@ export default function TeamInput({ options, value, label, onChange, inputStyle 
         <TextField
           {...params}
           error={value === null}
-          inputProps = {{ ...params.inputProps, style: inputStyle }}
           label={label}
         />
       )}

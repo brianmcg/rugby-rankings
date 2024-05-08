@@ -15,11 +15,6 @@ import App from './App';
 import './index.css';
 
 const theme = createTheme({
-  typography: {
-    // caption: {
-    //   color: grey[500]
-    // }
-  },
   components: {
     MuiButton: {
       styleOverrides: {
@@ -38,10 +33,6 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 0,
-          // "&:hover .MuiOutlinedInput-notchedOutline": {
-          //   borderRadius: 20,
-          //   borderColor: "red"
-          // }
         }
       },
     },

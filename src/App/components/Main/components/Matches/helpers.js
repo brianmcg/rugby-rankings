@@ -1,5 +1,3 @@
-let matchIdCounter = 0;
-
 export const createMatch = () => {
   const date = new Date();
 
@@ -11,12 +9,11 @@ export const createMatch = () => {
     isComplete: false,
     isNeutralVenue: false,
     isWorldCup: false,
-    matchId: `new-${matchIdCounter++}`,
+    matchId: null,
     time: {
       millis: date.getTime(),
       gmtOffset: date.getTimezoneOffset() / 60,
     },
-    updated: null,
     venue: {
       name: null,
       city: null,
