@@ -5,8 +5,6 @@ import Footer from './components/Footer';
 
 import './App.css'
 
-// import SportsRugbyIcon from '@mui/icons-material/SportsRugby';
-
 function App() {
   const mainRef = useRef(null);
 

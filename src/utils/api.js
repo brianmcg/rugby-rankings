@@ -17,7 +17,7 @@ async function fetchData(url, params) {
 
 export const fetchRankings = (sport = 'mru') => fetchData(`${MENS_RANKINGS_URL}/${sport}`);
 
-export const fetchMatches = async (rankings, sport = 'mru') => {
+export const fetchMatches = async (sport = 'mru', rankings) => {
   // const startDate = subtractWeeks(rankings.effective.millis, 1, 'week');
   const endDate = addWeeks(rankings.effective.millis, 1);
 

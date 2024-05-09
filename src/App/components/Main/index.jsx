@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useCallback } from 'react';
+import { useReducer, useCallback } from 'react';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import ErrorMessage from '@components/ErrorMessage';
@@ -9,6 +9,7 @@ import Matches from './components/Matches';
 import { ACTIONS } from './actions';
 import { rankingsReducer } from './reducers';
 import MatchModal from './components/MatchModal';
+import { useOnMountUnsafe } from './hooks';
 // import ControlBar from './components/ControlBar';
 
 const initialState = {
@@ -19,11 +20,12 @@ const initialState = {
   isError: null,
   isLoading: true,
   selectedMatch: null,
+  sport: 'wru',
 };
 
 export default function Main() {
   const [state, dispatch] = useReducer(rankingsReducer, initialState);
-  const { rankings, matches, selectedMatch, isLoading, isError } = state;
+  const { rankings, matches, selectedMatch, isLoading, isError, sport } = state;
   const { entries, effective, label } = rankings;
   const teams = rankings?.entries?.map(entry => entry.team);
 
@@ -40,13 +42,13 @@ export default function Main() {
     [matches],
   );
   
-  useEffect(() => updateRankings(matches), [matches, updateRankings]);
+  useOnMountUnsafe(() => updateRankings(matches), [matches, updateRankings]);
   
-  useEffect(() => {
+  useOnMountUnsafe(() => {
     const fetchData = async () => {
       try {
-        const fetchedRankings = await fetchRankings();
-        const fetchedMatches = await fetchMatches(fetchedRankings);
+        const fetchedRankings = await fetchRankings(sport);
+        const fetchedMatches = await fetchMatches(sport, fetchedRankings);
 
         dispatch({ type: ACTIONS.FETCH_SUCCESS, payload: { rankings: fetchedRankings, matches: fetchedMatches } });
       } catch (isError) {
@@ -63,7 +65,7 @@ export default function Main() {
   return (
     <>
       <Container sx={{ mt: 4 }}>
-        <Grid container spacing={2} direction="row-reverse">
+        <Grid container spacing={4} direction="row-reverse">
           <Grid item xs={12} md={6}>
             <Matches
               matches={matches}

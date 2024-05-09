@@ -9,6 +9,7 @@ import MatchListItem from './components/MatchListItem';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 import AddIcon from '@mui/icons-material/Add';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -17,17 +18,19 @@ import { createMatch } from './helpers';
 export default function Matches({ matches = [], teams = [], openModal, clear, remove, reset }) {
 	return (
 		<Card>
-      <CardMedia image="/src/assets/images/mru/fixtures.png" sx={{ height: 120, color: 'white' }}>
+      <CardMedia image="/src/assets/images/mru/fixtures.png" sx={{ height: 100, color: 'white' }}>
         <Stack sx={{ height: '100%' }} direction="row" alignItems="flex-end" justifyContent="space-between">
           <CardHeader title={<Translate text={"app.main.matches.title"} />} />
         </Stack>
       </CardMedia>  
-      
-        <Box
+        <Stack
+          sx={{ p: 2, pb: 0, pr: 4 }}
+          spacing={1}
+          direction="row"
+          useFlexGap
+          flexWrap="wrap"
           display="flex"
           justifyContent="flex-end"
-          gap={2}
-          sx={{ p: 2, pb: 0 }}
         >
           <Button
             variant="contained"
@@ -53,8 +56,9 @@ export default function Matches({ matches = [], teams = [], openModal, clear, re
           >
             <Translate text="app.main.matches.add" />
           </Button>
+        </Stack>
 
-        </Box>
+        {/*</Box>*/}
       <CardContent>
         <List sx={{ p: 0 }}> {
           matches.map(match => 

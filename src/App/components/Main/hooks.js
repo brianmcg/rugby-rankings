@@ -1,4 +1,4 @@
-import { useReducer, useEffect } from 'react';
+import { useReducer, useEffect, useRef } from 'react';
 import { rankingsReducer } from './reducers';
 
 export function useAsync(asyncCallback, initialState) {
@@ -24,4 +24,15 @@ export function useAsync(asyncCallback, initialState) {
   }, [asyncCallback]);
 
   return state;
+}
+
+export function useOnMountUnsafe(effect) {
+  const initialized = useRef(false);
+
+  useEffect(() => {
+    if (!initialized.current) {
+      initialized.current = true;
+      effect();
+    }
+  }, [effect]);
 }
