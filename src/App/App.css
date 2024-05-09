@@ -1,39 +1,6 @@
 @font-face {
-  font-family: "Arthemis";
-  font-weight: bold;
-  font-style: normal;
-  src: url("/src/assets/fonts/Arthemis.woff") format("woff"),
-    url("/src/assets/fonts/Arthemis.ttf")  format("truetype");
-}
-
-@font-face {
-  font-family: "FineCollege";
-  font-weight: bold;
-  font-style: normal;
-  src: url("/src/assets/fonts/Fine College.ttf")  format("truetype");
-}
-
-@font-face {
   font-family: "UNIVERSIDAD";
   font-weight: bold;
   font-style: normal;
-  src: url("/src/assets/fonts/UNIVERSIDAD PERSONAL USE.ttf")  format("truetype");
+  src: url("/src/assets/fonts/UNIVERSIDAD.ttf")  format("truetype");
 }
-
-@font-face {
-  font-family: "CANDY";
-  font-weight: bold;
-  font-style: normal;
-  src: url("/src/assets/fonts/CANDY.otf");
-}
-
-@font-face {
-  font-family: "Brush&Wedco";
-  font-weight: bold;
-  font-style: normal;
-  src: url("/src/assets/fonts/Brush&Wedco.otf");
-}
-
-
-
-

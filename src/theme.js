@@ -1,6 +1,8 @@
 import { createTheme  } from '@mui/material/styles';
 import { colors } from '@constants/colors';
 
+// MuiCardMedia-root css-216qxx-MuiCardMedia-root
+
 const theme = createTheme({
   typography: {
     h1: {
@@ -17,7 +19,14 @@ const theme = createTheme({
           borderRadius: 0,
         },
       }, 
-    }, 
+    },
+    MuiCardMedia: {
+      styleOverrides: {
+        root: {
+          backgroundColor: colors.secondary,
+        }
+      }
+    },
     // MuiIconButton: {
     //   styleOverrides: {
     //     root: {

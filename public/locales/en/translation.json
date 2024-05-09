@@ -9,7 +9,9 @@
       "title": "Rugby Rankings"
     },
     "footer": {
-      "author": "Author: Brian McGrath"
+      "author": "Created by Brian McGrath",
+      "github": "See Github for source code",
+      "rankings": "Rankings and algorithm are the property of World Rugby"
     },
     "errors": {
       "fetch": "Failed to load data!"
