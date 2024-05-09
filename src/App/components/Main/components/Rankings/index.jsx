@@ -45,7 +45,7 @@ export default function Rankings({ entries, label, effective }) {
 
   return (
     <Card>
-      <CardMedia image="/src/assets/images/mru-rankings.png" sx={{ height: 120, color: 'white' }}>
+      <CardMedia image="/src/assets/images/mru/rankings.png" sx={{ height: 120, color: 'white' }}>
         <Stack sx={{ height: '100%' }} direction="row" alignItems="flex-end" justifyContent="space-between">
           <CardHeader title={<Translate text="app.main.rankings.title" options={{ label }}/>} />
           <Box sx={{ p: 2 }}>

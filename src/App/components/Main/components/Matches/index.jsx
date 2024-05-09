@@ -17,7 +17,7 @@ import { createMatch } from './helpers';
 export default function Matches({ matches = [], teams = [], openModal, clear, remove, reset }) {
 	return (
 		<Card>
-      <CardMedia image="/src/assets/images/mru-fixtures.png" sx={{ height: 120, color: 'white' }}>
+      <CardMedia image="/src/assets/images/mru/fixtures.png" sx={{ height: 120, color: 'white' }}>
         <Stack sx={{ height: '100%' }} direction="row" alignItems="flex-end" justifyContent="space-between">
           <CardHeader title={<Translate text={"app.main.matches.title"} />} />
         </Stack>

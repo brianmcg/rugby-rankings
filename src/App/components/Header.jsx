@@ -2,7 +2,7 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Translate from '@components/Translate';
 import { ParallaxBanner } from 'react-scroll-parallax';
-import backgroundSrc from '@assets/images/background.png';
+import backgroundSrc from '@assets/images/header-background.png';
 // import SportsRugbyIcon from '@mui/icons-material/SportsRugby';
 
 export default function Header() {
