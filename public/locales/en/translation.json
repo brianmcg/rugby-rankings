@@ -22,8 +22,8 @@
       },
       "rankings": {
         "title": "{{label}} Rankings",
-        "expand": "Expand",
-        "collapse": "Collapse",
+        "expand": "Show Full Table",
+        "collapse": "Hide Full Table",
         "table": {
           "team": "Team",
           "rank": "Rank",

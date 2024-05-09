@@ -17,63 +17,46 @@ import { createMatch } from './helpers';
 export default function Matches({ matches = [], teams = [], openModal, clear, remove, reset }) {
 	return (
 		<Card>
-      <CardMedia image="/src/assets/images/mru-fixtures.png" sx={{ height: 140, color: 'white' }}>
+      <CardMedia image="/src/assets/images/mru-fixtures.png" sx={{ height: 120, color: 'white' }}>
         <Stack sx={{ height: '100%' }} direction="row" alignItems="flex-end" justifyContent="space-between">
           <CardHeader title={<Translate text={"app.main.matches.title"} />} />
-          
         </Stack>
-      </CardMedia>
-
-{/*       sx={{
-            p: 2,
-            bgcolor: 'primary.main',
-            '&:hover': {
-              bgcolor: 'primary.dark',
-            }
-          }}*/}
-          
+      </CardMedia>  
+      
         <Box
           display="flex"
           justifyContent="flex-end"
           gap={2}
-          sx={{ p: 2 }}
+          sx={{ p: 2, pb: 0 }}
         >
-            {/*<Stack direction="row" justifyContent="center" spacing={1}>*/}
-              <Button
-                // sx={{ opacity: 0.75, '&:hover': { opacity: 1 } }}
-                // color="inherit"
-                variant="contained"
-                size="small"
-                startIcon={<RefreshIcon />}
-                onClick={() => reset()}
-              >
-                <Translate text="app.main.matches.reset" />
-              </Button>
-              <Button
-                // sx={{ opacity: 0.75, '&:hover': { opacity: 1 } }}
-                // color="inherit"
-                variant="contained"
-                size="small"
-                startIcon={<DeleteIcon />}
-                onClick={() => clear()}
-              >
-                <Translate text="app.main.matches.clear" />
-              </Button>
-              <Button
-                // sx={{ opacity: 0.75, '&:hover': { opacity: 1 } }}
-                // color="inherit"
-                variant="contained"
-                size="small"
-                startIcon={<AddIcon />}
-                onClick={() => openModal(createMatch())}
-              >
-                <Translate text="app.main.matches.add" />
-              </Button>
-            {/*</Stack>*/}
-        
-          </Box>
+          <Button
+            variant="contained"
+            size="small"
+            startIcon={<RefreshIcon />}
+            onClick={() => reset()}
+          >
+            <Translate text="app.main.matches.reset" />
+          </Button>
+          <Button
+            variant="contained"
+            size="small"
+            startIcon={<DeleteIcon />}
+            onClick={() => clear()}
+          >
+            <Translate text="app.main.matches.clear" />
+          </Button>
+          <Button
+            variant="contained"
+            size="small"
+            startIcon={<AddIcon />}
+            onClick={() => openModal(createMatch())}
+          >
+            <Translate text="app.main.matches.add" />
+          </Button>
+
+        </Box>
       <CardContent>
-        <List> {
+        <List sx={{ p: 0 }}> {
           matches.map(match => 
             (
               <ListItem alignItems="flex-start" key={match.matchId}>
