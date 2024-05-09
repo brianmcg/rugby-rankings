@@ -19,8 +19,9 @@ import Translate from '@components/Translate';
 import { format } from '@utils/date';
 import RankCell from './components/RankCell';
 import PointsCell from './components/PointsCell';
+import { colors } from '@constants/colors';
 
-const INITIAL_ROWS = 16;
+const INITIAL_ROWS = 10;
 
 const renderTableRows = (entries, fullTable) => {
   const rows = fullTable ? entries : entries.slice(0, INITIAL_ROWS);
@@ -31,7 +32,9 @@ const renderTableRows = (entries, fullTable) => {
       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
     >
       <RankCell pos={pos} previousPos={previousPos} />
-      <TableCell>{team.name}</TableCell>
+      <TableCell sx={{ color: colors.secondary, fontWeight: 700 }}>
+          {team.name}
+      </TableCell>
       <PointsCell pts={pts} previousPts={previousPts} />
     </TableRow>
   ))
@@ -52,14 +55,18 @@ export default function Rankings({ entries, label, effective }) {
       </CardMedia>
       <CardContent>
         <TableContainer>
-          <Table size="small">
+          <Table >
             <TableHead>
-              <TableRow>
-                <TableCell><Translate text="app.main.rankings.table.rank" /></TableCell>
+              <TableRow sx={{ opacity: 0.75 }}>
+                <TableCell>
+                  <Translate text="app.main.rankings.table.rank" />
+                </TableCell>
                 <TableCell>
                   <Translate text="app.main.rankings.table.team" />
                 </TableCell>
-                <TableCell><Translate text="app.main.rankings.table.points" /></TableCell>
+                <TableCell>
+                  <Translate text="app.main.rankings.table.points" />
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
