@@ -7,7 +7,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import IconButton from '@mui/material/IconButton';
 
 export default function Header({ onClickScroll }) {
-  const parallaxStyle = { height: '50%', aspectRatio: '3/1' };
+  const parallaxStyle = { height: '100vh', aspectRatio: '2/1' };
 
   const headingStyle = {
     position: 'absolute',

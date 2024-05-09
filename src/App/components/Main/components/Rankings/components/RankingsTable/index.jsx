@@ -28,7 +28,7 @@ export default function RankingsTable({ entries }) {
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <RankCell pos={pos} previousPos={previousPos} />
-              <TableCell>{team.name}</TableCell>
+              <TableCell style={{ fontWeight: 'bold' }}>{team.name}</TableCell>
               <PointsCell pts={pts} previousPts={previousPts} />
             </TableRow>
           ))}

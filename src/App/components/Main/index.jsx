@@ -9,6 +9,7 @@ import Matches from './components/Matches';
 import { ACTIONS } from './actions';
 import { rankingsReducer } from './reducers';
 import MatchModal from './components/MatchModal';
+// import ControlBar from './components/ControlBar';
 
 const initialState = {
   initialRankings: {},

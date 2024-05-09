@@ -5,6 +5,7 @@ import { CssBaseline } from '@mui/material/';
 import { createTheme, ThemeProvider  } from '@mui/material/styles';
 import i18n from '@utils/i18n';
 import App from './App';
+import { colors } from '@constants/colors';
 
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -26,9 +27,10 @@ const theme = createTheme({
     // h4: {
     //   fontFamily: 'UNIVERSIDAD',
     // },
-    // h5: {
-    //   fontFamily: 'UNIVERSIDAD',
-    // },
+    h5: {
+      fontWeight: 900,
+      // fontFamily: 'CANDY',
+    },
     // h6: {
       
     // },
@@ -38,19 +40,24 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 0,
-          // margin: 10,
         },
       }, 
     }, 
     MuiIconButton: {
       styleOverrides: {
         root: {
-            "&:hover": {
-          // color: "red",
-          // border: 'solid white 4px'
-        }
+          '&:hover': {
+            color: colors.primary,
+          }
         }
       },
+    },
+    MuiAppBar: {
+      styleOverrides: {
+        colorPrimary: {
+          // backgroundColor: colors.secondary,
+        }
+      }
     },
     MuiPaper: {
         styleOverrides: {
@@ -67,21 +74,27 @@ const theme = createTheme({
   },
   palette: {
     mode: 'light',
-    // primary: {
-    //   main: '#b05279',
-    // },
-    // secondary: {
-    //   main: '#b05279',
-    // },
-    background: {
-      default: '#e0e0e0',
+    primary: {
+      main: colors.primary,
     },
-    // error: {
-    //   main: "#e87d3e",
-    // },
-    // success: {
-    //   main: "#b4d273",
-    // },
+    secondary: {
+      main: colors.secondary,
+    },
+    background: {
+      default: colors.background,
+    },
+    info: {
+      main: colors.info,
+    },
+    success: {
+      main: colors.success,
+    },
+    warning: {
+      main: colors.warning,
+    },
+    error: {
+      main: colors.error,
+    },
   },
 });
 

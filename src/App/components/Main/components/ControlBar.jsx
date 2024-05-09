@@ -1,44 +1,20 @@
+import Typography from '@mui/material/Typography';
 import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
+import Toolbar from '@mui/material/Toolbar';
+import SportsRugbyIcon from '@mui/icons-material/SportsRugby';
 import Translate from '@components/Translate';
-import InfoIcon from '@mui/icons-material/Info';
-import RefreshIcon from '@mui/icons-material/Refresh';
 
-const renderOptions = ({ handleClickInfo, handleClickReset }) => {
+export default function ControlBar() {
   return (
-    <div>
-      <Button
-        color="inherit"
-        variant="outlined"
-        size="large"
-        startIcon={<InfoIcon />}
-        onClick={handleClickInfo}
-      >
-        <Translate text="app.main.control.info" />
-      </Button>
-      <Button
-        size="large"
-        color="inherit"
-        variant="outlined"
-        startIcon={<RefreshIcon />}
-        onClick={handleClickReset}
-      >
-        <Translate text="app.main.control.reset" />
-      </Button>
-    </div>
-  );
-}
-
-export default function ControlBar({ handleClickInfo, handleClickReset }) {
-  return (
-    <AppBar sx={{ mt: '-64px' }} position="static">
+    <AppBar position="static">
       <Container>
-      <Toolbar style={{ padding: 0 }} sx={{ justifyContent: "space-between" }}>
-        <div/>
-        {renderOptions({ handleClickInfo, handleClickReset })}
-      </Toolbar>
+        <Toolbar disableGutters>
+          <SportsRugbyIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <Typography variant="h6" color="inherit" component="div">
+            <Translate text="app.main.control.title" />
+          </Typography>
+        </Toolbar>
       </Container>
     </AppBar>
   );

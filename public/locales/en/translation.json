@@ -6,7 +6,7 @@
   },
   "app": {
     "header": {
-      "title": "Rugby Rankings Calculator"
+      "title": "Rugby Rankings"
     },
     "footer": {
       "author": "Author: Brian McGrath"
@@ -16,6 +16,7 @@
     },
     "main": {
       "control": {
+        "title": "Predict scores and see rankings",
         "reset": "Reset",
         "info": "Info"
       },

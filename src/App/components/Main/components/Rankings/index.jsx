@@ -1,9 +1,10 @@
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 
-import Stack from '@mui/material/Stack';
+import CardMedia from '@mui/material/CardMedia';
+import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-
+import Stack from '@mui/material/Stack';
 import CardContent from '@mui/material/CardContent';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -32,12 +33,14 @@ const renderTableRows = (entries) => (
 export default function Rankings({ entries, label, effective }) {
   return (
     <Card>
-      <CardHeader
-        title={
-          <Translate text="app.main.rankings.title" options={{ label }}/>
-        }
-        subheader={format(effective.millis)}
-      />
+      <CardMedia image="/src/assets/images/mru-rankings.png" sx={{ height: 140, color: 'white' }}>
+        <Stack sx={{ height: '100%' }} direction="row" alignItems="flex-end" justifyContent="space-between">
+          <CardHeader title={<Translate text="app.main.rankings.title" options={{ label }}/>} />
+          <Box sx={{ p: 2 }}>
+            <Typography>{format(effective.millis)}</Typography>
+          </Box>
+        </Stack>
+      </CardMedia>
       <CardContent>
         <TableContainer>
           <Table size="small">
