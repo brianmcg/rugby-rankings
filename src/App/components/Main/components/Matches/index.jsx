@@ -17,31 +17,34 @@ export default function Matches({ matches = [], teams = [], openModal, clear, re
 	return (
 		<Card>
       <Stack direction="row" justifyContent="space-between">
-        <CardHeader
-          title={<Translate text={"app.main.matches.title"} />}
-        />
-        <Box sx={{ m: 2 }}>
-          <Button
-            variant="contained"
-            startIcon={<RefreshIcon />}
-            onClick={() => reset()}
-          >
-            <Translate text="app.main.matches.reset" />
-          </Button>
-          <Button
-            variant="contained"
-            startIcon={<DeleteIcon />}
-            onClick={() => clear()}
-          >
-            <Translate text="app.main.matches.clear" />
-          </Button>
-          <Button
-            variant="contained"
-            startIcon={<AddIcon />}
-            onClick={() => openModal(createMatch())}
-          >
-          <Translate text="app.main.matches.add" />
-          </Button>
+        <CardHeader title={<Translate text={"app.main.matches.title"} />} />
+        <Box sx={{ p: 2 }}>
+          <Stack direction="row" justifyContent="center" spacing={1}>
+            <Button
+              variant="contained"
+              size="small"
+              startIcon={<RefreshIcon />}
+              onClick={() => reset()}
+            >
+              <Translate text="app.main.matches.reset" />
+            </Button>
+            <Button
+              variant="contained"
+              size="small"
+              startIcon={<DeleteIcon />}
+              onClick={() => clear()}
+            >
+              <Translate text="app.main.matches.clear" />
+            </Button>
+            <Button
+              variant="contained"
+              size="small"
+              startIcon={<AddIcon />}
+              onClick={() => openModal(createMatch())}
+            >
+            <Translate text="app.main.matches.add" />
+            </Button>
+          </Stack>
         </Box>
       </Stack>
       <CardContent>

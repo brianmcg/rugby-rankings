@@ -60,7 +60,7 @@ export default function Main() {
   if (isLoading) return <Loading />
 
   return (
-    <main>
+    <>
       <Container sx={{ mt: 2 }}>
         <Grid container spacing={2} direction="row-reverse">
           <Grid item xs={12} md={6}>
@@ -85,6 +85,6 @@ export default function Main() {
         onCreate={addMatch}
         onUpdate={updateMatch}
       />
-    </main>
+    </>
   );
 }

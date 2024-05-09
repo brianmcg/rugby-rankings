@@ -1,11 +1,14 @@
 import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
 import Translate from '@components/Translate';
 import { ParallaxBanner } from 'react-scroll-parallax';
 import backgroundSrc from '@assets/background.png';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import IconButton from '@mui/material/IconButton';
 // import SportsRugbyIcon from '@mui/icons-material/SportsRugby';
 
-export default function Header() {
-  const parallaxStyle = { height: 480, aspectRatio: '2/1' };
+export default function Header({ onClickScroll }) {
+  const parallaxStyle = { height: '100vh', aspectRatio: '2/1' };
 
   const headingStyle = {
     position: 'absolute',
@@ -17,14 +20,20 @@ export default function Header() {
   };
 
   return (
-    <ParallaxBanner
-      style={parallaxStyle}
-      layers={[{ image: backgroundSrc, speed: -30 }]}
-    >
-      <Typography color="inherit" style={headingStyle} variant="h1" component="div" sx={{ flexGrow: 1 }}>
-        {/*<SportsRugbyIcon />*/}
-        <Translate text="app.header.title" />
-      </Typography>
+    <ParallaxBanner style={parallaxStyle} layers={[{ image: backgroundSrc, speed: -30 }]}>
+      <Stack style={headingStyle} sx={{ flexGrow: 1 }}>
+        <Typography color="inherit" variant="h1" align="center">
+          <Translate text="app.header.title" /> 
+        </Typography>
+        <IconButton
+          sx={{ border: '2px solid white', color: 'white', m: 2 }}
+          onClick={onClickScroll}
+          size="large"
+        >
+          <KeyboardArrowDownIcon />
+        </IconButton>
+
+      </Stack>
     </ParallaxBanner>
   );
 }

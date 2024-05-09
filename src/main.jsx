@@ -3,27 +3,55 @@ import { I18nextProvider } from 'react-i18next';
 import { ParallaxProvider } from 'react-scroll-parallax';
 import { CssBaseline } from '@mui/material/';
 import { createTheme, ThemeProvider  } from '@mui/material/styles';
-// import { grey } from '@mui/material/colors';
+import i18n from '@utils/i18n';
+import App from './App';
 
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-
-import i18n from '@utils/i18n';
-import App from './App';
 import './index.css';
 
 const theme = createTheme({
+  typography: {
+    h1: {
+      fontFamily: 'UNIVERSIDAD',
+    },
+    // h2: {
+    //   fontFamily: 'UNIVERSIDAD',
+    // },
+    // h3: {
+    //   fontFamily: 'UNIVERSIDAD',
+    // },
+    // h4: {
+    //   fontFamily: 'UNIVERSIDAD',
+    // },
+    // h5: {
+    //   fontFamily: 'UNIVERSIDAD',
+    // },
+    // h6: {
+      
+    // },
+  },
   components: {
     MuiButton: {
       styleOverrides: {
         root: {
           borderRadius: 0,
-          margin: 10,
+          // margin: 10,
         },
       }, 
     }, 
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+            "&:hover": {
+          // color: "red",
+          // border: 'solid white 4px'
+        }
+        }
+      },
+    },
     MuiPaper: {
         styleOverrides: {
           rounded: { borderRadius: 0 },

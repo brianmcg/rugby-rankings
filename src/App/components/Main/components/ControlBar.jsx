@@ -10,7 +10,8 @@ const renderOptions = ({ handleClickInfo, handleClickReset }) => {
   return (
     <div>
       <Button
-        color="inherit" variant="outlined"
+        color="inherit"
+        variant="outlined"
         size="large"
         startIcon={<InfoIcon />}
         onClick={handleClickInfo}
@@ -19,7 +20,8 @@ const renderOptions = ({ handleClickInfo, handleClickReset }) => {
       </Button>
       <Button
         size="large"
-        color="inherit" variant="outlined"
+        color="inherit"
+        variant="outlined"
         startIcon={<RefreshIcon />}
         onClick={handleClickReset}
       >

@@ -31,8 +31,8 @@ export default function MatchListItem({ match, onClickEdit, onClickRemove }) {
       sx={{ padding: 2, width: '100%', borderLeft: `solid 4px ${color}` }}
     >
       <Stack direction="row" justifyContent="space-between" sx={{ mb: 2 }}>
-        <Typography sx={{ opacity: 0.6 }}variant="caption">{formatDay(time.millis)}</Typography>
-        <Typography sx={{ opacity: 0.6 }}variant="caption" align="right">{venue?.name}</Typography>
+        <Typography sx={{ opacity: 0.6 }} variant="caption">{formatDay(time.millis)}</Typography>
+        <Typography sx={{ opacity: 0.6 }} variant="caption" align="right">{venue?.name}</Typography>
       </Stack>
 
       <Grid container sx={{ marginTop: 1 }}>
@@ -62,7 +62,7 @@ export default function MatchListItem({ match, onClickEdit, onClickRemove }) {
         </Grid>
       </Grid>
 
-      <Stack direction="row" justifyContent="center" sx={{ marginTop: 1 }}>
+      <Stack direction="row" justifyContent="center" spacing={1} sx={{ mt: 2 }}>
         <Button
           size="small"
           color={isComplete ? "primary" : "secondary" }

@@ -1,5 +1,9 @@
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
+
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
+
 import CardContent from '@mui/material/CardContent';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -13,7 +17,7 @@ import RankCell from './components/RankCell';
 import PointsCell from './components/PointsCell';
 
 const renderTableRows = (entries) => (
-  entries.map(({ pos, previousPos, pts, previousPts,team }) => (
+  entries.map(({ pos, previousPos, pts, previousPts, team }) => (
     <TableRow
       key={team.id}
       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -29,7 +33,9 @@ export default function Rankings({ entries, label, effective }) {
   return (
     <Card>
       <CardHeader
-        title={<Translate text="app.main.rankings.title" options={ { label }}/>}
+        title={
+          <Translate text="app.main.rankings.title" options={{ label }}/>
+        }
         subheader={format(effective.millis)}
       />
       <CardContent>
