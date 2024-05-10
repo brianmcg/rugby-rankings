@@ -10,13 +10,13 @@ import { colors } from '@constants/colors';
 const formatPoints = pts => (Math.round(pts * 100) / 100).toFixed(2);
 
 const renderContents = (pts, previousPts) => {
-  const upStyle = { color: colors.success, fontSize: 14, fontWeight: 700 };
-  const downStyle = { color: colors.error, fontSize: 14, fontWeight: 700 };
+  const upStyle = { color: colors.success, fontSize: 14 };
+  const downStyle = { color: colors.error, fontSize: 14 };
 
   if (pts > previousPts) {
     return (
       <Stack alignItems="center" direction="row" gap={1}>
-        <Typography variant="body2">{formatPoints(pts)}</Typography>
+        <Typography variant="body1">{formatPoints(pts)}</Typography>
         <ArrowUpwardIcon style={upStyle} />
         <Typography style={upStyle} variant="body2">({formatPoints(previousPts)})</Typography>
       </Stack>
@@ -24,7 +24,7 @@ const renderContents = (pts, previousPts) => {
   } else if (pts < previousPts) {
     return (
       <Stack alignItems="center" direction="row" gap={1}>
-        <Typography variant="body2">{formatPoints(pts) }</Typography>
+        <Typography variant="body1">{formatPoints(pts) }</Typography>
         <ArrowDownwardIcon style={downStyle} />
         <Typography style={downStyle} variant="body2">({formatPoints(previousPts)})</Typography>
       </Stack>
@@ -32,7 +32,8 @@ const renderContents = (pts, previousPts) => {
   } else {
     return (
       <Stack alignItems="center" direction="row">
-        {formatPoints(pts)}
+        <Typography variant="body1">{formatPoints(pts)}</Typography>
+        
       </Stack>
     );
   }

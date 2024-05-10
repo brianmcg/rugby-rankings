@@ -18,6 +18,7 @@ import Translate from '@components/Translate';
 import RankCell from './components/RankCell';
 import PointsCell from './components/PointsCell';
 import { colors } from '@constants/colors';
+import Typography from '@mui/material/Typography';
 
 const INITIAL_ROWS = 10;
 
@@ -30,8 +31,8 @@ const renderTableRows = (entries, fullTable) => {
       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
     >
       <RankCell pos={pos} previousPos={previousPos} />
-      <TableCell sx={{ color: colors.secondary, fontWeight: 700 }}>
-          {team.name}
+      <TableCell sx={{ color: colors.secondary }}>
+        <Typography variant="body2" sx={{ fontSize: 16 }}>{team.name}</Typography>
       </TableCell>
       <PointsCell pts={pts} previousPts={previousPts} />
     </TableRow>

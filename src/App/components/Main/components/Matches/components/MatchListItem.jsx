@@ -27,14 +27,13 @@ export default function MatchListItem({ match, onClickEdit, onClickRemove }) {
     <Paper elevation={3} sx={{ padding: 2, width: '100%', borderLeft: `solid 4px ${color}` }} >
       {/* Render date and venue */}
       <Stack direction="row" justifyContent="space-between" sx={{ mb: 2 }}>
-        <Typography sx={{ opacity: 0.6 }} variant="caption">{formatDay(time.millis)}</Typography>
-        <Typography sx={{ opacity: 0.6 }} variant="caption" align="right">{venue?.name}</Typography>
+        <Typography sx={{ opacity: 0.6 }} variant="subtitle2">{formatDay(time.millis)}</Typography>
+        <Typography sx={{ opacity: 0.6 }} variant="subtitle2" align="right">{venue?.name}</Typography>
       </Stack>
 
       <Grid container direction="row" justifyContent="space-between" alignItems="center">
         {/* Render match result */}
         <Stack
-          sx={{width: '50%'}}
           spacing={1}
           direction="row"
           useFlexGap
@@ -43,16 +42,15 @@ export default function MatchListItem({ match, onClickEdit, onClickRemove }) {
           justifyContent="flex-start"
         >
           <Typography>{homeTeam.name}</Typography>
-          <Typography sx={{ fontWeight: 700 }}>
+          <Typography sx={{ fontWeight: 900 }}>
             {isComplete ? `${homeScore} - ${awayScore}` : formatTime(time.millis)}
           </Typography>
           <Typography>{awayTeam.name}</Typography>
         </Stack>
  
 
-      {/* Render option buttons */}
+        {/* Render option buttons */}
         <Stack
-          sx={{width: '50%'}}
           spacing={1}
           direction="row"
           useFlexGap

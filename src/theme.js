@@ -3,8 +3,9 @@ import { colors } from '@constants/colors';
 
 const theme = createTheme({
   typography: {
+    fontFamily: 'Webb Ellis Cup',
     h1: {
-      fontFamily: 'UNIVERSIDAD',
+      fontStyle: 'italic',
       fontSize: 48,
     },
     h5: {
@@ -13,12 +14,25 @@ const theme = createTheme({
     h6: {
       fontWeight: 900,
     },
+    body2: {
+      fontWeight: 900,
+    },
+    button: {
+      fontWeight: 900,
+      textTransform: 'none',
+    }
   },
   components: {
     MuiButton: {
       styleOverrides: {
         root: {
           borderRadius: 0,
+                    transitionBehavior :'normal',
+          transitionDelay: '0s',
+          transitionDuration: '0.2s',
+          transitionProperty: 'all',
+          transitionTimingFunction: 'linear',
+          textDecoration: 'none',
         },
       }, 
     },

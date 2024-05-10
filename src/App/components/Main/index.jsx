@@ -106,12 +106,16 @@ export default function Main() {
         <Container>
           <Stack direction="row" alignItems="center" justifyContent="space-between">
             <Stack direction="row" spacing={1} alignItems="center">
-              <Typography sx={{ fontWeight: 300 }} variant="subtitle2"><Translate text="app.main.updated" /></Typography>
-              <Typography variant="subtitle2">{formatDay(effective.millis)}</Typography>
+              <Typography variant="subtitle2" sx={{ textTransform: 'uppercase' }}>
+                <Translate text="app.main.updated" />
+              </Typography>
+              <Typography variant="subtitle2" sx={{ fontWeight: 900 }}>
+                {formatDay(effective.millis)}
+              </Typography>
             </Stack>
 
             <Button
-              sx={{ opacity: 0.75, '&:hover': { opacity: 1 } }}
+              sx={{ opacity: 0.6, '&:hover': { opacity: 1 } }}
               color="inherit"
               size="small"
               startIcon={<RefreshIcon />}

@@ -6,13 +6,13 @@ import Stack from '@mui/material/Stack';
 import { colors } from '@constants/colors';
 
 const renderContents = (pos, previousPos) => {
-  const upStyle = { color: colors.success, fontSize: 14, fontWeight: 700 };
-  const downStyle = { color: colors.error, fontSize: 14, fontWeight: 700 };
+  const upStyle = { color: colors.success, fontSize: 14 };
+  const downStyle = { color: colors.error, fontSize: 14 };
 
   if (pos < previousPos) {
     return (
       <Stack alignItems="center" direction="row" gap={1}>
-        <Typography variant="body2">{pos}</Typography>
+        <Typography variant="body1">{pos}</Typography>
         <ArrowUpwardIcon style={upStyle} />
         <Typography style={upStyle} variant="body2">({previousPos})</Typography>
       </Stack>
@@ -20,7 +20,7 @@ const renderContents = (pos, previousPos) => {
   } else if (pos > previousPos) {
     return (
       <Stack alignItems="center" direction="row" gap={1}>
-        <Typography variant="body2">{pos}</Typography>
+        <Typography variant="body1">{pos}</Typography>
         <ArrowDownwardIcon style={downStyle} />
         <Typography style={downStyle} variant="body2">({previousPos})</Typography>
       </Stack>
@@ -28,7 +28,7 @@ const renderContents = (pos, previousPos) => {
   } else {
     return (
       <Stack alignItems="center" direction="row">
-        {pos}
+        <Typography variant="body1">{pos}</Typography>
       </Stack>
     );
   }

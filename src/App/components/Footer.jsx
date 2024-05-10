@@ -29,7 +29,7 @@ const renderOption = ({ icon, label, href }) => (
   <Stack key={href} direction="row" alignItems="center" gap={1}>
     {icon}
     <Link href={href} target="_blank" color="inherit">
-      <Typography variant="body2">
+      <Typography variant="caption">
         <Translate text={label} />
       </Typography>
     </Link>
