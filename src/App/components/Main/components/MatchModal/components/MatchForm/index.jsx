@@ -10,6 +10,8 @@ import { matchReducer } from './reducers';
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
 import Box from '@mui/material/Box';
+import { colors } from '@constants/colors';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 export default function MatchForm({ match: initalMatch, teams, onCreate, onUpdate }) {
   const [match, dispatch] = useReducer(matchReducer, initalMatch);
@@ -60,9 +62,9 @@ export default function MatchForm({ match: initalMatch, teams, onCreate, onUpdat
 
   const onClickConfirm = match => {
     if (match.matchId) {
-      onUpdate(match);
+      onUpdate({ ...match, isCreated: true });
     } else {
-      onCreate(match);
+      onCreate({ ...match, isCreated: true });
     }
   };
 
@@ -107,10 +109,17 @@ export default function MatchForm({ match: initalMatch, teams, onCreate, onUpdat
         />
       </Stack>
 
-      <Stack direction="row" justifyContent="right">
+      <Stack direction="row" spacing={2} justifyContent="right">
         <Button
+          sx={{ color: 'secondary', '&:hover': { color: colors.error }}}
+          startIcon={<CancelIcon />}
+          onClick={() => onClickConfirm(match)}
+        >
+          <Translate text="app.main.modal.cancel" />
+        </Button>
+        <Button
+          sx={{ color: 'secondary', '&:hover': { color: colors.success }}}
           disabled={!isComplete}
-          variant="contained"
           startIcon={<SendIcon />}
           onClick={() => onClickConfirm(match)}
         >

@@ -44,15 +44,11 @@ const onClearMatches = state => ({
 });
 
 const onAddMatch = (state, payload) => {
-  const match = {
-    ...payload.match,
-    isCreated: true,
-    matchId: `new-${matchIdCounter++}`
-  };
+  const match = { ...payload.match, matchId: `new-${matchIdCounter++}` };
   
   return {
     ...state, selectedMatch: null,
-    matches: [...state.matches, match].sort((a, b) => a.time.millis - b.time.millis),
+    matches: [...state.matches, match],
   };
 };
 

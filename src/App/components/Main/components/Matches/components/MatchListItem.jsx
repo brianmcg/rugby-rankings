@@ -8,6 +8,7 @@ import Translate from '@components/Translate';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { getColor } from './helpers';
+import { colors } from '@constants/colors';
 
 export default function MatchListItem({ match, onClickEdit, onClickRemove }) {
   const {
@@ -15,7 +16,7 @@ export default function MatchListItem({ match, onClickEdit, onClickRemove }) {
     awayTeam,
     homeScore,
     awayScore,
-    venue,
+    // venue,
     time,
     matchId,
     isComplete,
@@ -26,10 +27,10 @@ export default function MatchListItem({ match, onClickEdit, onClickRemove }) {
   return (
     <Paper elevation={3} sx={{ padding: 2, width: '100%', borderLeft: `solid 5px ${color}` }} >
       {/* Render date and venue */}
-      <Stack direction="row" justifyContent="space-between" sx={{ mb: 2 }}>
-        <Typography sx={{ opacity: 0.6 }} variant="subtitle2">{formatDay(time.millis)}</Typography>
+{/*      <Stack direction="row" justifyContent="space-between" sx={{ mb: 2 }}>
+        <Typography sx={{ opacity: 0.75 }} variant="subtitle2">{formatDay(time.millis)}</Typography>
         <Typography sx={{ opacity: 0.6 }} variant="subtitle2" align="right">{venue?.name}</Typography>
-      </Stack>
+      </Stack>*/}
 
       <Grid container direction="row" justifyContent="space-between" alignItems="center">
         {/* Render match result */}
@@ -51,7 +52,7 @@ export default function MatchListItem({ match, onClickEdit, onClickRemove }) {
 
         {/* Render option buttons */}
         <Stack
-          spacing={1}
+          spacing={2}
           direction="row"
           useFlexGap
           flexWrap="wrap"
@@ -61,20 +62,20 @@ export default function MatchListItem({ match, onClickEdit, onClickRemove }) {
           <Button
             size="small"
             color="primary"
-            variant="contained"
-            startIcon={<EditIcon />}
-            onClick={() => onClickEdit(match)}
-          >
-            <Translate text={isComplete ? "app.main.matches.update" : "app.main.matches.predict" } />
-          </Button>
-          <Button
-            size="small"
-            color="primary"
-            variant="contained"
+            sx={{ color: 'secondary', '&:hover': { color: colors.error }}}
             startIcon={<DeleteIcon />}
             onClick={() => onClickRemove(matchId)}
           >
             <Translate text="app.main.matches.remove" />
+          </Button>
+          <Button
+            size="small"
+            color="primary"
+            sx={{ color: 'secondary', '&:hover': { color: colors.success }}}
+            startIcon={<EditIcon />}
+            onClick={() => onClickEdit(match)}
+          >
+            <Translate text={isComplete ? "app.main.matches.update" : "app.main.matches.predict" } />
           </Button>
         </Stack>
 

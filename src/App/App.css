@@ -1,8 +1,8 @@
 @font-face {
-  font-family: "UNIVERSIDAD";
+  font-family: 'UNIVERSIDAD';
   font-weight: bold;
   font-style: normal;
-  src: url("/src/assets/fonts/UNIVERSIDAD.ttf")  format("truetype");
+  src: url('/src/assets/fonts/UNIVERSIDAD.ttf')  format('truetype');
 }
 
 @font-face {

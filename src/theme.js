@@ -5,7 +5,7 @@ const theme = createTheme({
   typography: {
     fontFamily: 'Webb Ellis Cup',
     h1: {
-      fontStyle: 'italic',
+      fontWeight: 900,
       fontSize: 48,
     },
     h5: {
@@ -27,7 +27,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 0,
-                    transitionBehavior :'normal',
+          transitionBehavior :'normal',
           transitionDelay: '0s',
           transitionDuration: '0.2s',
           transitionProperty: 'all',

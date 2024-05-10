@@ -48,7 +48,8 @@
         "score": "Score",
         "neutral": "Neutral Venue",
         "rwc": "Rugby World Cup",
-        "confirm": "Confirm"
+        "confirm": "Confirm",
+        "cancel": "Cancel"
       }
     }
   }
