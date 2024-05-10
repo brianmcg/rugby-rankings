@@ -13,7 +13,7 @@ import Box from '@mui/material/Box';
 import { colors } from '@constants/colors';
 import CancelIcon from '@mui/icons-material/Cancel';
 
-export default function MatchForm({ match: initalMatch, teams, onCreate, onUpdate }) {
+export default function MatchForm({ match: initalMatch, teams, onCreate, onUpdate, onClose }) {
   const [match, dispatch] = useReducer(matchReducer, initalMatch);
   
   const {
@@ -113,7 +113,7 @@ export default function MatchForm({ match: initalMatch, teams, onCreate, onUpdat
         <Button
           sx={{ color: 'secondary', '&:hover': { color: colors.error }}}
           startIcon={<CancelIcon />}
-          onClick={() => onClickConfirm(match)}
+          onClick={onClose}
         >
           <Translate text="app.main.modal.cancel" />
         </Button>

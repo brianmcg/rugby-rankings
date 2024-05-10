@@ -22,7 +22,7 @@ export default function TransitionsModal({ match, teams, onClose, onCreate, onUp
   return (
     <Modal
       open={isOpen}
-      onClose={() => onClose(10)}
+      onClose={onClose}
       closeAfterTransition
       slots={{ backdrop: Backdrop }}
       slotProps={{ backdrop: { timeout: 500 } }}
@@ -37,6 +37,7 @@ export default function TransitionsModal({ match, teams, onClose, onCreate, onUp
             teams={teams}
             onCreate={onCreate}
             onUpdate={onUpdate}
+            onClose={onClose}
           />
         </Box>
       </Fade>
