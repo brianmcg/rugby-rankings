@@ -26,7 +26,7 @@ const options = [{
 }];
 
 const renderOption = ({ icon, label, href }) => (
-  <Stack direction="row" alignItems="center" gap={1}>
+  <Stack key={href} direction="row" alignItems="center" gap={1}>
     {icon}
     <Link
       href={href}

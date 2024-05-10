@@ -25,6 +25,29 @@ const theme = createTheme({
         }
       }
     },
+    // MuiTabs: {
+    //   styleOverrides: {
+    //     root: {
+    //       backgroundColor: colors.secondary,
+    //     },
+    //     indicator: {
+    //       backgroundColor: 'white',
+    //     },
+    //   },
+    // },
+    // MuiTab: {
+    //   styleOverrides: {
+    //     root:{
+    //       color: 'white',
+    //       opacity: 0.5,
+    //       '&.Mui-selected': {
+    //         backgroundColor: colors.primary,
+    //         color: 'white',
+    //         opacity: 1,
+    //       }
+    //     }
+    //   },
+    // },
     // MuiIconButton: {
     //   styleOverrides: {
     //     root: {

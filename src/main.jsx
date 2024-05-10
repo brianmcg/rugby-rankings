@@ -1,4 +1,4 @@
-import { StrictMode } from 'react';
+// import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client'
 import { I18nextProvider } from 'react-i18next';
 import { ParallaxProvider } from 'react-scroll-parallax';
@@ -15,7 +15,7 @@ import '@fontsource/roboto/700.css';
 import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  // <StrictMode>
     <ParallaxProvider>
       <I18nextProvider i18n={i18n}>
         <ThemeProvider theme={theme}>
@@ -24,5 +24,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       </ThemeProvider>
       </I18nextProvider>
     </ParallaxProvider>
-  </StrictMode>
+  // </StrictMode>
 );

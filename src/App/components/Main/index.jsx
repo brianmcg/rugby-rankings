@@ -1,5 +1,10 @@
 import { useReducer, useCallback, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
+
+import Box from '@mui/material/Box';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+
 import Container from '@mui/material/Container';
 import ErrorMessage from '@components/ErrorMessage';
 import Loading from '@components/Loading';
@@ -9,8 +14,9 @@ import Matches from './components/Matches';
 import { ACTIONS } from './actions';
 import { rankingsReducer } from './reducers';
 import MatchModal from './components/MatchModal';
-import { useOnMountUnsafe } from './hooks';
-// import ControlBar from './components/ControlBar';
+// import { useOnMountUnsafe } from './hooks';
+// import { colors } from '@constants/colors';
+import ControlBar from './components/ControlBar';
 
 const initialState = {
   initialRankings: {},
@@ -20,7 +26,7 @@ const initialState = {
   isError: null,
   isLoading: true,
   selectedMatch: null,
-  sport: 'wru',
+  sport: 'mru',
 };
 
 export default function Main() {
@@ -36,6 +42,7 @@ export default function Main() {
   const resetMatches = () => dispatch({ type: ACTIONS.RESET_MATCHES });
   const addMatch = match => dispatch({ type: ACTIONS.ADD_MATCH, payload: { match } });
   const updateMatch = match => dispatch({ type: ACTIONS.UPDATE_MATCH, payload: { match } });
+  const changeSport = (e, sport) => dispatch({ type: ACTIONS.CHANGE_SPORT, payload: { sport }});
 
   const updateRankings = useCallback(() => dispatch(
     { type: ACTIONS.UPDATE_RANKINGS, payload: { matches } }),
@@ -44,7 +51,7 @@ export default function Main() {
   
   useEffect(() => updateRankings(matches), [matches, updateRankings]);
   
-  useOnMountUnsafe(() => {
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const fetchedRankings = await fetchRankings(sport);
@@ -57,14 +64,30 @@ export default function Main() {
     }
 
     fetchData();
-  }, []);
+  }, [sport]);
 
   if (isError) return <ErrorMessage message="app.errors.fetch" />
   if (isLoading) return <Loading />
 
   return (
     <>
-      {/*<ControlBar />*/}
+      <ControlBar />
+      <Box sx={{ width: '100%' }}>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <Container>
+            <Tabs
+              variant="fullWidth"
+              value={sport}
+              onChange={changeSport}
+              textColor="primary"
+              indicatorColor="primary"
+            >
+              <Tab sx={{}} label="mru" value="mru" />
+              <Tab sx={{}} label="wru" value="wru" />
+            </Tabs>
+          </Container>
+        </Box>
+      </Box>
       <Container sx={{ mt: 4 }}>
         <Grid container spacing={4} direction="row-reverse">
           <Grid item xs={12} md={6}>

@@ -72,6 +72,7 @@ const onUpdateRankings = (state, payload) => {
   return { ...state, rankings };
 };
 
+const onChangeSport = (state, payload) => ({ ...state, sport: payload.sport });
 
 export function rankingsReducer(state, { type, payload }) {
   switch (type) {
@@ -85,6 +86,7 @@ export function rankingsReducer(state, { type, payload }) {
     case ACTIONS.ADD_MATCH: return onAddMatch(state, payload);
     case ACTIONS.UPDATE_MATCH: return onUpdateMatch(state, payload);
     case ACTIONS.UPDATE_RANKINGS: return onUpdateRankings(state, payload);
+    case ACTIONS.CHANGE_SPORT: return onChangeSport(state, payload);
     default: return state;
   }
 }

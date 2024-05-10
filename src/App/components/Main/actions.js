@@ -8,5 +8,6 @@ export const ACTIONS = {
   REMOVE_MATCH: 'remove',
   CLEAR_MATCHES: 'clear',
   ADD_MATCH: 'add',
+  CHANGE_SPORT: 'change',
 };
 

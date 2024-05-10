@@ -5,7 +5,7 @@ export const parseMatchResponse = (response, rankings) => {
     const isRankedMatch = match.teams.reduce((memo, team) => memo && teamIds.includes(team.id), true);
 
     if (isRankedMatch) {
-      const { venue, teams: matchTeams = [], scores = [], status, competition, matchId, time } = match;
+      const { venue, teams: matchTeams = [], scores = [], status, rankingsWeight, matchId, time } = match;
       const isComplete = status === 'C';
 
       const teams = rankings.entries.map(entry => entry.team);
@@ -14,7 +14,7 @@ export const parseMatchResponse = (response, rankings) => {
       const homeScore = isComplete ? scores[0] : null;
       const awayScore = isComplete ? scores[1] : null;
       const isNeutralVenue = venue !== null && homeTeam.name !== venue?.country;
-      const isWorldCup = !!competition?.toLowerCase().match(/rugby world cup/);
+      const isWorldCup = rankingsWeight == 2;
 
       return [
         ...memo,
