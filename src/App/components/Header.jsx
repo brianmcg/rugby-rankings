@@ -3,7 +3,6 @@ import Stack from '@mui/material/Stack';
 import Translate from '@components/Translate';
 import { ParallaxBanner } from 'react-scroll-parallax';
 import backgroundSrc from '@assets/images/header-background.png';
-// import SportsRugbyIcon from '@mui/icons-material/SportsRugby';
 
 export default function Header() {
   const parallaxStyle = { height: 400, aspectRatio: '3/1' };
@@ -23,7 +22,6 @@ export default function Header() {
         <Typography color="inherit" variant="h1" align="center">
           <Translate text="app.header.title" /> 
         </Typography>
-        {/*<SportsRugbyIcon />*/}
       </Stack>
     </ParallaxBanner>
   );

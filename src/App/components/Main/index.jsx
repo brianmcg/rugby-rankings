@@ -1,4 +1,4 @@
-import { useReducer, useCallback } from 'react';
+import { useReducer, useCallback, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import ErrorMessage from '@components/ErrorMessage';
@@ -42,7 +42,7 @@ export default function Main() {
     [matches],
   );
   
-  useOnMountUnsafe(() => updateRankings(matches), [matches, updateRankings]);
+  useEffect(() => updateRankings(matches), [matches, updateRankings]);
   
   useOnMountUnsafe(() => {
     const fetchData = async () => {
@@ -64,6 +64,7 @@ export default function Main() {
 
   return (
     <>
+      {/*<ControlBar />*/}
       <Container sx={{ mt: 4 }}>
         <Grid container spacing={4} direction="row-reverse">
           <Grid item xs={12} md={6}>

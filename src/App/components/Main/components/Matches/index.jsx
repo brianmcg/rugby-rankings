@@ -57,10 +57,8 @@ export default function Matches({ matches = [], teams = [], openModal, clear, re
             <Translate text="app.main.matches.add" />
           </Button>
         </Stack>
-
-        {/*</Box>*/}
       <CardContent>
-        <List sx={{ p: 0 }}> {
+        <List sx={{ p: 0, maxHeight: '100%', overflow: 'auto' }}> {
           matches.map(match => 
             (
               <ListItem alignItems="flex-start" key={match.matchId}>
