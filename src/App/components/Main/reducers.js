@@ -46,6 +46,7 @@ const onClearMatches = state => ({
 const onAddMatch = (state, payload) => {
   const match = {
     ...payload.match,
+    isCreated: true,
     matchId: `new-${matchIdCounter++}`
   };
   

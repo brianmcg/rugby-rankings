@@ -51,6 +51,7 @@ export const parseMatchResponse = (response, rankings) => {
           venue,
           matchId,
           time,
+          isCreated: false,
         },
       ]; // .sort((a, b) => b.time.millis - a.time.millis);
     }
