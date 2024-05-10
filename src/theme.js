@@ -25,16 +25,17 @@ const theme = createTheme({
         }
       }
     },
-    // MuiTabs: {
-    //   styleOverrides: {
-    //     root: {
-    //       backgroundColor: colors.secondary,
-    //     },
-    //     indicator: {
-    //       backgroundColor: 'white',
-    //     },
-    //   },
-    // },
+    MuiTabs: {
+      styleOverrides: {
+        root: {
+          backgroundColor: 'white',
+        },
+        indicator: {
+          backgroundColor: colors.success,
+          height: 5,
+        },
+      },
+    },
     // MuiTab: {
     //   styleOverrides: {
     //     root:{

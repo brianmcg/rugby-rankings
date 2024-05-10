@@ -8,14 +8,11 @@ import ListItem from '@mui/material/ListItem';
 import MatchListItem from './components/MatchListItem';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
 import AddIcon from '@mui/icons-material/Add';
-import RefreshIcon from '@mui/icons-material/Refresh';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { createMatch } from './helpers';
 
-export default function Matches({ matches = [], teams = [], openModal, clear, remove, reset }) {
+export default function Matches({ matches = [], teams = [], openModal, clear, remove }) {
 	return (
 		<Card>
       <CardMedia image="/src/assets/images/mru/fixtures.png" sx={{ height: 100, color: 'white' }}>
@@ -32,14 +29,6 @@ export default function Matches({ matches = [], teams = [], openModal, clear, re
           display="flex"
           justifyContent="flex-end"
         >
-          <Button
-            variant="contained"
-            size="small"
-            startIcon={<RefreshIcon />}
-            onClick={() => reset()}
-          >
-            <Translate text="app.main.matches.reset" />
-          </Button>
           <Button
             variant="contained"
             size="small"

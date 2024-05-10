@@ -6,7 +6,8 @@
   },
   "app": {
     "header": {
-      "title": "Rugby Rankings"
+      "title": "Rugby Rankings",
+      "updated": "Last updated"
     },
     "footer": {
       "author": "Created by Brian McGrath",
