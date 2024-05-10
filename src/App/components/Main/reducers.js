@@ -49,7 +49,10 @@ const onAddMatch = (state, payload) => {
     matchId: `new-${matchIdCounter++}`
   };
   
-  return { ...state, selectedMatch: null,  matches: [...state.matches, match] };
+  return {
+    ...state, selectedMatch: null,
+    matches: [...state.matches, match].sort((a, b) => a.time.millis - b.time.millis),
+  };
 };
 
 const onUpdateMatch = (state, payload) => {
