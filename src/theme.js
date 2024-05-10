@@ -10,6 +10,9 @@ const theme = createTheme({
     h5: {
       fontWeight: 900,
     },
+    h6: {
+      fontWeight: 900,
+    },
   },
   components: {
     MuiButton: {
@@ -37,19 +40,20 @@ const theme = createTheme({
         },
       },
     },
-    // MuiTab: {
-    //   styleOverrides: {
-    //     root:{
-    //       color: 'white',
-    //       opacity: 0.5,
-    //       '&.Mui-selected': {
-    //         backgroundColor: colors.primary,
-    //         color: 'white',
-    //         opacity: 1,
-    //       }
-    //     }
-    //   },
-    // },
+    MuiTab: {
+      styleOverrides: {
+        root:{
+          textTransform: "none",
+          color: colors.primary,
+          // opacity: 0.5,
+          '&.Mui-selected': {
+            // backgroundColor: colors.primary,
+            // color: 'white',
+            opacity: 1,
+          }
+        }
+      },
+    },
     // MuiIconButton: {
     //   styleOverrides: {
     //     root: {

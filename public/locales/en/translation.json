@@ -6,8 +6,7 @@
   },
   "app": {
     "header": {
-      "title": "Rugby Rankings",
-      "updated": "Last updated"
+      "title": "Rugby Rankings"
     },
     "footer": {
       "author": "Created by Brian McGrath",
@@ -18,10 +17,11 @@
       "fetch": "Failed to load data!"
     },
     "main": {
-      "control": {
-        "title": "Predict scores and see rankings",
-        "reset": "Reset",
-        "info": "Info"
+      "updated": "Last updated",
+      "reset": "Reset",
+      "tabs": {
+        "mru": "Mens",
+        "wru": "Womens"
       },
       "rankings": {
         "title": "{{label}} Rankings",

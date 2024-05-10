@@ -74,7 +74,7 @@ export default function Main() {
   return (
     <main>
       <Box sx={{ width: '100%', backgroundColor: 'white' }}>
-        <Container sx={{  }}>
+        <Container>
           <Tabs
             variant="fullWidth"
             value={sport}
@@ -82,29 +82,42 @@ export default function Main() {
             textColor="primary"
             indicatorColor="primary"
           >
-            <Tab label={<Typography color="inherit" variant="b1" align="center">Mens</Typography>} value="mru" />
-            <Tab label="wru" value="wru" />
+            <Tab
+              value="mru"
+              label={
+                <Typography color="inherit" variant="h6" align="center">
+                  <Translate text="app.main.tabs.mru" />
+                </Typography>
+              }
+            />
+            <Tab
+              value="wru"
+              label={
+                <Typography color="inherit" variant="h6" align="center">
+                  <Translate text="app.main.tabs.wru" />
+                </Typography>
+              }
+            />
           </Tabs>
         </Container>
       </Box>
 
       <Box sx={{ width: '100%', p: 3, bgcolor: 'secondary.main', color: 'common.white'}}>
-
         <Container>
-
           <Stack direction="row" alignItems="center" justifyContent="space-between">
             <Stack direction="row" spacing={1} alignItems="center">
-              <Typography variant="subtitle2"><Translate text="app.header.updated" /></Typography>
+              <Typography sx={{ fontWeight: 300 }} variant="subtitle2"><Translate text="app.main.updated" /></Typography>
               <Typography variant="subtitle2">{formatDay(effective.millis)}</Typography>
             </Stack>
 
             <Button
+              sx={{ opacity: 0.75, '&:hover': { opacity: 1 } }}
               color="inherit"
               size="small"
               startIcon={<RefreshIcon />}
               onClick={resetMatches}
             >
-              <Translate text="app.main.matches.reset" />
+              <Translate text="app.main.reset" />
             </Button>
           </Stack>
         </Container>
