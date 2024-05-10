@@ -12,15 +12,15 @@ import { colors } from '@constants/colors';
 const { primary, secondary, success } = colors;
 
 const options = [{
-  icon: <SportsRugbyIcon />,
+  icon: <SportsRugbyIcon sx={{ opacity: 0.75 }}/>,
   label: 'app.footer.rankings',
   href: 'https://www.world.rugby/rankings',
 }, {
-  icon: <GitHubIcon />,
+  icon: <GitHubIcon sx={{ opacity: 0.75 }}/>,
   label: 'app.footer.github',
   href: 'https://github.com/brianmcg/rugby-rankings',
 }, {
-  icon: <AccountCircleIcon />,
+  icon: <AccountCircleIcon sx={{ opacity: 0.75 }}/>,
   label: 'app.footer.author',
   href: 'http://www.bmcgrath.net',
 }];

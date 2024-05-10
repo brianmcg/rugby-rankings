@@ -5,6 +5,7 @@ const theme = createTheme({
   typography: {
     h1: {
       fontFamily: 'UNIVERSIDAD',
+      fontSize: 48,
     },
     h5: {
       fontWeight: 900,
@@ -58,13 +59,13 @@ const theme = createTheme({
     //     }
     //   },
     // },
-    MuiAppBar: {
-      styleOverrides: {
-        colorPrimary: {
-          backgroundColor: colors.secondary,
-        }
-      }
-    },
+    // MuiAppBar: {
+    //   styleOverrides: {
+    //     colorPrimary: {
+    //       backgroundColor: colors.secondary,
+    //     }
+    //   }
+    // },
     MuiPaper: {
         styleOverrides: {
           rounded: { borderRadius: 0 },
