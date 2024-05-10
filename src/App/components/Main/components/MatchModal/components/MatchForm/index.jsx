@@ -70,7 +70,7 @@ export default function MatchForm({ match: initalMatch, teams, onCreate, onUpdat
 
   return (
     <Box>
-      <Stack direction="row" justifyContent="center" spacing={1} sx={{ mb: 2 }}>
+      <Stack direction="row" justifyContent="center" spacing={1} sx={{ mb: 4 }}>
         <TeamInput
           options={teams.filter(team => team.id !== awayTeam?.id)}
           value={homeTeam}
@@ -95,36 +95,37 @@ export default function MatchForm({ match: initalMatch, teams, onCreate, onUpdat
         />
       </Stack>
 
-      <Stack direction="row" justifyContent="left">
-        <LabelSwitch
-          disabled={isWorldCup}
-          label={<Translate text="app.main.modal.neutral" />}
-          onChange={handleNeutralVenueChange}
-          checked={isNeutralVenue}
-        />
-        <LabelSwitch
-          label={<Translate text="app.main.modal.rwc" />}
-          onChange={handleWorldCupChange}
-          checked={isWorldCup}
-        />
-      </Stack>
-
-      <Stack direction="row" spacing={2} justifyContent="right">
-        <Button
-          sx={{ color: 'secondary', '&:hover': { color: colors.error }}}
-          startIcon={<CancelIcon />}
-          onClick={onClose}
-        >
-          <Translate text="app.main.modal.cancel" />
-        </Button>
-        <Button
-          sx={{ color: 'secondary', '&:hover': { color: colors.success }}}
-          disabled={!isComplete}
-          startIcon={<SendIcon />}
-          onClick={() => onClickConfirm(match)}
-        >
-          <Translate text="app.main.modal.confirm" />
-        </Button>
+      <Stack direction="row" alignItems="center" justifyContent="space-between">
+        <Stack direction="row" spacing={1} alignItems="center" justifyContent="flex-start">
+          <LabelSwitch
+            disabled={isWorldCup}
+            label={<Translate text="app.main.modal.neutral" />}
+            onChange={handleNeutralVenueChange}
+            checked={isNeutralVenue}
+          />
+          <LabelSwitch
+            label={<Translate text="app.main.modal.rwc" />}
+            onChange={handleWorldCupChange}
+            checked={isWorldCup}
+          />
+        </Stack>
+        <Stack direction="row" spacing={1} alignItems="center" justifyContent="flex-end">
+          <Button
+            sx={{ color: 'secondary', '&:hover': { color: colors.error }}}
+            startIcon={<CancelIcon />}
+            onClick={onClose}
+          >
+            <Translate text="app.main.modal.cancel" />
+          </Button>
+          <Button
+            sx={{ color: 'secondary', '&:hover': { color: colors.success }}}
+            disabled={!isComplete}
+            startIcon={<SendIcon />}
+            onClick={() => onClickConfirm(match)}
+          >
+            <Translate text="app.main.modal.confirm" />
+          </Button>
+        </Stack>
       </Stack>
 
     </Box>

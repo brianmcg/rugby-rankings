@@ -137,7 +137,7 @@ export default function Main() {
               </Typography>
             </Stack>
 
-            <Stack direction="row" spacing={1} alignItems="center" justifyContent="flex-end">
+            <Stack direction="row" spacing={2} alignItems="center" justifyContent="flex-end">
               <Button
                 sx={{ opacity: 0.6, '&:hover': { opacity: 1 } }}
                 color="inherit"
@@ -181,6 +181,7 @@ export default function Main() {
               clear={clearMatches}
               remove={removeMatch}
               sport={sport}
+              label={label}
             />
           </Grid>
           <Grid item xs={12} md={6}>

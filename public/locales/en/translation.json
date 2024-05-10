@@ -18,9 +18,9 @@
     },
     "main": {
       "updated": "Last updated",
-      "add": "Add",
-      "clear": "Clear",
-      "reset": "Reset",
+      "add": "Add Fixture",
+      "clear": "Clear Fixtures",
+      "reset": "Reset Fixtures",
       "tabs": {
         "mru": "Mens",
         "wru": "Womens"
@@ -36,7 +36,7 @@
         }
       },
       "matches": {
-        "title": "Fixtures",
+        "title": "{{label}} Fixtures",
         "predict": "Predict",
         "update": "Update",
         "clear": "Clear",

@@ -29,7 +29,7 @@ export default function TransitionsModal({ match, teams, onClose, onCreate, onUp
     >
       <Fade in={isOpen}>
         <Box sx={style}>
-          <Typography variant="h6" sx={{ mb: 2 }}>
+          <Typography color="primary" variant="h6" mb={4}>
             <Translate text={"app.main.modal.title"} />
           </Typography>
           <MatchForm
