@@ -20,6 +20,9 @@ import Rankings from './components/Rankings';
 import Matches from './components/Matches';
 import MatchModal from './components/MatchModal';
 
+import AddIcon from '@mui/icons-material/Add';
+import DeleteIcon from '@mui/icons-material/Delete';
+
 const initialState = {
   initialRankings: {},
   rankings: {},
@@ -29,6 +32,26 @@ const initialState = {
   isLoading: true,
   selectedMatch: null,
   sport: 'mru',
+};
+
+const createMatch = () => {
+  const date = new Date();
+
+  return {
+    awayScore: null,
+    awayTeam: null,
+    homeScore: null,
+    homeTeam: null,
+    isComplete: false,
+    isNeutralVenue: false,
+    isWorldCup: false,
+    matchId: null,
+    time: {
+      millis: date.getTime(),
+      gmtOffset: date.getTimezoneOffset() / 60,
+    },
+    venue: null,
+  };
 };
 
 export default function Main() {
@@ -114,15 +137,36 @@ export default function Main() {
               </Typography>
             </Stack>
 
-            <Button
-              sx={{ opacity: 0.6, '&:hover': { opacity: 1 } }}
-              color="inherit"
-              size="small"
-              startIcon={<RefreshIcon />}
-              onClick={resetMatches}
-            >
-              <Translate text="app.main.reset" />
-            </Button>
+            <Stack direction="row" spacing={1} alignItems="center" justifyContent="flex-end">
+              <Button
+                sx={{ opacity: 0.6, '&:hover': { opacity: 1 } }}
+                color="inherit"
+                startIcon={<RefreshIcon />}
+                onClick={resetMatches}
+              >
+                <Translate text="app.main.reset" />
+              </Button>
+
+              <Button
+                sx={{ opacity: 0.6, '&:hover': { opacity: 1 } }}
+                color="inherit"
+                startIcon={<DeleteIcon />}
+                onClick={clearMatches}
+              >
+                <Translate text="app.main.clear" />
+              </Button>
+
+              <Button
+                sx={{ opacity: 0.6, '&:hover': { opacity: 1 } }}
+                color="inherit"
+                startIcon={<AddIcon />}
+                onClick={() => openModal(createMatch())}
+              >
+                <Translate text="app.main.add" />
+              </Button>
+
+            </Stack>
+
           </Stack>
         </Container>
       </Box>

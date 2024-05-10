@@ -18,6 +18,8 @@
     },
     "main": {
       "updated": "Last updated",
+      "add": "Add",
+      "clear": "Clear",
       "reset": "Reset",
       "tabs": {
         "mru": "Mens",
@@ -37,7 +39,6 @@
         "title": "Fixtures",
         "predict": "Predict",
         "update": "Update",
-        "reset": "Reset",
         "clear": "Clear",
         "add": "Add",
         "remove": "Remove"
