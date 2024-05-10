@@ -12,10 +12,10 @@ import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { createMatch } from './helpers';
 
-export default function Matches({ matches = [], teams = [], openModal, clear, remove }) {
+export default function Matches({ matches = [], teams = [], sport, openModal, clear, remove }) {
 	return (
 		<Card>
-      <CardMedia image="/src/assets/images/mru/fixtures.png" sx={{ height: 100, color: 'white' }}>
+      <CardMedia image={`/src/assets/images/${sport}/fixtures.png`} sx={{ height: 100, color: 'white' }}>
         <Stack sx={{ height: '100%' }} direction="row" alignItems="flex-end" justifyContent="space-between">
           <CardHeader title={<Translate text={"app.main.matches.title"} />} />
         </Stack>

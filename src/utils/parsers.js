@@ -52,7 +52,7 @@ export const parseMatchResponse = (response, rankings) => {
           matchId,
           time,
         },
-      ];
+      ]; // .sort((a, b) => b.time.millis - a.time.millis);
     }
 
     return memo;

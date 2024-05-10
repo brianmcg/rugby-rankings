@@ -25,7 +25,7 @@ const theme = createTheme({
     MuiCardMedia: {
       styleOverrides: {
         root: {
-          backgroundColor: colors.secondary,
+          backgroundColor: colors.primary,
         }
       }
     },
@@ -45,31 +45,27 @@ const theme = createTheme({
         root:{
           textTransform: "none",
           color: colors.primary,
-          // opacity: 0.5,
-          '&.Mui-selected': {
-            // backgroundColor: colors.primary,
-            // color: 'white',
-            opacity: 1,
-          }
+          // '&.Mui-selected': {
+          //   opacity: 1,
+          // }
         }
       },
     },
-    // MuiIconButton: {
-    //   styleOverrides: {
-    //     root: {
-    //       '&:hover': {
-    //         color: colors.primary,
-    //       }
-    //     }
-    //   },
-    // },
-    // MuiAppBar: {
-    //   styleOverrides: {
-    //     colorPrimary: {
-    //       backgroundColor: colors.secondary,
-    //     }
-    //   }
-    // },
+    MuiLink: {
+      styleOverrides: {
+        root: {
+          transitionBehavior :'normal',
+          transitionDelay: '0s',
+          transitionDuration: '0.2s',
+          transitionProperty: 'all',
+          transitionTimingFunction: 'linear',
+          textDecoration: 'none',
+          '&:hover': {
+            color: colors.info,
+          },
+        },
+      },
+    },
     MuiPaper: {
         styleOverrides: {
           rounded: { borderRadius: 0 },

@@ -38,12 +38,12 @@ const renderTableRows = (entries, fullTable) => {
   ))
 };
 
-export default function Rankings({ entries, label }) {
+export default function Rankings({ entries, label, sport }) {
   const [fullTable, setFullTable] = useState(false);
 
   return (
     <Card>
-      <CardMedia image="/src/assets/images/mru/rankings.png" sx={{ height: 100, color: 'white' }}>
+      <CardMedia image={`/src/assets/images/${sport}/rankings.png`} sx={{ height: 100, color: 'white' }}>
         <Stack sx={{ height: '100%' }} direction="row" alignItems="flex-end" justifyContent="space-between">
           <CardHeader title={<Translate text="app.main.rankings.title" options={{ label }}/>} />
         </Stack>

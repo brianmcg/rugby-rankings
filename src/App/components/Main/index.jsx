@@ -123,7 +123,7 @@ export default function Main() {
         </Container>
       </Box>
 
-      <Container sx={{ mt: 4 }}>
+      <Container sx={{ mt: 4, mb: 4 }}>
         <Grid container spacing={4} direction="row-reverse">
           <Grid item xs={12} md={6}>
             <Matches
@@ -132,10 +132,15 @@ export default function Main() {
               openModal={openModal}
               clear={clearMatches}
               remove={removeMatch}
+              sport={sport}
             />
           </Grid>
           <Grid item xs={12} md={6}>
-            <Rankings label={label} entries={entries} effective={effective} />
+            <Rankings
+              label={label}
+              entries={entries}
+              sport={sport}
+            />
           </Grid>
         </Grid>
       </Container>

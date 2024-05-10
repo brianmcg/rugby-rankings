@@ -34,6 +34,7 @@ export default function MatchListItem({ match, onClickEdit, onClickRemove }) {
       <Grid container direction="row" justifyContent="space-between" alignItems="center">
         {/* Render match result */}
         <Stack
+          sx={{width: '50%'}}
           spacing={1}
           direction="row"
           useFlexGap
@@ -47,9 +48,11 @@ export default function MatchListItem({ match, onClickEdit, onClickRemove }) {
           </Typography>
           <Typography>{awayTeam.name}</Typography>
         </Stack>
+ 
 
-        {/* Render option buttons */}
+      {/* Render option buttons */}
         <Stack
+          sx={{width: '50%'}}
           spacing={1}
           direction="row"
           useFlexGap
