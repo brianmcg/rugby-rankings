@@ -15,12 +15,13 @@ export default function Main({
   openModal,
   removeMatch,
 }) {
-  const { entries, label } = rankings;
 
   if (isError) return <ErrorMessage message="app.errors.fetch" />;
      
   if (isLoading) return <Loading />;
 
+  const { entries, label } = rankings;
+  
   return (
     <Container sx={{ mt: 4, mb: 4 }}>
       <Grid container spacing={4} direction="row-reverse">

@@ -11,10 +11,10 @@ import './App.css';
 import Stack from '@mui/material/Stack';
 
 const initialState = {
-  initialRankings: {},
-  rankings: {},
-  matches: [],
-  initialMatches: [],
+  initialRankings: null,
+  rankings: null,
+  matches: null,
+  initialMatches: null,
   isError: null,
   isLoading: true,
   selectedMatch: null,
@@ -24,7 +24,6 @@ const initialState = {
 export default function App() {
   const [state, dispatch] = useReducer(rankingsReducer, initialState);
   const { rankings, matches, selectedMatch, isLoading, isError, sport } = state;
-  const { effective } = rankings;
   const teams = rankings?.entries?.map(entry => entry.team);
 
   const openModal = match => dispatch({ type: ACTIONS.OPEN_MODAL, payload: { match } });
@@ -36,20 +35,30 @@ export default function App() {
   const updateMatch = match => dispatch({ type: ACTIONS.UPDATE_MATCH, payload: { match } });
   const changeSport = (e, sport) => dispatch({ type: ACTIONS.CHANGE_SPORT, payload: { sport }});
 
-  const updateRankings = useCallback(() => dispatch(
-    { type: ACTIONS.UPDATE_RANKINGS, payload: { matches } }),
-    [matches],
-  );
-  
-  useEffect(() => updateRankings(matches), [matches, updateRankings]);
-  
-  useEffect(() => {
+  const useUpdateRankings = useCallback(() => {
+    if (matches) {
+      dispatch({ type: ACTIONS.UPDATE_RANKINGS, payload: { matches } })
+    }
+  }, [matches]);
+
+  // const useUpdateSessionStorage = useCallback(() => {
+  //   if (matches) {
+  //     console.log('matches', matches);
+  //     // console.log('UPDATE_SESSION_STORAGE');
+  //     window.sessionStorage.setItem('matches', JSON.stringify({ matches }));
+  //   }
+  // }, [matches]);
+
+  const useAsyncFetch = useCallback(() => {
     const fetchData = async () => {
       try {
+        dispatch({ type: ACTIONS.FETCH_START });
+
         const fetchedRankings = await fetchRankings(sport);
         const fetchedMatches = await fetchMatches(sport, fetchedRankings);
+        const payload = { rankings: fetchedRankings, matches: fetchedMatches };
 
-        dispatch({ type: ACTIONS.FETCH_SUCCESS, payload: { rankings: fetchedRankings, matches: fetchedMatches } });
+        dispatch({ type: ACTIONS.FETCH_SUCCESS, payload });
       } catch (error) {
         dispatch({ type: ACTIONS.FETCH_ERROR });
       }
@@ -58,12 +67,18 @@ export default function App() {
     fetchData();
   }, [sport]);
 
+  useEffect(useUpdateRankings, [useUpdateRankings]);
+
+  // useEffect(useUpdateSessionStorage, [useUpdateSessionStorage]);
+
+  useEffect(useAsyncFetch, [useAsyncFetch]);
+
   return (
     <Stack sx={{ minHeight: '100vh' }} justifyContent="space-between">
       <header>
         <Header
           sport={sport}
-          effective={effective}
+          effective={rankings?.effective}
           disabled={isLoading || isError}
           changeSport={changeSport}
           resetMatches={resetMatches}

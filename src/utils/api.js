@@ -9,7 +9,7 @@ import { MENS } from '@constants/sports';
 
 async function fetchData(url, params) {
   try {
-    // await sleep(1500);
+    // await sleep(1000);
     const { data } = await axios.get(url, { params });
     return data;
   } catch (error) {

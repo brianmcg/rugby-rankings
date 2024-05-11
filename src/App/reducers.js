@@ -93,7 +93,7 @@ const onUpdateRankings = (state, payload) => {
   return { ...state, rankings };
 };
 
-const onChangeSport = (state, payload) => ({ ...state, sport: payload.sport, isLoading: true });
+const onChangeSport = (state, payload) => ({ ...state, sport: payload.sport });
 
 export function rankingsReducer(state, { type, payload }) {
   switch (type) {
