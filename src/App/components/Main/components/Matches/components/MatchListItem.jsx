@@ -1,9 +1,9 @@
 import Stack from '@mui/material/Stack';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import { formatTime } from '@utils/date';
 import Translate from '@components/Translate';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -44,31 +44,29 @@ export default function MatchListItem({ match, onClickEdit, onClickRemove }) {
 
         {/* Render option buttons */}
         <Stack
-          spacing={2}
+          spacing={1}
           direction="row"
           useFlexGap
           flexWrap="wrap"
           display="flex"
           justifyContent="flex-end"
         >
-          <Button
-            size="small"
+          <IconButton
             color="primary"
-            sx={{ color: 'secondary', '&:hover': { color: colors.error }}}
-            startIcon={<DeleteIcon />}
-            onClick={() => onClickRemove(matchId)}
-          >
-            <Translate text="app.main.matches.remove" />
-          </Button>
-          <Button
-            size="small"
-            color="primary"
-            sx={{ color: 'secondary', '&:hover': { color: colors.success }}}
-            startIcon={<EditIcon />}
+            sx={{ '&:hover': { color: colors.success }}}
             onClick={() => onClickEdit(match)}
+            size="large"
           >
-            <Translate text={isComplete ? "app.main.matches.update" : "app.main.matches.predict" } />
-          </Button>
+            <EditIcon />
+          </IconButton>
+          <IconButton
+            color="primary"
+            sx={{ '&:hover': { color: colors.error }}}
+            onClick={() => onClickRemove(matchId)}
+            size="large"
+          >
+            <DeleteIcon />
+          </IconButton>
         </Stack>
 
       </Grid>

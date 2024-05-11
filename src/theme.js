@@ -36,6 +36,19 @@ const theme = createTheme({
         },
       }, 
     },
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 0,
+          transitionBehavior :'normal',
+          transitionDelay: '0s',
+          transitionDuration: '0.2s',
+          transitionProperty: 'all',
+          transitionTimingFunction: 'linear',
+          textDecoration: 'none',
+        },
+      }, 
+    },
     MuiCardMedia: {
       styleOverrides: {
         root: {
