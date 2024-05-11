@@ -1,5 +1,5 @@
 import { useReducer, useCallback, useEffect } from 'react';
-import { fetchRankings, fetchMatches } from '@utils/api';
+import { fetchData } from '@utils/api';
 import { MENS } from '@constants/sports';
 import { ACTIONS } from './actions';
 import { rankingsReducer } from './reducers';
@@ -21,6 +21,17 @@ const initialState = {
   sport: MENS,
 };
 
+// function cacheReducer(state, { type, payload }) {
+//   switch (type) {
+//     case 'ADD_SPORT_DATA': {
+//       return { ...state, [payload.sport]: payload.data };
+//     }
+//     default: {
+//       throw new Error(`Unhandled action type: ${type}`)
+//     }
+//   }
+// }
+
 export default function App() {
   const [state, dispatch] = useReducer(rankingsReducer, initialState);
   const { rankings, matches, selectedMatch, isLoading, isError, sport } = state;
@@ -41,37 +52,19 @@ export default function App() {
     }
   }, [matches]);
 
-  // const useUpdateSessionStorage = useCallback(() => {
-  //   if (matches) {
-  //     console.log('matches', matches);
-  //     // console.log('UPDATE_SESSION_STORAGE');
-  //     window.sessionStorage.setItem('matches', JSON.stringify({ matches }));
-  //   }
-  // }, [matches]);
-
-  const useAsyncFetch = useCallback(() => {
-    const fetchData = async () => {
-      try {
-        dispatch({ type: ACTIONS.FETCH_START });
-
-        const fetchedRankings = await fetchRankings(sport);
-        const fetchedMatches = await fetchMatches(sport, fetchedRankings);
-        const payload = { rankings: fetchedRankings, matches: fetchedMatches };
-
-        dispatch({ type: ACTIONS.FETCH_SUCCESS, payload });
-      } catch (error) {
-        dispatch({ type: ACTIONS.FETCH_ERROR });
-      }
-    }
-
-    fetchData();
-  }, [sport]);
-
   useEffect(useUpdateRankings, [useUpdateRankings]);
 
-  // useEffect(useUpdateSessionStorage, [useUpdateSessionStorage]);
+  useEffect(() => {
+    const promise = fetchData(sport);
 
-  useEffect(useAsyncFetch, [useAsyncFetch]);
+    dispatch({ type: ACTIONS.FETCH_START });
+
+    promise.then(
+      data => dispatch({ type: ACTIONS.FETCH_SUCCESS, payload: data }),
+      error => dispatch({ type: ACTIONS.FETCH_ERROR, error }),
+    );
+
+  }, [sport]);
 
   return (
     <Stack sx={{ minHeight: '100vh' }} justifyContent="space-between">

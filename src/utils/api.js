@@ -7,7 +7,7 @@ import { MENS } from '@constants/sports';
 // This is for slowing down requests for development purposes.
 // const sleep = t => new Promise(resolve => setTimeout(resolve, t))
 
-async function fetchData(url, params) {
+async function axiosGet(url, params) {
   try {
     // await sleep(1000);
     const { data } = await axios.get(url, { params });
@@ -17,9 +17,11 @@ async function fetchData(url, params) {
   }
 }
 
-export const fetchRankings = (sport = MENS) => fetchData(`${RANKINGS}/${sport}`);
+function fetchRankings(sport = MENS) {
+  return axiosGet(`${RANKINGS}/${sport}`);
+}
 
-export const fetchMatches = async (sport = MENS, rankings) => {
+async function fetchMatches(sport = MENS, rankings) {
   // const startDate = subtractWeeks(rankings.effective.millis, 1, 'week');
   const endDate = addWeeks(rankings.effective.millis, 1);
 
@@ -32,7 +34,17 @@ export const fetchMatches = async (sport = MENS, rankings) => {
     sport,
   };
 
-  const response = await fetchData(FIXTURES, queryParams);
+  const response = await axiosGet(FIXTURES, queryParams);
 
   return parseMatchResponse(response, rankings);
-};
+}
+
+export async function fetchData(sport) {
+  try {
+    const fetchedRankings = await fetchRankings(sport);
+    const fetchedMatches = await fetchMatches(sport, fetchedRankings);
+    return { rankings: fetchedRankings, matches: fetchedMatches };
+  } catch (error) {
+    return Promise.reject(error)
+  }
+}
