@@ -3,6 +3,19 @@ import { calculateRankingChange } from './helpers';
 
 let matchIdCounter = 0;
 
+const newMatch = {
+  awayScore: null,
+  awayTeam: null,
+  homeScore: null,
+  homeTeam: null,
+  isComplete: false,
+  isNeutralVenue: false,
+  isWorldCup: false,
+  matchId: null,
+  time: null,
+  venue: null,
+};
+
 const onFetchSuccess = (state, payload) => ({
   ...state,
   initialRankings: payload.rankings,
@@ -25,7 +38,7 @@ const onResetMatches = state => ({
 
 const onOpenModal = (state, payload) => ({
   ...state,
-  selectedMatch: payload.match,
+  selectedMatch: payload.match ? payload.match : newMatch,
 });
 
 const onCloseModal = state => ({

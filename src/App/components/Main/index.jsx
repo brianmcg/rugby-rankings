@@ -34,25 +34,7 @@ const initialState = {
   sport: 'mru',
 };
 
-const createMatch = () => {
-  const date = new Date();
 
-  return {
-    awayScore: null,
-    awayTeam: null,
-    homeScore: null,
-    homeTeam: null,
-    isComplete: false,
-    isNeutralVenue: false,
-    isWorldCup: false,
-    matchId: null,
-    time: {
-      millis: date.getTime(),
-      gmtOffset: date.getTimezoneOffset() / 60,
-    },
-    venue: null,
-  };
-};
 
 export default function Main() {
   const [state, dispatch] = useReducer(rankingsReducer, initialState);
@@ -78,6 +60,40 @@ export default function Main() {
   
   useEffect(() => {
     const fetchData = async () => {
+      // window.localStorage.setItem(sport, JSON.stringify(state))
+      // ///////////////////
+      // 
+      // await sleep(delay)
+      // 
+      // /////////////////////////////////
+      // 
+      // const [squares, setSquares] = React.useState(
+      //     () =>
+      //     JSON.parse(window.localStorage.getItem('squares')) || Array(9).fill(null),
+      //  )
+     
+      //  React.useEffect(() => {
+      //   window.localStorage.setItem('squares', JSON.stringify(squares))
+      //  }, [squares])
+      // 
+      // //////////////
+      // 
+      // 
+      // const storedState = localStorage.getItem(sport);
+      
+      // if (storedState === null) {
+      //   dispatch({ type: ACTIONS.FETCH });
+      //   const fetchedRankings = await fetchRankings(sport);
+      //   const fetchedMatches = await fetchMatches(sport, fetchedRankings);
+      //   window.localStorage.setItem('squares', JSON.stringify({ fetchedRankings, fetchedMatches }));
+      //   dispatch({ type: ACTIONS.FETCH_SUCCESS, payload: { rankings: fetchedRankings, matches: fetchedMatches } });
+
+      // } else {
+      //   const { fetchedRankings, fetchedMatches } = storedState;
+      //   dispatch({ type: ACTIONS.FETCH_SUCCESS, payload: { rankings: fetchedRankings, matches: fetchedMatches } });
+      // }
+      // 
+
       try {
         const fetchedRankings = await fetchRankings(sport);
         const fetchedMatches = await fetchMatches(sport, fetchedRankings);
@@ -160,7 +176,7 @@ export default function Main() {
                 sx={{ opacity: 0.6, '&:hover': { opacity: 1 } }}
                 color="inherit"
                 startIcon={<AddIcon />}
-                onClick={() => openModal(createMatch())}
+                onClick={() => openModal()}
               >
                 <Translate text="app.main.add" />
               </Button>

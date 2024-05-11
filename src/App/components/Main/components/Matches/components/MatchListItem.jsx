@@ -1,69 +1,65 @@
 import Stack from '@mui/material/Stack';
 import Grid from '@mui/material/Grid';
-import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import Translate from '@components/Translate';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { getColor } from './helpers';
+import { getColor, getMatchResult } from './helpers';
 import { colors } from '@constants/colors';
+import { formatDay } from '@utils/date'; 
+
+const renderMatchInfo = ({ competition, time, venue }) => {
+  const rightLabel = [time ? formatDay(time?.millis) : null, venue?.country].filter(Boolean).join(' @ ');
+  
+  if (competition || rightLabel) {
+    return (
+      <Stack mb={1} direction="row" justifyContent="space-between" sx={{ opacity: 0.8 }}>
+        <Typography variant="caption">{competition}</Typography>
+        <Typography variant="caption">{rightLabel}</Typography>
+      </Stack>
+    )
+  }
+
+  return null;
+};
 
 export default function MatchListItem({ match, onClickEdit, onClickRemove }) {
-  const {
-    homeTeam,
-    awayTeam,
-    homeScore,
-    awayScore,
-    matchId,
-    isComplete,
-  } = match;
-
+  const { homeTeam, awayTeam, matchId } = match;
   const color = getColor(match);
-
+  
   return (
     <Paper elevation={3} sx={{ padding: 2, width: '100%', borderLeft: `solid 5px ${color}` }} >
-      <Grid container direction="row" justifyContent="space-between" alignItems="center">
+
+      {renderMatchInfo(match)}
+
+      <Grid container direction="row" alignItems="center" justifyContent="space-between">
+
         {/* Render match result */}
-        <Stack
-          spacing={1}
-          direction="row"
-          useFlexGap
-          flexWrap="wrap"
-          display="flex"
-          justifyContent="flex-start"
-        >
-          <Typography>{homeTeam.name}</Typography>
-          <Typography sx={{ fontWeight: 900, color }}>
-            {isComplete ? `${homeScore} - ${awayScore}` : 'vs'}
+        <Stack spacing={1} direction="row" alignItems="center" justifyContent="flex-start">
+          <Typography variant="body1">{homeTeam.name}</Typography>
+          <Typography variant="h6" color={color}>
+            {getMatchResult(match)}
           </Typography>
-          <Typography>{awayTeam.name}</Typography>
+          <Typography variant="body1">{awayTeam.name}</Typography>
         </Stack>
  
-
         {/* Render option buttons */}
-        <Stack
-          spacing={1}
-          direction="row"
-          useFlexGap
-          flexWrap="wrap"
-          display="flex"
-          justifyContent="flex-end"
-        >
+        <Stack spacing={1} direction="row" alignItems="center" justifyContent="flex-end">
           <IconButton
             color="primary"
             sx={{ '&:hover': { color: colors.success }}}
             onClick={() => onClickEdit(match)}
-            size="large"
+            size="small"
           >
             <EditIcon />
           </IconButton>
+
           <IconButton
             color="primary"
             sx={{ '&:hover': { color: colors.error }}}
             onClick={() => onClickRemove(matchId)}
-            size="large"
+            size="small"
           >
             <DeleteIcon />
           </IconButton>

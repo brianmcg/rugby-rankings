@@ -51,9 +51,9 @@ export default function Rankings({ entries, label, sport }) {
       </CardMedia>
       <CardContent>
         <TableContainer>
-          <Table >
+          <Table>
             <TableHead>
-              <TableRow sx={{ opacity: 0.75 }}>
+              <TableRow>
                 <TableCell>
                   <Translate text="app.main.rankings.table.rank" />
                 </TableCell>

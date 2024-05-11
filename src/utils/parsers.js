@@ -6,7 +6,17 @@ export const parseMatchResponse = (response, rankings) => {
     const isTeamsConfirmed = match.teams.reduce((memo, team) => memo && !!team, true);
 
     if (isTeamsRanked && isTeamsConfirmed) {
-      const { venue, teams: matchTeams = [], scores = [], status, rankingsWeight, matchId, time } = match;
+      const {
+        venue,
+        teams: matchTeams = [],
+        scores = [],
+        status,
+        rankingsWeight,
+        matchId,
+        time,
+        competition,
+      } = match;
+
       const isComplete = status === 'C';
 
       const teams = rankings.entries.map(entry => entry.team);
@@ -51,6 +61,7 @@ export const parseMatchResponse = (response, rankings) => {
           venue,
           matchId,
           time,
+          competition,
           isCreated: false,
         },
       ]; // .sort((a, b) => b.time.millis - a.time.millis);
