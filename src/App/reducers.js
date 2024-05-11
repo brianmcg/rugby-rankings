@@ -16,6 +16,14 @@ const newMatch = {
   venue: null,
 };
 
+const onFetchStart = state => {
+  return {
+    ...state,
+    isLoading: true,
+    isError: false,
+  };
+}
+
 const onFetchSuccess = (state, payload) => ({
   ...state,
   initialRankings: payload.rankings,
@@ -25,9 +33,9 @@ const onFetchSuccess = (state, payload) => ({
   isLoading: false,
 });
 
-const onFetchError = (state, payload) => ({
+const onFetchError = (state) => ({
   ...state,
-  fetchError: payload,
+  isError: true,
   isLoading: false,
 });
 
@@ -89,6 +97,7 @@ const onChangeSport = (state, payload) => ({ ...state, sport: payload.sport, isL
 
 export function rankingsReducer(state, { type, payload }) {
   switch (type) {
+    case ACTIONS.FETCH_START: return onFetchStart(state, payload);
     case ACTIONS.FETCH_SUCCESS: return onFetchSuccess(state, payload);
     case ACTIONS.FETCH_ERROR: return onFetchError(state, payload);
     case ACTIONS.RESET_MATCHES: return onResetMatches(state, payload);

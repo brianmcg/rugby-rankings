@@ -17,32 +17,31 @@ export default function Main({
 }) {
   const { entries, label } = rankings;
 
-  if (isError) return <ErrorMessage message="app.errors.fetch" />
-  if (isLoading) return <Loading />
+  if (isError) return <ErrorMessage message="app.errors.fetch" />;
+     
+  if (isLoading) return <Loading />;
 
   return (
-    <main>
-      <Container sx={{ mt: 4, mb: 4 }}>
-        <Grid container spacing={4} direction="row-reverse">
-          <Grid item xs={12} md={6}>
-            <Matches
-              matches={matches}
-              teams={teams}
-              openModal={openModal}
-              remove={removeMatch}
-              sport={sport}
-              label={label}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Rankings
-              label={label}
-              entries={entries}
-              sport={sport}
-            />
-          </Grid>
+    <Container sx={{ mt: 4, mb: 4 }}>
+      <Grid container spacing={4} direction="row-reverse">
+        <Grid item xs={12} md={6}>
+          <Matches
+            matches={matches}
+            teams={teams}
+            openModal={openModal}
+            remove={removeMatch}
+            sport={sport}
+            label={label}
+          />
         </Grid>
-      </Container>
-    </main>
+        <Grid item xs={12} md={6}>
+          <Rankings
+            label={label}
+            entries={entries}
+            sport={sport}
+          />
+        </Grid>
+      </Grid>
+    </Container>
   );
 }

@@ -1,4 +1,5 @@
 export const ACTIONS = {
+  FETCH_START: 'start',
   FETCH_SUCCESS: 'success',
   FETCH_ERROR: 'error',
   RESET_MATCHES: 'reset',

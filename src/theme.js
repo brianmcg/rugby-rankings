@@ -1,5 +1,14 @@
 import { createTheme  } from '@mui/material/styles';
-import { colors } from '@constants/colors';
+
+import {
+  PRIMARY,
+  SECONDARY,
+  BACKGROUND,
+  INFO,
+  WARNING,
+  SUCCESS,
+  ERROR,
+} from '@constants/colors';
 
 const theme = createTheme({
   typography: {
@@ -52,7 +61,7 @@ const theme = createTheme({
     MuiCardMedia: {
       styleOverrides: {
         root: {
-          backgroundColor: colors.primary,
+          backgroundColor: PRIMARY,
         }
       }
     },
@@ -62,7 +71,7 @@ const theme = createTheme({
           backgroundColor: 'white',
         },
         indicator: {
-          backgroundColor: colors.success,
+          backgroundColor: SUCCESS,
           height: 5,
         },
       },
@@ -70,8 +79,8 @@ const theme = createTheme({
     MuiTab: {
       styleOverrides: {
         root:{
-          textTransform: "none",
-          color: colors.primary,
+          textTransform: 'none',
+          color: PRIMARY,
           // '&.Mui-selected': {
           //   opacity: 1,
           // }
@@ -88,7 +97,7 @@ const theme = createTheme({
           transitionTimingFunction: 'linear',
           textDecoration: 'none',
           '&:hover': {
-            color: colors.info,
+            color: INFO,
           },
         },
       },
@@ -109,25 +118,25 @@ const theme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: colors.primary,
+      main: PRIMARY,
     },
     secondary: {
-      main: colors.secondary,
+      main: SECONDARY,
     },
     background: {
-      default: colors.background,
+      default: BACKGROUND,
     },
     info: {
-      main: colors.info,
+      main: INFO,
     },
     success: {
-      main: colors.success,
+      main: SUCCESS,
     },
     warning: {
-      main: colors.warning,
+      main: WARNING,
     },
     error: {
-      main: colors.error,
+      main: ERROR,
     },
   },
 });

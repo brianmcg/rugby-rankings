@@ -1,13 +1,13 @@
-import { colors } from '@constants/colors';
+import { PRIMARY, SUCCESS, ERROR } from '@constants/colors';
 import { formatTime } from '@utils/date';
 
 export const getColor = ({ isCreated, isComplete }) => {
   if (isCreated) {
-    return colors.success;
+    return SUCCESS;
   } else if (isComplete) {
-    return colors.primary;
+    return PRIMARY;
   } else {
-    return colors.error;
+    return ERROR;
   }
 };
 

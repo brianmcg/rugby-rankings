@@ -1,17 +1,23 @@
 import Translate from '@components/Translate';
-import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import { ERROR } from '@constants/colors';
 
 function ErrorMessage({ message }) {
   return (
-    <Container sx={{ mt: 10, mb: 10 }}>
-      <Stack alignItems="center">
-        <Box sx={{ display: 'flex' }}>
-          <Translate text={message} />
-        </Box>
-      </Stack>
-    </Container>
+    <Stack
+      direction="row"
+      spacing={2}
+      alignItems="center"
+      justifyContent="center"
+      sx={{ color: ERROR, p: 8 }}
+    >
+      <ErrorOutlineIcon />
+      <Typography variant="h6">
+        <Translate text={message} />
+      </Typography>
+    </Stack>
   );
 }
 

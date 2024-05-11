@@ -1,5 +1,10 @@
 import { useReducer } from 'react';
 import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import SendIcon from '@mui/icons-material/Send';
+import Box from '@mui/material/Box';
+import { SUCCESS, ERROR } from '@constants/colors';
+import CancelIcon from '@mui/icons-material/Cancel';
 import Translate from '@components/Translate';
 import LabelSwitch from '@components/LabelSwitch';
 import { isNumeric } from '@utils/number';
@@ -7,11 +12,6 @@ import TeamInput from './components/TeamInput';
 import ScoreInput from './components/ScoreInput';
 import { ACTIONS } from './actions';
 import { matchReducer } from './reducers';
-import Button from '@mui/material/Button';
-import SendIcon from '@mui/icons-material/Send';
-import Box from '@mui/material/Box';
-import { colors } from '@constants/colors';
-import CancelIcon from '@mui/icons-material/Cancel';
 
 export default function MatchForm({ match: initalMatch, teams, onCreate, onUpdate, onClose }) {
   const [match, dispatch] = useReducer(matchReducer, initalMatch);
@@ -111,14 +111,14 @@ export default function MatchForm({ match: initalMatch, teams, onCreate, onUpdat
         </Stack>
         <Stack direction="row" spacing={1} alignItems="center" justifyContent="flex-end">
           <Button
-            sx={{ color: 'secondary', '&:hover': { color: colors.error }}}
+            sx={{ color: 'secondary', '&:hover': { color: ERROR }}}
             startIcon={<CancelIcon />}
             onClick={onClose}
           >
             <Translate text="app.main.modal.cancel" />
           </Button>
           <Button
-            sx={{ color: 'secondary', '&:hover': { color: colors.success }}}
+            sx={{ color: 'secondary', '&:hover': { color: SUCCESS }}}
             disabled={!isComplete}
             startIcon={<SendIcon />}
             onClick={() => onClickConfirm(match)}

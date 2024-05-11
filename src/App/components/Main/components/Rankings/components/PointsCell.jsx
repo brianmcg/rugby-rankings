@@ -1,17 +1,15 @@
 import TableCell from '@mui/material/TableCell';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
-
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
-
-import { colors } from '@constants/colors';
+import { SECONDARY, SUCCESS, ERROR } from '@constants/colors';
 
 const formatPoints = pts => (Math.round(pts * 100) / 100).toFixed(2);
 
 const renderContents = (pts, previousPts) => {
-  const upStyle = { color: colors.success, fontSize: 14 };
-  const downStyle = { color: colors.error, fontSize: 14 };
+  const upStyle = { color: SUCCESS, fontSize: 14 };
+  const downStyle = { color: ERROR, fontSize: 14 };
 
   if (pts > previousPts) {
     return (
@@ -41,7 +39,7 @@ const renderContents = (pts, previousPts) => {
 
 export default function PointsCell({ pts, previousPts }) {
   return (
-    <TableCell component="th" scope="row" sx={{ color: colors.secondary }}>
+    <TableCell component="th" scope="row" sx={{ color: SECONDARY }}>
       {renderContents(pts, previousPts)}
     </TableCell>
   );

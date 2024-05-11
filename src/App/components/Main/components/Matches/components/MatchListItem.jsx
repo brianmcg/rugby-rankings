@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { getColor, getMatchResult } from './helpers';
-import { colors } from '@constants/colors';
+import { SUCCESS, ERROR } from '@constants/colors';
 import { formatDay } from '@utils/date'; 
 
 const renderMatchInfo = ({ competition, time, venue }) => {
@@ -48,7 +48,7 @@ export default function MatchListItem({ match, onClickEdit, onClickRemove }) {
         <Stack spacing={1} direction="row" alignItems="center" justifyContent="flex-end">
           <IconButton
             color="primary"
-            sx={{ '&:hover': { color: colors.success }}}
+            sx={{ '&:hover': { color: SUCCESS }}}
             onClick={() => onClickEdit(match)}
             size="small"
           >
@@ -57,7 +57,7 @@ export default function MatchListItem({ match, onClickEdit, onClickRemove }) {
 
           <IconButton
             color="primary"
-            sx={{ '&:hover': { color: colors.error }}}
+            sx={{ '&:hover': { color: ERROR }}}
             onClick={() => onClickRemove(matchId)}
             size="small"
           >

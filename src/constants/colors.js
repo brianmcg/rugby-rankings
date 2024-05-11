@@ -1,10 +1,13 @@
-export const colors = {
-  primary: '#00419B',
-  secondary: '#19194B',
-  background: '#e6e7eb',
-  info: '#00917b',
-  // warning: '#00419b',
-  warning: '#e31394',
-  success: '#58BE46',
-  error: '#C30019',
-};
+export const PRIMARY = '#00419b';
+
+export const SECONDARY = '#19194b';
+
+export const BACKGROUND = '#e6e7eb';
+
+export const INFO = '#00917b';
+
+export const WARNING = '#e31394';
+
+export const SUCCESS = '#58be46';
+
+export const ERROR = '#c30019';

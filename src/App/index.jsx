@@ -1,5 +1,6 @@
 import { useReducer, useCallback, useEffect } from 'react';
 import { fetchRankings, fetchMatches } from '@utils/api';
+import { MENS } from '@constants/sports';
 import { ACTIONS } from './actions';
 import { rankingsReducer } from './reducers';
 import Header from './components/Header';
@@ -7,6 +8,7 @@ import Main from './components/Main';
 import Footer from './components/Footer';
 import MatchModal from './components/MatchModal';
 import './App.css';
+import Stack from '@mui/material/Stack';
 
 const initialState = {
   initialRankings: {},
@@ -16,7 +18,7 @@ const initialState = {
   isError: null,
   isLoading: true,
   selectedMatch: null,
-  sport: 'mru',
+  sport: MENS,
 };
 
 export default function App() {
@@ -48,8 +50,8 @@ export default function App() {
         const fetchedMatches = await fetchMatches(sport, fetchedRankings);
 
         dispatch({ type: ACTIONS.FETCH_SUCCESS, payload: { rankings: fetchedRankings, matches: fetchedMatches } });
-      } catch (isError) {
-        dispatch({ type: ACTIONS.FETCH_ERROR, payload: isError });
+      } catch (error) {
+        dispatch({ type: ACTIONS.FETCH_ERROR });
       }
     }
 
@@ -57,27 +59,33 @@ export default function App() {
   }, [sport]);
 
   return (
-    <>
-      <Header
-        sport={sport}
-        effective={effective}
-        disabled={isLoading || isError}
-        changeSport={changeSport}
-        resetMatches={resetMatches}
-        clearMatches={clearMatches}
-        openModal={openModal}
-      />
-      <Main
-        rankings={rankings}
-        matches={matches}
-        teams={teams}
-        sport={sport}
-        isError={isError}
-        isLoading={isLoading}
-        openModal={openModal}
-        removeMatch={removeMatch}
-      />
-      <Footer />
+    <Stack sx={{ minHeight: '100vh' }} justifyContent="space-between">
+      <header>
+        <Header
+          sport={sport}
+          effective={effective}
+          disabled={isLoading || isError}
+          changeSport={changeSport}
+          resetMatches={resetMatches}
+          clearMatches={clearMatches}
+          openModal={openModal}
+        />
+      </header>
+      <main>
+        <Main
+          rankings={rankings}
+          matches={matches}
+          teams={teams}
+          sport={sport}
+          isError={isError}
+          isLoading={isLoading}
+          openModal={openModal}
+          removeMatch={removeMatch}
+        />
+      </main>
+      <footer>
+        <Footer />
+      </footer>
       <MatchModal
         match={selectedMatch}
         teams={teams}
@@ -85,7 +93,7 @@ export default function App() {
         onCreate={addMatch}
         onUpdate={updateMatch}
       />
-    </>
+    </Stack>
 
   );
 }

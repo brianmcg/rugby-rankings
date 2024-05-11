@@ -25,7 +25,7 @@ export default function Header({
   openModal,
 }) {
   return (
-    <header>
+    <Box>
       <Box sx={style}>
         <Container>
           <Stack direction="row" spacing={2} alignItems="center">
@@ -47,6 +47,6 @@ export default function Header({
         resetMatches={resetMatches}
         clearMatches={clearMatches}
       />
-    </header>
+    </Box>
   );
 }

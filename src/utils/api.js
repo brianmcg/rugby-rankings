@@ -1,13 +1,15 @@
 import axios from 'axios';
 import { formatApiDate, addWeeks } from '@utils/date';
 import { parseMatchResponse } from '@utils/parsers';
+import { RANKINGS, FIXTURES } from '@constants/urls';
+import { MENS } from '@constants/sports';
 
-const MENS_RANKINGS_URL = 'https://api.wr-rims-prod.pulselive.com/rugby/v3/rankings';
-const FIXTURES = 'https://api.wr-rims-prod.pulselive.com/rugby/v3/match';
-
+// This is for slowing down requests for development purposes.
+// const sleep = t => new Promise(resolve => setTimeout(resolve, t))
 
 async function fetchData(url, params) {
   try {
+    // await sleep(1500);
     const { data } = await axios.get(url, { params });
     return data;
   } catch (error) {
@@ -15,9 +17,9 @@ async function fetchData(url, params) {
   }
 }
 
-export const fetchRankings = (sport = 'mru') => fetchData(`${MENS_RANKINGS_URL}/${sport}`);
+export const fetchRankings = (sport = MENS) => fetchData(`${RANKINGS}/${sport}`);
 
-export const fetchMatches = async (sport = 'mru', rankings) => {
+export const fetchMatches = async (sport = MENS, rankings) => {
   // const startDate = subtractWeeks(rankings.effective.millis, 1, 'week');
   const endDate = addWeeks(rankings.effective.millis, 1);
 

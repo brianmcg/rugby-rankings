@@ -7,9 +7,7 @@ import SportsRugbyIcon from '@mui/icons-material/SportsRugby';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Translate from '@components/Translate';
-import { colors } from '@constants/colors';
-
-const { primary, secondary, success } = colors;
+import { PRIMARY, SECONDARY, SUCCESS } from '@constants/colors';
 
 const options = [{
   icon: <SportsRugbyIcon sx={{ opacity: 1 }}/>,
@@ -41,8 +39,8 @@ function Footer() {
     <Box style={{
       color: 'white',
       marginTop: 20,
-      backgroundImage: `linear-gradient(${primary}, ${secondary})`,
-      borderTop: `solid 4px ${success}`,
+      backgroundImage: `linear-gradient(${PRIMARY}, ${SECONDARY})`,
+      borderTop: `solid 4px ${SUCCESS}`,
     }}>
       <Container>
         <Box p={8}>

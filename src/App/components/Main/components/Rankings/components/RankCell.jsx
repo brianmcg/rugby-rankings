@@ -3,11 +3,11 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
-import { colors } from '@constants/colors';
+import { SUCCESS, ERROR } from '@constants/colors';
 
 const renderContents = (pos, previousPos) => {
-  const upStyle = { color: colors.success, fontSize: 14 };
-  const downStyle = { color: colors.error, fontSize: 14 };
+  const upStyle = { color: SUCCESS, fontSize: 14 };
+  const downStyle = { color: ERROR, fontSize: 14 };
 
   if (pos < previousPos) {
     return (
