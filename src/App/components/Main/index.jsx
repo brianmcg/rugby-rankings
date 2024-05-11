@@ -34,8 +34,6 @@ const initialState = {
   sport: 'mru',
 };
 
-
-
 export default function Main() {
   const [state, dispatch] = useReducer(rankingsReducer, initialState);
   const { rankings, matches, selectedMatch, isLoading, isError, sport } = state;
@@ -60,40 +58,6 @@ export default function Main() {
   
   useEffect(() => {
     const fetchData = async () => {
-      // window.localStorage.setItem(sport, JSON.stringify(state))
-      // ///////////////////
-      // 
-      // await sleep(delay)
-      // 
-      // /////////////////////////////////
-      // 
-      // const [squares, setSquares] = React.useState(
-      //     () =>
-      //     JSON.parse(window.localStorage.getItem('squares')) || Array(9).fill(null),
-      //  )
-     
-      //  React.useEffect(() => {
-      //   window.localStorage.setItem('squares', JSON.stringify(squares))
-      //  }, [squares])
-      // 
-      // //////////////
-      // 
-      // 
-      // const storedState = localStorage.getItem(sport);
-      
-      // if (storedState === null) {
-      //   dispatch({ type: ACTIONS.FETCH });
-      //   const fetchedRankings = await fetchRankings(sport);
-      //   const fetchedMatches = await fetchMatches(sport, fetchedRankings);
-      //   window.localStorage.setItem('squares', JSON.stringify({ fetchedRankings, fetchedMatches }));
-      //   dispatch({ type: ACTIONS.FETCH_SUCCESS, payload: { rankings: fetchedRankings, matches: fetchedMatches } });
-
-      // } else {
-      //   const { fetchedRankings, fetchedMatches } = storedState;
-      //   dispatch({ type: ACTIONS.FETCH_SUCCESS, payload: { rankings: fetchedRankings, matches: fetchedMatches } });
-      // }
-      // 
-
       try {
         const fetchedRankings = await fetchRankings(sport);
         const fetchedMatches = await fetchMatches(sport, fetchedRankings);
