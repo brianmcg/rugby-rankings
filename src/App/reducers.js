@@ -26,14 +26,14 @@ const onFetchStart = state => {
 
 const onFetchSuccess = (state, payload) => {
   const { data } = payload;
-  const { rankings, matches, cacheKey } = payload.data;
+  const { rankings, matches, cacheKey } = data;
 
   return {
     ...state,
     data: {
       ...data,
       // Recalculate rankings based on fetched matches.
-      rankings:calculateRankingChange(rankings, matches),
+      rankings: calculateRankingChange(rankings, matches),
     },
     initialData: {
       ...state.initialData,
@@ -59,7 +59,19 @@ const onFetchError = (state) => ({
   isLoading: false,
 });
 
-const onResetMatches = state => ({ ...state, data: state.initialData[state.sport] });
+const onResetMatches = state => {
+  const initialSportData = state.initialData[state.sport];
+  const { rankings, matches } = initialSportData;
+
+  return {
+    ...state,
+    data: {
+      ...initialSportData,
+      // Recalculate rankings based on initial data.
+      rankings: calculateRankingChange(rankings, matches),
+    },
+  }
+};
 
 const onSelectMatch = (state, payload) => {
   if (payload.match === null) {
