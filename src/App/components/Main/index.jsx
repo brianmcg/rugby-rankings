@@ -8,6 +8,7 @@ import Matches from './components/Matches';
 export default function Main({
   matches,
   rankings,
+  label,
   teams,
   sport,
   isError,
@@ -20,8 +21,6 @@ export default function Main({
      
   if (isLoading) return <Loading />;
 
-  const { entries, label } = rankings;
-  
   return (
     <Container sx={{ mt: 4, mb: 4 }}>
       <Grid container spacing={4} direction="row-reverse">
@@ -38,7 +37,7 @@ export default function Main({
         <Grid item xs={12} md={6}>
           <Rankings
             label={label}
-            entries={entries}
+            rankings={rankings}
             sport={sport}
           />
         </Grid>

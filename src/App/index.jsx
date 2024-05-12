@@ -12,10 +12,8 @@ import { useAsync, useUpdateCache } from './hooks';
 const cache = new Map();
 
 const initialState = {
+  data: null,
   initialRankings: null,
-  rankings: null,
-  matches: null,
-  initialMatches: null,
   isError: null,
   isLoading: true,
   selectedMatch: null,
@@ -24,9 +22,8 @@ const initialState = {
 
 export default function App() {
   const [state, dispatch] = useAsync(fetchData, initialState, cache);
-
-  const { rankings, matches, selectedMatch, isLoading, isError, sport } = state;
-  const teams = rankings?.entries?.map(entry => entry.team);
+  const { data, selectedMatch, sport, isLoading, isError } = state;
+  const { label, effective, teams, rankings, matches } = data ?? {};
 
   const selectMatch = match => dispatch({
     type: ACTIONS.SELECT_MATCH, payload: { match },
@@ -52,14 +49,14 @@ export default function App() {
     type: ACTIONS.CHANGE_SPORT, payload: { sport },
   });
 
-  useUpdateCache(cache, state);
+  useUpdateCache(cache, data);
 
   return (
     <Stack sx={{ minHeight: '100vh' }} justifyContent="space-between">
       <header>
         <Header
           sport={sport}
-          effective={rankings?.effective}
+          effective={effective}
           disabled={isLoading || isError}
           changeSport={changeSport}
           resetMatches={resetMatches}
@@ -70,6 +67,7 @@ export default function App() {
       <main>
         <Main
           rankings={rankings}
+          label={label}
           matches={matches}
           teams={teams}
           sport={sport}

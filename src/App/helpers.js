@@ -1,11 +1,11 @@
-const calculatePointsChanges = (entries, match) => {
+const calculatePointsChanges = (rankings, match) => {
   let ratingGap;
   let ratingChange;
 
   const { homeTeam, awayTeam, homeScore, awayScore, isNeutralVenue, isWorldCup } = match;
 
-  const homeEntry = entries.find(entry => entry.team.id === homeTeam.id);
-  const awayEntry = entries.find(entry => entry.team.id === awayTeam.id);
+  const homeEntry = rankings.find(entry => entry.team.id === homeTeam.id);
+  const awayEntry = rankings.find(entry => entry.team.id === awayTeam.id);
 
   if (isNeutralVenue) {
     ratingGap = homeEntry.pts - awayEntry.pts;
@@ -39,7 +39,7 @@ const calculatePointsChanges = (entries, match) => {
     const updatedHomeEntry = { ...homeEntry, pts: homeEntry.pts + ratingChange };
     const updatedAwayEntry = { ...awayEntry, pts: awayEntry.pts - ratingChange };
 
-    return entries.map(entry => {
+    return rankings.map(entry => {
       if (entry.team.id === updatedHomeEntry.team.id) {
         return updatedHomeEntry;
       }
@@ -55,7 +55,7 @@ const calculatePointsChanges = (entries, match) => {
   const updatedHomeEntry = { ...homeEntry, pts: homeEntry.pts - ratingChange };
   const updatedAwayEntry = { ...awayEntry, pts: awayEntry.pts + ratingChange };
 
-  return entries.map(entry => {
+  return rankings.map(entry => {
     if (entry.team.id === updatedHomeEntry.team.id) {
       return updatedHomeEntry;
     }
@@ -68,17 +68,17 @@ const calculatePointsChanges = (entries, match) => {
   });
 };
 
-export const calculateRankingChange = (rankings, matches = []) => ({
-  ...rankings,
-  entries: matches
+export const calculateRankingChange = (rankings, matches = []) => {
+  return matches
     .reduce((memo, match) => {
       if (match.isComplete) {
         return calculatePointsChanges(memo, match);
       }
       return memo;
-    }, rankings.entries ?? [])
+    }, rankings ?? [])
     .sort((entryA, entryB) => {
       return entryB.pts - entryA.pts;
     })
-    .map((entry, i) => ({ ...entry, pos: i + 1 }))
-});
+    .map((entry, i) => ({ ...entry, pos: i + 1 }));
+  
+};

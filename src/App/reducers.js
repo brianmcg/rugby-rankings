@@ -24,14 +24,23 @@ const onFetchStart = state => {
   };
 }
 
-const onFetchSuccess = (state, payload) => ({
-  ...state,
-  initialRankings: payload.rankings,
-  initialMatches: payload.matches,
-  rankings: payload.rankings,
-  matches: payload.matches,
-  isLoading: false,
-});
+const onFetchSuccess = (state, payload) => {
+  const { cacheKey } = payload.data;
+  // console.log({ state, payload });
+  const result = {
+    ...state,
+    data: payload.data,
+    initialData: {
+      ...state.initialData,
+      [cacheKey]: payload.data,
+    },
+    isLoading: false,
+  }
+
+  console.log('onFetchSuccess', result);
+
+  return result;
+};
 
 const onFetchError = (state) => ({
   ...state,
@@ -41,7 +50,7 @@ const onFetchError = (state) => ({
 
 const onResetMatches = state => ({
   ...state,
-  matches: state.initialMatches,
+  isLoading: true,
 });
 
 const onSelectMatch = (state, payload) => {
@@ -58,28 +67,28 @@ const onSelectMatch = (state, payload) => {
 };
 
 const onRemoveMatch = (state, payload) => {
-  const matches = state.matches.filter(match => match.matchId !== payload.matchId);
-  const rankings = calculateRankingChange(state.initialRankings, matches);
+  const matches = state.data.matches.filter(match => match.matchId !== payload.matchId);
+  const rankings = calculateRankingChange(state.initialData[state.sport].rankings, matches);
   
-  return { ...state, rankings, matches };
+  return { ...state, data: { ...state.data, rankings, matches } };
 };
 
 const onClearMatches = state => {
   const matches = [];
-  const rankings = calculateRankingChange(state.initialRankings, matches);
+  const rankings = calculateRankingChange(state.initialData[state.sport].rankings, matches);
 
-  return { ...state, rankings, matches };
+  return { ...state, data: { ...state.data, rankings, matches } };
 };
 
 const onAddMatch = (state, payload) => {
-  const matches = [...state.matches, { ...payload.match, matchId: `new-${matchIdCounter++}` }];
-  const rankings = calculateRankingChange(state.initialRankings, matches);
+  const matches = [...state.data.matches, { ...payload.match, matchId: `new-${matchIdCounter++}` }];
+  const rankings = calculateRankingChange(state.initialData[state.sport].rankings, matches);
   
-  return { ...state, rankings, matches, selectedMatch: null };
+  return { ...state, data: { ...state.data, rankings, matches }, selectedMatch: null };
 };
 
 const onUpdateMatch = (state, payload) => {
-  const matches = state.matches.map(match => {
+  const matches = state.data.matches.map(match => {
     if (match.matchId === payload.match.matchId) {
       return { ...payload.match };
     }
@@ -87,14 +96,15 @@ const onUpdateMatch = (state, payload) => {
     return match;
   });
 
-  const rankings = calculateRankingChange(state.initialRankings, matches);
+  const rankings = calculateRankingChange(state.initialData[state.sport].rankings, matches);
 
-  return { ...state, rankings, matches, selectedMatch: null };
+  return { ...state, data: { ...state.data, rankings, matches }, selectedMatch: null };
 };
 
 const onChangeSport = (state, payload) => ({ ...state, sport: payload.sport });
 
 export function rankingsReducer(state, { type, payload }) {
+  console.log(type, payload)
   switch (type) {
     case ACTIONS.FETCH_START: return onFetchStart(state, payload);
     case ACTIONS.FETCH_SUCCESS: return onFetchSuccess(state, payload);

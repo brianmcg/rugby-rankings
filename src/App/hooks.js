@@ -7,32 +7,32 @@ export function useAsync(asyncCallback, initialState, cache) {
   const { sport } = state;
 
   useEffect(() => {
-    const storedData = cache.get(sport);
+    // if (!isLoading) return;
 
-    if (storedData) {
-       dispatch({ type: ACTIONS.FETCH_SUCCESS, payload: storedData });
+    const data = cache.get(sport);
+
+    if (data) {
+       dispatch({ type: ACTIONS.FETCH_SUCCESS, payload: { data } });
        return;
     }
 
     dispatch({ type: ACTIONS.FETCH_START });
 
     asyncCallback(sport).then(
-      data => dispatch({ type: ACTIONS.FETCH_SUCCESS, payload: data }),
-      error => dispatch({ type: ACTIONS.FETCH_ERROR, error }),
+      data => dispatch({ type: ACTIONS.FETCH_SUCCESS, payload: { data } }),
+      error => dispatch({ type: ACTIONS.FETCH_ERROR, payload: { error } }),
     );
   }, [sport, asyncCallback, cache]);
 
   return [state, dispatch];
 }
 
-export function useUpdateCache(cache, state) {
-  const { rankings, matches } = state;
-  
+export function useUpdateCache(cache, data) {
   useEffect(() => {
-    if (rankings) {
-      cache.set(rankings.sport, { matches, rankings });
+    const { cacheKey } = data ?? {};
+
+    if (cacheKey) {
+      cache.set(cacheKey, data);
     }
-
-  }, [cache, rankings, matches]);
+  }, [data, cache]);
 }
-

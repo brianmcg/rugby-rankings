@@ -1,5 +1,5 @@
-export const parseMatchResponse = (response, rankings) => {
-  const teamIds = rankings.entries.map(({ team }) => team.id);
+export const parseMatchResponse = (response, teams) => {
+  const teamIds = teams.map(team => team.id);
 
   return response.content.reduce((memo, match) => {
     const isTeamsRanked = match.teams.reduce((memo, team) => memo && teamIds.includes(team.id), true);
@@ -19,7 +19,6 @@ export const parseMatchResponse = (response, rankings) => {
 
       const isComplete = status === 'C';
 
-      const teams = rankings.entries.map(entry => entry.team);
       const homeTeam = teams.find(team => team.id === matchTeams[0]?.id) || null;
       const awayTeam = teams.find(team => team.id === matchTeams[1]?.id) || null;
       const homeScore = isComplete ? scores[0] : null;
