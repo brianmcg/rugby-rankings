@@ -21,16 +21,7 @@ const initialState = {
   sport: MENS,
 };
 
-// function cacheReducer(state, { type, payload }) {
-//   switch (type) {
-//     case 'ADD_SPORT_DATA': {
-//       return { ...state, [payload.sport]: payload.data };
-//     }
-//     default: {
-//       throw new Error(`Unhandled action type: ${type}`)
-//     }
-//   }
-// }
+const cache = new Map();
 
 export default function App() {
   const [state, dispatch] = useReducer(rankingsReducer, initialState);
@@ -55,15 +46,26 @@ export default function App() {
   useEffect(useUpdateRankings, [useUpdateRankings]);
 
   useEffect(() => {
+    const storedData = cache.get(sport);
+
+    if (storedData) {
+       dispatch({ type: ACTIONS.FETCH_SUCCESS, payload: storedData });
+       return;
+    }
+
     const promise = fetchData(sport);
+
+    if (!promise) return;
 
     dispatch({ type: ACTIONS.FETCH_START });
 
     promise.then(
-      data => dispatch({ type: ACTIONS.FETCH_SUCCESS, payload: data }),
+      data => {
+        cache.set(sport, data);
+        dispatch({ type: ACTIONS.FETCH_SUCCESS, payload: data });
+      },
       error => dispatch({ type: ACTIONS.FETCH_ERROR, error }),
     );
-
   }, [sport]);
 
   return (
