@@ -24,15 +24,24 @@ const onFetchStart = state => {
   };
 }
 
-const onFetchSuccess = (state, payload) => ({
-  ...state,
-  data: payload.data,
-  initialData: {
-    ...state.initialData,
-    [payload.data.cacheKey]: payload.data,
-  },
-  isLoading: false,
-});
+const onFetchSuccess = (state, payload) => {
+  const { data } = payload;
+  const { rankings, matches, cacheKey } = payload.data;
+
+  return {
+    ...state,
+    data: {
+      ...data,
+      // Recalculate rankings based on fetched matches.
+      rankings:calculateRankingChange(rankings, matches),
+    },
+    initialData: {
+      ...state.initialData,
+      [cacheKey]: data,
+    },
+    isLoading: false,
+  }
+};
 
 const onCacheFetchSuccess = (state, payload) => {
   const result = {
