@@ -3,7 +3,6 @@ export const ACTIONS = {
   FETCH_SUCCESS: 'fetch:success',
   FETCH_ERROR: 'fetch:error',
   SELECT_MATCH: 'open:modal',
-  CLOSE_MODAL: 'close:close',
   ADD_MATCH: 'add:match',
   UPDATE_MATCH: 'update:match',
   REMOVE_MATCH: 'remove:match',

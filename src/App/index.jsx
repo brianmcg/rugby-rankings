@@ -1,8 +1,6 @@
-import { useReducer, useEffect } from 'react';
 import { fetchData } from '@utils/api';
 import { MENS } from '@constants/sports';
 import { ACTIONS } from './actions';
-// import { rankingsReducer } from './reducers';
 import Header from './components/Header';
 import Main from './components/Main';
 import Footer from './components/Footer';
@@ -30,14 +28,29 @@ export default function App() {
   const { rankings, matches, selectedMatch, isLoading, isError, sport } = state;
   const teams = rankings?.entries?.map(entry => entry.team);
 
-  const selectMatch = match => dispatch({ type: ACTIONS.SELECT_MATCH, payload: { match } });
+  const selectMatch = match => dispatch({
+    type: ACTIONS.SELECT_MATCH, payload: { match },
+  });
 
-  const addMatch = match => dispatch({ type: ACTIONS.ADD_MATCH, payload: { match } });
-  const updateMatch = match => dispatch({ type: ACTIONS.UPDATE_MATCH, payload: { match } });
-  const removeMatch = matchId => dispatch({ type: ACTIONS.REMOVE_MATCH, payload: { matchId } });
+  const addMatch = match => dispatch({
+    type: ACTIONS.ADD_MATCH, payload: { match },
+  });
+
+  const updateMatch = match => dispatch({
+    type: ACTIONS.UPDATE_MATCH, payload: { match },
+  });
+
+  const removeMatch = matchId => dispatch({
+    type: ACTIONS.REMOVE_MATCH, payload: { matchId },
+  });
+
   const clearMatches = () => dispatch({ type: ACTIONS.CLEAR_MATCHES });
+
   const resetMatches = () => dispatch({ type: ACTIONS.RESET_MATCHES });
-  const changeSport = (e, sport) => dispatch({ type: ACTIONS.CHANGE_SPORT, payload: { sport }});
+
+  const changeSport = (e, sport) => dispatch({
+    type: ACTIONS.CHANGE_SPORT, payload: { sport },
+  });
 
   useUpdateCache(cache, state);
 
