@@ -12,7 +12,7 @@ export function useAsync(asyncCallback, initialState, cache) {
     const data = cache.get(sport);
 
     if (data) {
-       dispatch({ type: ACTIONS.FETCH_SUCCESS, payload: { data } });
+       dispatch({ type: ACTIONS.CACHE_FETCH_SUCCESS, payload: { data } });
        return;
     }
 

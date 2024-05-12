@@ -24,21 +24,23 @@ const onFetchStart = state => {
   };
 }
 
-const onFetchSuccess = (state, payload) => {
-  const { cacheKey } = payload.data;
-  // console.log({ state, payload });
+const onFetchSuccess = (state, payload) => ({
+  ...state,
+  data: payload.data,
+  initialData: {
+    ...state.initialData,
+    [payload.data.cacheKey]: payload.data,
+  },
+  isLoading: false,
+});
+
+const onCacheFetchSuccess = (state, payload) => {
   const result = {
     ...state,
     data: payload.data,
-    initialData: {
-      ...state.initialData,
-      [cacheKey]: payload.data,
-    },
     isLoading: false,
   }
-
-  console.log('onFetchSuccess', result);
-
+  
   return result;
 };
 
@@ -48,10 +50,7 @@ const onFetchError = (state) => ({
   isLoading: false,
 });
 
-const onResetMatches = state => ({
-  ...state,
-  isLoading: true,
-});
+const onResetMatches = state => ({ ...state, data: state.initialData[state.sport] });
 
 const onSelectMatch = (state, payload) => {
   if (payload.match === null) {
@@ -104,10 +103,10 @@ const onUpdateMatch = (state, payload) => {
 const onChangeSport = (state, payload) => ({ ...state, sport: payload.sport });
 
 export function rankingsReducer(state, { type, payload }) {
-  console.log(type, payload)
   switch (type) {
     case ACTIONS.FETCH_START: return onFetchStart(state, payload);
     case ACTIONS.FETCH_SUCCESS: return onFetchSuccess(state, payload);
+    case ACTIONS.CACHE_FETCH_SUCCESS: return onCacheFetchSuccess(state, payload);
     case ACTIONS.FETCH_ERROR: return onFetchError(state, payload);
     case ACTIONS.ADD_MATCH: return onAddMatch(state, payload);
     case ACTIONS.REMOVE_MATCH: return onRemoveMatch(state, payload);
