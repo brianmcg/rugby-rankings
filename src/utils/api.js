@@ -41,9 +41,9 @@ async function fetchMatches(sport = MENS, rankings) {
 
 export async function fetchData(sport) {
   try {
-    const fetchedRankings = await fetchRankings(sport);
-    const fetchedMatches = await fetchMatches(sport, fetchedRankings);
-    return { rankings: fetchedRankings, matches: fetchedMatches };
+    const rankings = await fetchRankings(sport);
+    const matches = await fetchMatches(sport, rankings);
+    return { rankings: { ...rankings, sport }, matches };
   } catch (error) {
     return Promise.reject(error)
   }
