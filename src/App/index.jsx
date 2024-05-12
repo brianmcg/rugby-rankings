@@ -52,7 +52,7 @@ export default function App() {
     type: ACTIONS.CHANGE_SPORT, payload: { sport },
   });
 
-  useUpdateCache(cache, state);
+  useUpdateCache(cache, sport, { rankings, matches });
 
   return (
     <Stack sx={{ minHeight: '100vh' }} justifyContent="space-between">

@@ -25,13 +25,8 @@ export function useAsync(asyncCallback, initialState, cache) {
   return [state, dispatch];
 }
 
-export function useUpdateCache(cache, state) {
-  const { sport, rankings, matches } = state;
-  
+export function useUpdateCache(cache, key, value) {
   useEffect(() => {
-    if (rankings) {
-      cache.set(sport, { matches, rankings });
-    }
-
-  }, [cache, rankings, matches, sport]);
+    cache.set(key, value);
+  }, [cache, key, value]);
 }
