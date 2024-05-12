@@ -95,15 +95,6 @@ const onUpdateRankings = (state, payload) => {
 
 const onChangeSport = (state, payload) => ({ ...state, sport: payload.sport });
 
-// export function asyncReducer(state, { type, payload }) {
-//   switch (type) {
-//     case ACTIONS.FETCH_START: return onFetchStart(state, payload);
-//     case ACTIONS.FETCH_SUCCESS: return onFetchSuccess(state, payload);
-//     case ACTIONS.FETCH_ERROR: return onFetchError(state, payload);
-//     default: return state;
-//   }
-// }
-
 export function rankingsReducer(state, { type, payload }) {
   switch (type) {
     case ACTIONS.FETCH_START: return onFetchStart(state, payload);
