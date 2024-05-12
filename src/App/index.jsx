@@ -13,7 +13,7 @@ const cache = new Map();
 
 const initialState = {
   data: null,
-  initialRankings: null,
+  initialData: null,
   isError: null,
   isLoading: true,
   selectedMatch: null,

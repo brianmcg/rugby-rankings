@@ -7,8 +7,6 @@ export function useAsync(asyncCallback, initialState, cache) {
   const { sport } = state;
 
   useEffect(() => {
-    // if (!isLoading) return;
-
     const data = cache.get(sport);
 
     if (data) {
