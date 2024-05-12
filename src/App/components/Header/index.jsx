@@ -22,7 +22,7 @@ export default function Header({
   changeSport,
   resetMatches,
   clearMatches,
-  openModal,
+  selectMatch,
 }) {
   return (
     <Box>
@@ -43,7 +43,7 @@ export default function Header({
       <Menu
         effective={effective}
         disabled={disabled}
-        openModal={openModal}
+        selectMatch={selectMatch}
         resetMatches={resetMatches}
         clearMatches={clearMatches}
       />

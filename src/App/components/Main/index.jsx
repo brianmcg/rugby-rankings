@@ -12,7 +12,7 @@ export default function Main({
   sport,
   isError,
   isLoading,
-  openModal,
+  selectMatch,
   removeMatch,
 }) {
 
@@ -29,7 +29,7 @@ export default function Main({
           <Matches
             matches={matches}
             teams={teams}
-            openModal={openModal}
+            selectMatch={selectMatch}
             remove={removeMatch}
             sport={sport}
             label={label}

@@ -68,16 +68,17 @@ const calculatePointsChanges = (entries, match) => {
   });
 };
 
-export const calculateRankingChange = (entries = [], matches = []) => (
-  matches
+export const calculateRankingChange = (rankings, matches = []) => ({
+  ...rankings,
+  entries: matches
     .reduce((memo, match) => {
       if (match.isComplete) {
         return calculatePointsChanges(memo, match);
       }
       return memo;
-    }, entries)
+    }, rankings.entries ?? [])
     .sort((entryA, entryB) => {
       return entryB.pts - entryA.pts;
     })
     .map((entry, i) => ({ ...entry, pos: i + 1 }))
-);
+});

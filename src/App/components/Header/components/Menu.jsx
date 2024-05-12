@@ -22,7 +22,7 @@ export default function Menu({
   disabled,
   resetMatches,
   clearMatches,
-  openModal,
+  selectMatch,
 }) {
   return (
     <Box sx={{ width: '100%', p: 3, bgcolor: 'secondary.main', color: 'common.white'}}>
@@ -64,7 +64,7 @@ export default function Menu({
               sx={{ opacity: 0.6, '&:hover': { opacity: 1 } }}
               color="inherit"
               startIcon={<AddIcon />}
-              onClick={() => openModal()}
+              onClick={() => selectMatch()}
             >
               <Translate text="app.main.add" />
             </Button>

@@ -44,33 +44,38 @@ const onResetMatches = state => ({
   matches: state.initialMatches,
 });
 
-const onOpenModal = (state, payload) => ({
-  ...state,
-  selectedMatch: payload.match ? payload.match : newMatch,
-});
+const onSelectMatch = (state, payload) => {
+  if (payload.match === null) {
+    return {
+      ...state,
+      selectedMatch: null,
+    }
+  }
+  return {
+    ...state,
+    selectedMatch: payload.match ? payload.match : newMatch,
+  }
+};
 
-const onCloseModal = state => ({
-  ...state,
-  selectedMatch: null,
-});
+const onRemoveMatch = (state, payload) => {
+  const matches = state.matches.filter(match => match.matchId !== payload.matchId);
+  const rankings = calculateRankingChange(state.initialRankings, matches);
+  
+  return { ...state, rankings, matches };
+};
 
-const onRemoveMatch = (state, payload) => ({
-  ...state,
-  matches: state.matches.filter(match => match.matchId !== payload.matchId),
-});
+const onClearMatches = state => {
+  const matches = [];
+  const rankings = calculateRankingChange(state.initialRankings, matches);
 
-const onClearMatches = state => ({
-  ...state,
-  matches: [],
-});
+  return { ...state, rankings, matches };
+};
 
 const onAddMatch = (state, payload) => {
-  const match = { ...payload.match, matchId: `new-${matchIdCounter++}` };
+  const matches = [...state.matches, { ...payload.match, matchId: `new-${matchIdCounter++}` }];
+  const rankings = calculateRankingChange(state.initialRankings, matches);
   
-  return {
-    ...state, selectedMatch: null,
-    matches: [...state.matches, match],
-  };
+  return { ...state, rankings, matches, selectedMatch: null };
 };
 
 const onUpdateMatch = (state, payload) => {
@@ -82,15 +87,9 @@ const onUpdateMatch = (state, payload) => {
     return match;
   });
 
-  return { ...state, selectedMatch: null, matches };
-};
+  const rankings = calculateRankingChange(state.initialRankings, matches);
 
-const onUpdateRankings = (state, payload) => {
-  const entries = calculateRankingChange(state.initialRankings?.entries, payload.matches);
-
-  const rankings = { ...state.rankings, entries };
-
-  return { ...state, rankings };
+  return { ...state, rankings, matches, selectedMatch: null };
 };
 
 const onChangeSport = (state, payload) => ({ ...state, sport: payload.sport });
@@ -100,14 +99,12 @@ export function rankingsReducer(state, { type, payload }) {
     case ACTIONS.FETCH_START: return onFetchStart(state, payload);
     case ACTIONS.FETCH_SUCCESS: return onFetchSuccess(state, payload);
     case ACTIONS.FETCH_ERROR: return onFetchError(state, payload);
-    case ACTIONS.RESET_MATCHES: return onResetMatches(state, payload);
-    case ACTIONS.OPEN_MODAL: return onOpenModal(state, payload);
-    case ACTIONS.CLOSE_MODAL: return onCloseModal(state);
-    case ACTIONS.REMOVE_MATCH: return onRemoveMatch(state, payload);
-    case ACTIONS.CLEAR_MATCHES: return onClearMatches(state);
     case ACTIONS.ADD_MATCH: return onAddMatch(state, payload);
+    case ACTIONS.REMOVE_MATCH: return onRemoveMatch(state, payload);
     case ACTIONS.UPDATE_MATCH: return onUpdateMatch(state, payload);
-    case ACTIONS.UPDATE_RANKINGS: return onUpdateRankings(state, payload);
+    case ACTIONS.SELECT_MATCH: return onSelectMatch(state, payload);
+    case ACTIONS.RESET_MATCHES: return onResetMatches(state, payload);
+    case ACTIONS.CLEAR_MATCHES: return onClearMatches(state);
     case ACTIONS.CHANGE_SPORT: return onChangeSport(state, payload);
     default: return state;
   }

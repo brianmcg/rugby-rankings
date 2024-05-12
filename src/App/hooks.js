@@ -1,38 +1,37 @@
-import { useReducer, useEffect, useRef } from 'react';
+import { useReducer, useEffect } from 'react';
 import { rankingsReducer } from './reducers';
+import { ACTIONS } from './actions';
 
-export function useAsync(asyncCallback, initialState) {
-  const [state, dispatch] = useReducer(rankingsReducer, {
-    status: 'idle',
-    data: null,
-    error: null,
-    ...initialState,
-  });
+export function useAsync(asyncCallback, initialState, cache) {
+  const [state, dispatch] = useReducer(rankingsReducer, initialState);
+  const { sport } = state;
 
   useEffect(() => {
-    const promise = asyncCallback();
+    const storedData = cache.get(sport);
 
-    if (!promise) return;
-  
-    dispatch({type: 'pending'});
+    if (storedData) {
+       dispatch({ type: ACTIONS.FETCH_SUCCESS, payload: storedData });
+       return;
+    }
 
-    promise.then(
-      data => dispatch({type: 'resolved', data}),
-      error => dispatch({type: 'rejected', error}),
+    dispatch({ type: ACTIONS.FETCH_START });
+
+    asyncCallback(sport).then(
+      data => dispatch({ type: ACTIONS.FETCH_SUCCESS, payload: data }),
+      error => dispatch({ type: ACTIONS.FETCH_ERROR, error }),
     );
-    
-  }, [asyncCallback]);
+  }, [sport, asyncCallback, cache]);
 
-  return state;
+  return [state, dispatch];
 }
 
-export function useOnMountUnsafe(effect) {
-  const initialized = useRef(false);
-
+export function useUpdateCache(cache, state) {
+  const { sport, rankings, matches } = state;
+  
   useEffect(() => {
-    if (!initialized.current) {
-      initialized.current = true;
-      effect();
+    if (rankings) {
+      cache.set(sport, { matches, rankings });
     }
-  }, [effect]);
+
+  }, [cache, rankings, matches, sport]);
 }
