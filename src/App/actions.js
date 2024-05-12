@@ -6,6 +6,7 @@ export const ACTIONS = {
   OPEN_MODAL: 'open:modal',
   CLOSE_MODAL: 'close:close',
   UPDATE_RANKINGS: 'update:rankings',
+  UPDATE_MATCH: 'update:match',
   REMOVE_MATCH: 'remove:match',
   CLEAR_MATCHES: 'clear:matches',
   ADD_MATCH: 'add:match',

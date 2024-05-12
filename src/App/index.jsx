@@ -37,14 +37,6 @@ export default function App() {
   const updateMatch = match => dispatch({ type: ACTIONS.UPDATE_MATCH, payload: { match } });
   const changeSport = (e, sport) => dispatch({ type: ACTIONS.CHANGE_SPORT, payload: { sport }});
 
-  const useUpdateRankings = useCallback(() => {
-    if (matches) {
-      dispatch({ type: ACTIONS.UPDATE_RANKINGS, payload: { matches } })
-    }
-  }, [matches]);
-
-  useEffect(useUpdateRankings, [useUpdateRankings]);
-
   useEffect(() => {
     const storedData = cache.get(sport);
 
@@ -67,6 +59,12 @@ export default function App() {
       error => dispatch({ type: ACTIONS.FETCH_ERROR, error }),
     );
   }, [sport]);
+
+  useEffect(() => {
+    if (matches) {
+      dispatch({ type: ACTIONS.UPDATE_RANKINGS, payload: { matches } })
+    }
+  }, [matches]);
 
   return (
     <Stack sx={{ minHeight: '100vh' }} justifyContent="space-between">
