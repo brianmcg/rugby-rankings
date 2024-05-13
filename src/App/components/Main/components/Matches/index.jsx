@@ -30,7 +30,7 @@ export default function Matches({ matches, teams, label, sport, onSelectMatch, o
                   onSelectMatch={onSelectMatch}
                 />
               </ListItem>
-            )
+            ),
           )
         }
         </List>

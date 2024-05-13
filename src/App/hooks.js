@@ -5,7 +5,7 @@ import { ACTIONS } from './actions';
 export function useAsync(asyncCallback, initialState, cacheOptions = {}) {
   const { cache, key } = cacheOptions;
   const [state, dispatch] = useReducer(rankingsReducer, initialState);
-  const cacheKey = state[key]
+  const cacheKey = state[key];
 
   useEffect(() => {
     const data = cache?.get?.(cacheKey);

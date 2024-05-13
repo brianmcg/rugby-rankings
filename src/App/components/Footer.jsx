@@ -10,15 +10,15 @@ import Translate from '@components/Translate';
 import { PRIMARY, SECONDARY, SUCCESS } from '@constants/colors';
 
 const options = [{
-  icon: <SportsRugbyIcon sx={{ opacity: 1 }}/>,
+  icon: <SportsRugbyIcon />,
   label: 'app.footer.rankings',
   href: 'https://www.world.rugby/rankings',
 }, {
-  icon: <GitHubIcon sx={{ opacity: 1 }}/>,
+  icon: <GitHubIcon />,
   label: 'app.footer.github',
   href: 'https://github.com/brianmcg/rugby-rankings',
 }, {
-  icon: <AccountCircleIcon sx={{ opacity: 1 }}/>,
+  icon: <AccountCircleIcon />,
   label: 'app.footer.author',
   href: 'http://www.bmcgrath.net',
 }];

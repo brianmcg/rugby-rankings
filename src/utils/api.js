@@ -13,7 +13,7 @@ async function axiosGet(url, params) {
     const { data } = await axios.get(url, { params });
     return data;
   } catch (error) {
-    return Promise.reject(error)
+    return Promise.reject(error);
   }
 }
 
@@ -47,6 +47,6 @@ export async function fetchData(id) {
 
     return { id, label, teams, rankings, matches, effective };
   } catch (error) {
-    return Promise.reject(error)
+    return Promise.reject(error);
   }
 }

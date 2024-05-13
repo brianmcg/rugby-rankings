@@ -38,7 +38,7 @@ function renderTableRows(rankings, fullTable) {
       </TableCell>
       <PointsCell pts={pts} previousPts={previousPts} />
     </TableRow>
-  ))
+  ));
 }
 
 export default function Rankings({ rankings, label, sport }) {

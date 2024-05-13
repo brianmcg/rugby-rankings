@@ -24,7 +24,7 @@ function renderMatchInfo(match) {
         </Typography>
         <Typography variant="caption">{topRightLabel}</Typography>
       </Stack>
-    )
+    );
   }
 
   return null;

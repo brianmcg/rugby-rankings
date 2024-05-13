@@ -36,7 +36,7 @@ function onFetchSuccess(state, payload) {
       [id]: data,
     },
     isLoading: false,
-  }
+  };
 }
 
 function onCacheFetchSuccess(state, payload) {

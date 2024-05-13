@@ -55,8 +55,6 @@ export default function App() {
   // TODO:
   // Update modal style
   // reduce jsx
-  // npm lint
-  // update eslint
 
   return (
     <Stack sx={{ minHeight: '100vh' }} justifyContent="space-between">

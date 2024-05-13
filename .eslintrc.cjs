@@ -12,6 +12,9 @@ module.exports = {
   settings: { react: { version: '18.2' } },
   plugins: ['react-refresh'],
   rules: {
+    'quotes': ['error', 'single'],
+    'semi': [2, 'always'],
+    'comma-dangle': ['error', 'always-multiline'],
     'react/prop-types': 'off',
     'react/jsx-no-target-blank': 'off',
     'react-refresh/only-export-components': [

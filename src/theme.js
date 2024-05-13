@@ -37,7 +37,7 @@ const theme = createTheme({
     button: {
       fontWeight: 900,
       textTransform: 'none',
-    }
+    },
   },
   components: {
     MuiButton: {
@@ -67,8 +67,8 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           backgroundColor: PRIMARY,
-        }
-      }
+        },
+      },
     },
     MuiTabs: {
       styleOverrides: {
@@ -89,7 +89,7 @@ const theme = createTheme({
           // '&.Mui-selected': {
           //   opacity: 1,
           // }
-        }
+        },
       },
     },
     MuiLink: {
@@ -112,7 +112,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 0,
-        }
+        },
       },
     },
   },

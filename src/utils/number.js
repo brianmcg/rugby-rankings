@@ -1,4 +1,4 @@
-export const isNumeric = str => {
+export function isNumeric(str) {
   if (typeof str !== 'string') {
     return false;
   }
