@@ -13,7 +13,7 @@ export default function Tabs({ sport, changeSport }) {
         <MuiTabs
           variant="fullWidth"
           value={sport}
-          onChange={changeSport}
+          onChange={(e, value) => changeSport(value)}
           textColor="primary"
           indicatorColor="primary"
         >

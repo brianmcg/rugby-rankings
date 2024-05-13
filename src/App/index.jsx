@@ -21,9 +21,13 @@ const initialState = {
 };
 
 export default function App() {
-  const [state, dispatch] = useAsync(fetchData, initialState, cache);
+  const [state, dispatch] = useAsync(fetchData, initialState, { cache, key: 'sport' });
   const { data, selectedMatch, sport, isLoading, isError } = state;
   const { label, effective, teams, rankings, matches } = data ?? {};
+
+  const changeSport = sport => dispatch({
+    type: ACTIONS.CHANGE_SPORT, payload: { sport },
+  });
 
   const selectMatch = match => dispatch({
     type: ACTIONS.SELECT_MATCH, payload: { match },
@@ -41,15 +45,15 @@ export default function App() {
     type: ACTIONS.REMOVE_MATCH, payload: { matchId },
   });
 
+  const updateMatches = matches => dispatch({
+    type: ACTIONS.UPDATE_MATCHES, payload: { matches },
+  });
+
   const clearMatches = () => dispatch({ type: ACTIONS.CLEAR_MATCHES });
 
   const resetMatches = () => dispatch({ type: ACTIONS.RESET_MATCHES });
 
-  const changeSport = (e, sport) => dispatch({
-    type: ACTIONS.CHANGE_SPORT, payload: { sport },
-  });
-
-  useUpdateCache(cache, data);
+  useUpdateCache(cache, data?.cacheKey, data);
 
   return (
     <Stack sx={{ minHeight: '100vh' }} justifyContent="space-between">

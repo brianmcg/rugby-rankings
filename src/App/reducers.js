@@ -59,19 +59,7 @@ const onFetchError = (state) => ({
   isLoading: false,
 });
 
-const onResetMatches = state => {
-  const initialSportData = state.initialData[state.sport];
-  const { rankings, matches } = initialSportData;
-
-  return {
-    ...state,
-    data: {
-      ...initialSportData,
-      // Recalculate rankings based on initial data.
-      rankings: calculateRankingChange(rankings, matches),
-    },
-  }
-};
+const onChangeSport = (state, payload) => ({ ...state, sport: payload.sport });
 
 const onSelectMatch = (state, payload) => {
   if (payload.match === null) {
@@ -84,20 +72,6 @@ const onSelectMatch = (state, payload) => {
     ...state,
     selectedMatch: payload.match ? payload.match : newMatch,
   }
-};
-
-const onRemoveMatch = (state, payload) => {
-  const matches = state.data.matches.filter(match => match.matchId !== payload.matchId);
-  const rankings = calculateRankingChange(state.initialData[state.sport].rankings, matches);
-  
-  return { ...state, data: { ...state.data, rankings, matches } };
-};
-
-const onClearMatches = state => {
-  const matches = [];
-  const rankings = calculateRankingChange(state.initialData[state.sport].rankings, matches);
-
-  return { ...state, data: { ...state.data, rankings, matches } };
 };
 
 const onAddMatch = (state, payload) => {
@@ -121,7 +95,39 @@ const onUpdateMatch = (state, payload) => {
   return { ...state, data: { ...state.data, rankings, matches }, selectedMatch: null };
 };
 
-const onChangeSport = (state, payload) => ({ ...state, sport: payload.sport });
+const onRemoveMatch = (state, payload) => {
+  const matches = state.data.matches.filter(match => match.matchId !== payload.matchId);
+  const rankings = calculateRankingChange(state.initialData[state.sport].rankings, matches);
+  
+  return { ...state, data: { ...state.data, rankings, matches } };
+};
+
+const onClearMatches = state => {
+  const matches = [];
+  const rankings = calculateRankingChange(state.initialData[state.sport].rankings, matches);
+
+  return { ...state, data: { ...state.data, rankings, matches } };
+};
+
+const onResetMatches = state => {
+  const initialSportData = state.initialData[state.sport];
+  const { rankings, matches } = initialSportData;
+
+  return {
+    ...state,
+    data: {
+      ...initialSportData,
+      // Recalculate rankings based on initial data.
+      rankings: calculateRankingChange(rankings, matches),
+    },
+  }
+};
+
+const onupdateMatches = (state, payload) => {
+  const { matches } = payload;
+  const rankings = calculateRankingChange(state.initialData[state.sport].rankings, matches);
+  return { ...state, data: { ...state.data, rankings, matches } };
+}
 
 export function rankingsReducer(state, { type, payload }) {
   switch (type) {
@@ -134,7 +140,8 @@ export function rankingsReducer(state, { type, payload }) {
     case ACTIONS.UPDATE_MATCH: return onUpdateMatch(state, payload);
     case ACTIONS.SELECT_MATCH: return onSelectMatch(state, payload);
     case ACTIONS.RESET_MATCHES: return onResetMatches(state, payload);
-    case ACTIONS.CLEAR_MATCHES: return onClearMatches(state);
+    case ACTIONS.CLEAR_MATCHES: return onClearMatches(state, payload);
+    case ACTIONS.UPDATE_MATCHES: return onupdateMatches(state, payload);
     case ACTIONS.CHANGE_SPORT: return onChangeSport(state, payload);
     default: return state;
   }
