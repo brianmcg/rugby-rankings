@@ -51,9 +51,6 @@ export default function App() {
 
   useUpdateCache(cache, data);
 
-  // TODO:
-  // Update modal style
-
   return (
     <Stack sx={{ minHeight: '100vh' }} justifyContent="space-between">
       <header>

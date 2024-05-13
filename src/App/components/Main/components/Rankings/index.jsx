@@ -2,7 +2,6 @@ import { useState } from 'react';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
-import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import CardContent from '@mui/material/CardContent';
 import Table from '@mui/material/Table';
@@ -73,7 +72,7 @@ export default function Rankings({ rankings, label, sport }) {
           </Table>
         </TableContainer>
 
-        <Box display="flex" justifyContent="center" p={2} mt={2}>
+        <Stack direction="column" p={2} mt={2}>
           <Button
             variant="contained"
             startIcon={fullTable ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
@@ -81,7 +80,7 @@ export default function Rankings({ rankings, label, sport }) {
           >
             <Translate text={`app.main.rankings.${fullTable ? 'collapse' : 'expand'}` } />
           </Button>
-        </Box>
+        </Stack>
       </CardContent>
     </Card>
   );

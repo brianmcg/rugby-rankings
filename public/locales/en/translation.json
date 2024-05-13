@@ -49,6 +49,8 @@
       "modal": {
         "title": "Predict Score",
         "team": "Team",
+        "home": "Home Team",
+        "away": "Away Team",
         "score": "Score",
         "neutral": "Neutral Venue",
         "rwc": "Rugby World Cup",

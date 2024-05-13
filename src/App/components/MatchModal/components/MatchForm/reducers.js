@@ -1,5 +1,5 @@
 import { ACTIONS } from './actions';
-import { validateScore, validateTeam } from './helpers';
+import { validateScore, validateTeam } from '@utils/validate';
 
 function isMatchComplete(match) {
   const { homeTeam, awayTeam, homeScore, awayScore } = match;

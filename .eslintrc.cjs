@@ -14,6 +14,7 @@ module.exports = {
   rules: {
     'quotes': ['error', 'single'],
     'semi': [2, 'always'],
+    'no-trailing-spaces': 'error',
     'comma-dangle': ['error', 'always-multiline'],
     'react/prop-types': 'off',
     'react/jsx-no-target-blank': 'off',
