@@ -24,7 +24,7 @@ function renderButton({ icon, action, disabled, label }) {
   );
 }
 
-export default function Menu({ effective, disabled, onResetMatches, onClearMatches, onSelectMatch }) {
+export default function Menu({ startDate, disabled, onResetMatches, onClearMatches, onSelectMatch }) {
   const options = [
     { label: 'app.main.reset', icon: <RefreshIcon />, action: onResetMatches },
     { label: 'app.main.clear', icon: <DeleteIcon />, action: onClearMatches },
@@ -39,8 +39,8 @@ export default function Menu({ effective, disabled, onResetMatches, onClearMatch
             <Typography variant="subtitle2" sx={{ textTransform: 'uppercase' }}>
               <Translate text="app.main.updated" />
             </Typography>
-            <Typography variant="subtitle2" sx={{ fontWeight: 900 }}>
-              {effective?.millis ? formatDay(effective.millis) : null}
+            <Typography variant="subtitle2" sx={{ textTransform: 'uppercase', fontWeight: 900 }}>
+              {startDate ? formatDay(startDate) : null}
             </Typography>
           </Stack>
 

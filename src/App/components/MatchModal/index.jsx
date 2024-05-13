@@ -15,7 +15,14 @@ const style = {
   p: 4,
 };
 
-export default function TransitionsModal({ match, teams, onSelectMatch, onCreate, onUpdate }) {
+export default function TransitionsModal({
+  match,
+  teams,
+  endDate,
+  onSelectMatch,
+  onCreate,
+  onUpdate,
+}) {
   const isOpen = !!match;
   const onClose = () => onSelectMatch(null);
 
@@ -35,6 +42,7 @@ export default function TransitionsModal({ match, teams, onSelectMatch, onCreate
           <MatchForm
             match={match}
             teams={teams}
+            endDate={endDate}
             onCreate={onCreate}
             onUpdate={onUpdate}
             onClose={onClose}

@@ -6,7 +6,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Stack from '@mui/material/Stack';
 import Translate from '@components/Translate';
-import MatchListItem from './components/MatchListItem';
+import Match from './components/Match';
 
 const imageSrc = sport => `/src/assets/images/${sport}/matches.png`;
 
@@ -23,7 +23,7 @@ export default function Matches({ matches, teams, label, sport, onSelectMatch, o
           matches.map(match => 
             (
               <ListItem key={match.matchId}>
-                <MatchListItem
+                <Match
                   match={match}
                   teams={teams}
                   onRemoveMatch={onRemoveMatch}

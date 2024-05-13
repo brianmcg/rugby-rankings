@@ -8,8 +8,6 @@ import Main from './components/Main';
 import Footer from './components/Footer';
 import MatchModal from './components/MatchModal';
 
-import './App.css';
-
 const cache = new Map();
 
 const initialState = {
@@ -24,7 +22,7 @@ const initialState = {
 export default function App() {
   const [state, dispatch] = useAsync(fetchData, initialState, { cache, key: KEY });
   const { data, initialData, selectedMatch, sport, isLoading, isError } = state;
-  const { label, effective, teams, rankings, matches } = data ?? {};
+  const { label, startDate, endDate, teams, rankings, matches } = data ?? {};
 
   const changeSport = sport => dispatch({
     type: ACTIONS.CHANGE_SPORT, payload: { sport },
@@ -61,7 +59,7 @@ export default function App() {
       <header>
         <Header
           sport={sport}
-          effective={effective}
+          startDate={startDate}
           disabled={isLoading || isError}
           onChangeSport={changeSport}
           onResetMatches={() => updateMatches(initialData[sport]?.matches)}
@@ -88,6 +86,7 @@ export default function App() {
       <MatchModal
         match={selectedMatch}
         teams={teams}
+        endDate={endDate}
         onSelectMatch={selectMatch}
         onCreate={addMatch}
         onUpdate={updateMatch}

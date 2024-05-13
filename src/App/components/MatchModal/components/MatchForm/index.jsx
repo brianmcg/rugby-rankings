@@ -14,7 +14,7 @@ import TeamInput from './components/TeamInput';
 import ScoreInput from './components/ScoreInput';
 import { useTranslation } from 'react-i18next';
 
-export default function MatchForm({ match, teams, onCreate, onUpdate, onClose }) {
+export default function MatchForm({ match, teams, endDate, onCreate, onUpdate, onClose }) {
   const [state, dispatch] = useReducer(matchReducer, match);
   const { homeTeam, awayTeam, homeScore, awayScore, isNeutralVenue, isWorldCup, isComplete } = state;
   const { t } = useTranslation();
@@ -58,9 +58,10 @@ export default function MatchForm({ match, teams, onCreate, onUpdate, onClose })
       onUpdate({ ...match, isCreated: true });
     } else {
       const competition = t('app.main.matches.created');
+      const time = { millis: endDate };
       const country = isNeutralVenue ? t('app.main.matches.neutral') : homeTeam?.name;
 
-      onCreate({ ...match, competition, venue: { country }, isCreated: true });
+      onCreate({ ...match, time, competition, venue: { country }, isCreated: true });
     }
   };
 

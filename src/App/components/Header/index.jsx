@@ -9,7 +9,7 @@ import Tabs from './components/Tabs';
 
 export default function Header({
   sport,
-  effective,
+  startDate,
   disabled,
   onChangeSport,
   onResetMatches,
@@ -34,7 +34,7 @@ export default function Header({
       <Tabs sport={sport} disabled={disabled} onChangeSport={onChangeSport} />
       
       <Menu
-        effective={effective}
+        startDate={startDate}
         disabled={disabled}
         onSelectMatch={onSelectMatch}
         onResetMatches={onResetMatches}
