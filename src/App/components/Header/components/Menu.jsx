@@ -11,7 +11,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Translate from '@components/Translate';
 import { formatDay } from '@utils/date';
 
-export default function Menu({ effective, disabled, resetMatches, clearMatches, selectMatch }) {
+export default function Menu({ effective, disabled, onResetMatches, onClearMatches, onSelectMatch }) {
   const buttonStyle = {
     opacity: 0.6,
     '&:hover': { opacity: 1 } ,
@@ -38,7 +38,7 @@ export default function Menu({ effective, disabled, resetMatches, clearMatches, 
               sx={buttonStyle}
               color="inherit"
               startIcon={<RefreshIcon />}
-              onClick={resetMatches}
+              onClick={onResetMatches}
             >
               <Translate text="app.main.reset" />
             </Button>
@@ -48,7 +48,7 @@ export default function Menu({ effective, disabled, resetMatches, clearMatches, 
               sx={buttonStyle}
               color="inherit"
               startIcon={<DeleteIcon />}
-              onClick={clearMatches}
+              onClick={onClearMatches}
             >
               <Translate text="app.main.clear" />
             </Button>
@@ -58,7 +58,7 @@ export default function Menu({ effective, disabled, resetMatches, clearMatches, 
               sx={buttonStyle}
               color="inherit"
               startIcon={<AddIcon />}
-              onClick={() => selectMatch()}
+              onClick={() => onSelectMatch()}
             >
               <Translate text="app.main.add" />
             </Button>

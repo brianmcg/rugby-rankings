@@ -19,10 +19,10 @@ export default function Header({
   sport,
   effective,
   disabled,
-  changeSport,
-  resetMatches,
-  clearMatches,
-  selectMatch,
+  onChangeSport,
+  onResetMatches,
+  onClearMatches,
+  onSelectMatch,
 }) {
   return (
     <Box>
@@ -38,14 +38,14 @@ export default function Header({
         </Container>
       </Box>
 
-      <Tabs sport={sport} changeSport={changeSport} disabled={disabled} />
+      <Tabs sport={sport} disabled={disabled} onChangeSport={onChangeSport} />
       
       <Menu
         effective={effective}
         disabled={disabled}
-        selectMatch={selectMatch}
-        resetMatches={resetMatches}
-        clearMatches={clearMatches}
+        onSelectMatch={onSelectMatch}
+        onResetMatches={onResetMatches}
+        onClearMatches={onClearMatches}
       />
     </Box>
   );

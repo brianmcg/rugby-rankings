@@ -24,7 +24,7 @@ const renderMatchInfo = ({ competition, time, venue }) => {
   return null;
 };
 
-export default function MatchListItem({ match, onClickEdit, onClickRemove }) {
+export default function MatchListItem({ match, onSelectMatch, onRemoveMatch }) {
   const { homeTeam, awayTeam, matchId } = match;
   const color = getColor(match);
   
@@ -49,7 +49,7 @@ export default function MatchListItem({ match, onClickEdit, onClickRemove }) {
           <IconButton
             color="primary"
             sx={{ '&:hover': { color: SUCCESS }}}
-            onClick={() => onClickEdit(match)}
+            onClick={() => onSelectMatch(match)}
             size="small"
           >
             <EditIcon />
@@ -58,7 +58,7 @@ export default function MatchListItem({ match, onClickEdit, onClickRemove }) {
           <IconButton
             color="primary"
             sx={{ '&:hover': { color: ERROR }}}
-            onClick={() => onClickRemove(matchId)}
+            onClick={() => onRemoveMatch(matchId)}
             size="small"
           >
             <DeleteIcon />

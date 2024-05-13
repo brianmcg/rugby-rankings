@@ -6,14 +6,14 @@ import Typography from '@mui/material/Typography';
 import Translate from '@components/Translate';
 import { VALUES } from '@constants/sports';
 
-export default function Tabs({ sport, disabled, changeSport }) {
+export default function Tabs({ sport, disabled, onChangeSport }) {
   return (
     <Box sx={{ width: '100%', backgroundColor: 'white' }}>
       <Container>
         <MuiTabs
           variant="fullWidth"
           value={sport}
-          onChange={(e, value) => changeSport(value)}
+          onChange={(e, value) => onChangeSport(value)}
           textColor="primary"
           indicatorColor="primary"
         >

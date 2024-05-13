@@ -71,10 +71,10 @@ export default function App() {
           sport={sport}
           effective={effective}
           disabled={isLoading || isError}
-          changeSport={changeSport}
-          resetMatches={() => updateMatches(initialData[sport]?.matches)}
-          clearMatches={() => updateMatches([])}
-          selectMatch={selectMatch}
+          onChangeSport={changeSport}
+          onResetMatches={() => updateMatches(initialData[sport]?.matches)}
+          onClearMatches={() => updateMatches([])}
+          onSelectMatch={selectMatch}
         />
       </header>
       <main>
@@ -86,8 +86,8 @@ export default function App() {
           sport={sport}
           isError={isError}
           isLoading={isLoading}
-          selectMatch={selectMatch}
-          removeMatch={removeMatch}
+          onSelectMatch={selectMatch}
+          onRemoveMatch={removeMatch}
         />
       </main>
       <footer>
@@ -96,7 +96,7 @@ export default function App() {
       <MatchModal
         match={selectedMatch}
         teams={teams}
-        selectMatch={selectMatch}
+        onSelectMatch={selectMatch}
         onCreate={addMatch}
         onUpdate={updateMatch}
       />

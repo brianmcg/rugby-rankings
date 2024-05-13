@@ -8,7 +8,7 @@ import ListItem from '@mui/material/ListItem';
 import MatchListItem from './components/MatchListItem';
 import Stack from '@mui/material/Stack';
 
-export default function Matches({ matches = [], teams = [], label, sport, selectMatch, remove }) {
+export default function Matches({ matches, teams, label, sport, onSelectMatch, onRemoveMatch }) {
 	return (
 		<Card>
       <CardMedia image={`/src/assets/images/${sport}/fixtures.png`} sx={{ height: 100, color: 'white' }}>
@@ -24,8 +24,8 @@ export default function Matches({ matches = [], teams = [], label, sport, select
                 <MatchListItem
                   match={match}
                   teams={teams}
-                  onClickRemove={remove}
-                  onClickEdit={selectMatch}
+                  onRemoveMatch={onRemoveMatch}
+                  onSelectMatch={onSelectMatch}
                 />
               </ListItem>
             )

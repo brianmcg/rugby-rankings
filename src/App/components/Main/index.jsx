@@ -13,8 +13,8 @@ export default function Main({
   sport,
   isError,
   isLoading,
-  selectMatch,
-  removeMatch,
+  onSelectMatch,
+  onRemoveMatch,
 }) {
 
   if (isError) return <ErrorMessage message="app.errors.fetch" />;
@@ -28,10 +28,10 @@ export default function Main({
           <Matches
             matches={matches}
             teams={teams}
-            selectMatch={selectMatch}
-            remove={removeMatch}
             sport={sport}
             label={label}
+            onSelectMatch={onSelectMatch}
+            onRemoveMatch={onRemoveMatch}
           />
         </Grid>
         <Grid item xs={12} md={6}>

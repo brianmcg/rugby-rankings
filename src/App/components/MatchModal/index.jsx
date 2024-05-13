@@ -16,10 +16,9 @@ const style = {
   p: 4,
 };
 
-export default function TransitionsModal({ match, teams, selectMatch, onCreate, onUpdate }) {
+export default function TransitionsModal({ match, teams, onSelectMatch, onCreate, onUpdate }) {
   const isOpen = !!match;
-
-  const onClose = () => selectMatch(null);
+  const onClose = () => onSelectMatch(null);
 
   return (
     <Modal
