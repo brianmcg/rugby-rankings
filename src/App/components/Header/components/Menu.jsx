@@ -1,29 +1,23 @@
+import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 
 import RefreshIcon from '@mui/icons-material/Refresh';
-
 import AddIcon from '@mui/icons-material/Add';
-
 import DeleteIcon from '@mui/icons-material/Delete';
 
-import { formatDay } from '@utils/date';
-import Typography from '@mui/material/Typography';
-
-import Box from '@mui/material/Box';
-
-import Container from '@mui/material/Container';
-
-import Stack from '@mui/material/Stack';
 import Translate from '@components/Translate';
+import { formatDay } from '@utils/date';
 
+export default function Menu({ effective, disabled, resetMatches, clearMatches, selectMatch }) {
+  const buttonStyle = {
+    opacity: 0.6,
+    '&:hover': { opacity: 1 } ,
+    '&:disabled': { opacity: 0 },
+  };
 
-export default function Menu({
-  effective,
-  disabled,
-  resetMatches,
-  clearMatches,
-  selectMatch,
-}) {
   return (
     <Box sx={{ width: '100%', p: 3, bgcolor: 'secondary.main', color: 'common.white'}}>
       <Container>
@@ -41,7 +35,7 @@ export default function Menu({
             {/* Reset Button */}
             <Button
               disabled={disabled}
-              sx={{ opacity: 0.6, '&:hover': { opacity: 1 } }}
+              sx={buttonStyle}
               color="inherit"
               startIcon={<RefreshIcon />}
               onClick={resetMatches}
@@ -51,7 +45,7 @@ export default function Menu({
             {/* Clear Button*/}
             <Button
               disabled={disabled}
-              sx={{ opacity: 0.6, '&:hover': { opacity: 1 } }}
+              sx={buttonStyle}
               color="inherit"
               startIcon={<DeleteIcon />}
               onClick={clearMatches}
@@ -61,7 +55,7 @@ export default function Menu({
             {/* Add Button */}
             <Button
               disabled={disabled}
-              sx={{ opacity: 0.6, '&:hover': { opacity: 1 } }}
+              sx={buttonStyle}
               color="inherit"
               startIcon={<AddIcon />}
               onClick={() => selectMatch()}

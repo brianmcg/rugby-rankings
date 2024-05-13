@@ -1,13 +1,14 @@
+import Stack from '@mui/material/Stack';
 import { fetchData } from '@utils/api';
 import { KEY, VALUES } from '@constants/sports';
 import { ACTIONS } from './actions';
+import { useAsync, useUpdateCache } from './hooks';
 import Header from './components/Header';
 import Main from './components/Main';
 import Footer from './components/Footer';
 import MatchModal from './components/MatchModal';
+
 import './App.css';
-import Stack from '@mui/material/Stack';
-import { useAsync, useUpdateCache } from './hooks';
 
 const cache = new Map();
 
@@ -50,6 +51,18 @@ export default function App() {
   });
 
   useUpdateCache(cache, data?.id, data);
+
+  // TODO:
+  // Rename `on` props.
+  // Rename `Match` functions
+  // Pass cache key instead of value to `useUpdateCache`
+  // Don't display last updated until value exists
+  // order imports
+  // Add top info to created match
+  // Update modal style
+  // reduce jsx
+  // npm lint
+  // update eslint
 
   return (
     <Stack sx={{ minHeight: '100vh' }} justifyContent="space-between">

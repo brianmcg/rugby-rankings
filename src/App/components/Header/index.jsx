@@ -38,7 +38,7 @@ export default function Header({
         </Container>
       </Box>
 
-      <Tabs sport={sport} changeSport={changeSport} />
+      <Tabs sport={sport} changeSport={changeSport} disabled={disabled} />
       
       <Menu
         effective={effective}

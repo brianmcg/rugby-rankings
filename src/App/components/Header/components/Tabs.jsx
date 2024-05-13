@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import Translate from '@components/Translate';
 import { VALUES } from '@constants/sports';
 
-export default function Tabs({ sport, changeSport }) {
+export default function Tabs({ sport, disabled, changeSport }) {
   return (
     <Box sx={{ width: '100%', backgroundColor: 'white' }}>
       <Container>
@@ -19,6 +19,7 @@ export default function Tabs({ sport, changeSport }) {
         >
           <Tab
             value={VALUES.MENS}
+            disabled={disabled}
             label={
               <Typography color="inherit" variant="h6" align="center">
                 <Translate text="app.main.tabs.mru" />
@@ -27,6 +28,7 @@ export default function Tabs({ sport, changeSport }) {
           />
           <Tab
             value={VALUES.WOMENS}
+            disabled={disabled}
             label={
               <Typography color="inherit" variant="h6" align="center">
                 <Translate text="app.main.tabs.wru" />
