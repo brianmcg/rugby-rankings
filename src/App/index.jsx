@@ -7,8 +7,9 @@ import Header from './components/Header';
 import Main from './components/Main';
 import Footer from './components/Footer';
 import MatchModal from './components/MatchModal';
+import Cache from './Cache';
 
-const cache = new Map();
+const cache = new Cache({ dataKey: KEY });
 
 const initialState = {
   data: null,
@@ -20,7 +21,7 @@ const initialState = {
 };
 
 export default function App() {
-  const [state, dispatch] = useAsync(fetchData, initialState, { cache, key: KEY });
+  const [state, dispatch] = useAsync(fetchData, initialState, cache);
   const { data, initialData, selectedMatch, sport, isLoading, isError } = state;
   const { label, startDate, endDate, teams, rankings, matches } = data ?? {};
 
@@ -48,7 +49,7 @@ export default function App() {
     type: ACTIONS.UPDATE_MATCHES, payload: { matches },
   });
 
-  useUpdateCache(cache, data?.sport, data);
+  useUpdateCache(cache, data);
 
   // TODO:
   // Make table and list scrollable

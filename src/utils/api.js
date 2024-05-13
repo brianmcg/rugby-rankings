@@ -5,11 +5,11 @@ import { RANKINGS, FIXTURES } from '@constants/urls';
 import { VALUES } from '@constants/sports';
 
 // This is for slowing down requests for development purposes.
-const sleep = t => new Promise(resolve => setTimeout(resolve, t))
+// const sleep = t => new Promise(resolve => setTimeout(resolve, t));
 
 async function axiosGet(url, params) {
   try {
-    await sleep(1000);
+    // await sleep(1000);
     const { data } = await axios.get(url, { params });
     return data;
   } catch (error) {
@@ -23,8 +23,6 @@ function fetchRankings(sport = VALUES.MENS) {
 
 async function fetchMatches(sport = VALUES.MENS, teams, startDate, endDate) {
   // const startDate = subtractWeeks(date, 1, 'week');
-  
-
   const queryParams = {
     startDate: formatApiDate(startDate),
     endDate: formatApiDate(endDate),

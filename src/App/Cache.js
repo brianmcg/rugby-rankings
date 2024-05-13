@@ -1,8 +1,8 @@
 const cache = new Map();
 
-export default function Cache(state) {
+export default function Cache({ dataKey }) {
   return {
-    state,
+    dataKey,
 
     has(key) {
       return cache.has(key);
