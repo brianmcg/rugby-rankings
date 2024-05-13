@@ -8,10 +8,12 @@ import Stack from '@mui/material/Stack';
 import Translate from '@components/Translate';
 import MatchListItem from './components/MatchListItem';
 
+const imageSrc = sport => `/src/assets/images/${sport}/matches.png`;
+
 export default function Matches({ matches, teams, label, sport, onSelectMatch, onRemoveMatch }) {
 	return (
 		<Card>
-      <CardMedia image={`/src/assets/images/${sport}/fixtures.png`} sx={{ height: 100, color: 'white' }}>
+      <CardMedia image={imageSrc(sport)} sx={{ height: 100, color: 'white' }}>
         <Stack sx={{ height: '100%' }} direction="row" alignItems="flex-end" justifyContent="space-between">
           <CardHeader title={<Translate text="app.main.matches.title" options={{ label }}/>} />
         </Stack>

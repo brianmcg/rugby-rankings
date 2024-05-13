@@ -53,7 +53,6 @@ export default function App() {
   useUpdateCache(cache, data?.id, data);
 
   // TODO:
-  // Add top info to created match
   // Update modal style
   // reduce jsx
   // npm lint

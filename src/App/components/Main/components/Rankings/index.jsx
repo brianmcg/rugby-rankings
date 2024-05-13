@@ -22,6 +22,8 @@ import PointsCell from './components/PointsCell';
 
 const INITIAL_ROWS = 10;
 
+const imageSrc = sport => `/src/assets/images/${sport}/rankings.png`;
+
 function renderTableRows(rankings, fullTable) {
   const rows = fullTable ? rankings : rankings.slice(0, INITIAL_ROWS);
 
@@ -44,7 +46,7 @@ export default function Rankings({ rankings, label, sport }) {
 
   return (
     <Card>
-      <CardMedia image={`/src/assets/images/${sport}/rankings.png`} sx={{ height: 100, color: 'white' }}>
+      <CardMedia image={imageSrc(sport)} sx={{ height: 100, color: 'white' }}>
         <Stack sx={{ height: '100%' }} direction="row" alignItems="flex-end" justifyContent="space-between">
           <CardHeader title={<Translate text="app.main.rankings.title" options={{ label }}/>} />
         </Stack>

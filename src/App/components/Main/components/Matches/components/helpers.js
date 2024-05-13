@@ -1,8 +1,8 @@
 import { PRIMARY, SUCCESS, ERROR } from '@constants/colors';
 import { formatTime } from '@utils/date';
 
-export function getColor({ isCreated, isComplete }) {
-  if (isCreated) {
+export function getColor({ isCreated, isUpdated, isComplete }) {
+  if (isCreated || isUpdated) {
     return SUCCESS;
   } else if (isComplete) {
     return PRIMARY;

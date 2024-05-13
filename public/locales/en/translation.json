@@ -41,7 +41,9 @@
         "update": "Update",
         "clear": "Clear",
         "add": "Add",
-        "remove": "Remove"
+        "remove": "Remove",
+        "neutral": "Neutral Venue",
+        "created": "Created by user"
       },
       "modal": {
         "title": "Predict Score",

@@ -9,14 +9,20 @@ import { SUCCESS, ERROR } from '@constants/colors';
 import { formatDay } from '@utils/date'; 
 import { getColor, getMatchResult } from './helpers';
 
-function renderMatchInfo({ competition, time, venue }) {
-  const rightLabel = [time ? formatDay(time?.millis) : null, venue?.country].filter(Boolean).join(' @ ');
+function renderMatchInfo(match) {
+  const { time, competition, venue } = match;
+
+  const dateLabel = time ? formatDay(time?.millis) : null;
+  const venueLabel = venue?.country ? `@ ${venue.country}` : null;
+  const topRightLabel = [dateLabel, venueLabel].filter(Boolean).join(', ');
   
-  if (competition || rightLabel) {
+  if (competition || topRightLabel) {
     return (
       <Stack mb={1} direction="row" justifyContent="space-between" sx={{ opacity: 0.8 }}>
-        <Typography variant="caption">{competition}</Typography>
-        <Typography variant="caption">{rightLabel}</Typography>
+        <Typography variant="caption">
+          {competition}
+        </Typography>
+        <Typography variant="caption">{topRightLabel}</Typography>
       </Stack>
     )
   }
