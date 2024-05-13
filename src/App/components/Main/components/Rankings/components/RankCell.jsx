@@ -1,8 +1,8 @@
 import TableCell from '@mui/material/TableCell';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import { SUCCESS, ERROR } from '@constants/colors';
 
 function renderContents(pos, previousPos) {

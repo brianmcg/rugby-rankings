@@ -12,13 +12,13 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Translate from '@components/Translate';
+import { SECONDARY } from '@constants/colors';
 import RankCell from './components/RankCell';
 import PointsCell from './components/PointsCell';
-import { SECONDARY } from '@constants/colors';
-import Typography from '@mui/material/Typography';
 
 const INITIAL_ROWS = 10;
 

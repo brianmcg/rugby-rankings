@@ -53,11 +53,9 @@ export default function App() {
   useUpdateCache(cache, data?.id, data);
 
   // TODO:
-  // Replace arrow functions
-  // order imports
+  // extract transition style
   // Add top info to created match
   // Update modal style
-  // extract transition style
   // reduce jsx
   // npm lint
   // update eslint

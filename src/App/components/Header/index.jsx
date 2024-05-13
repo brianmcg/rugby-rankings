@@ -1,11 +1,11 @@
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
-import Translate from '@components/Translate';
+import Typography from '@mui/material/Typography';
 import SportsRugbyIcon from '@mui/icons-material/SportsRugby';
-import Tabs from './components/Tabs';
+import Translate from '@components/Translate';
 import Menu from './components/Menu';
+import Tabs from './components/Tabs';
 
 const style = {
   width: '100%',

@@ -5,9 +5,9 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { getColor, getMatchResult } from './helpers';
 import { SUCCESS, ERROR } from '@constants/colors';
 import { formatDay } from '@utils/date'; 
+import { getColor, getMatchResult } from './helpers';
 
 function renderMatchInfo({ competition, time, venue }) {
   const rightLabel = [time ? formatDay(time?.millis) : null, venue?.country].filter(Boolean).join(' @ ');

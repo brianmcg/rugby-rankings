@@ -6,4 +6,3 @@ export const ACTIONS = {
   CHANGE_IS_NEUTRAL_VENUE: 'change:isNeutralVenue',
   CHANGE_IS_WORLD_CUP: 'change:isWorldCup',
 };
-

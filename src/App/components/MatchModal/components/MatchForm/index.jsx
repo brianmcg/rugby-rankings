@@ -1,17 +1,17 @@
 import { useReducer } from 'react';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import SendIcon from '@mui/icons-material/Send';
 import Box from '@mui/material/Box';
-import { SUCCESS, ERROR } from '@constants/colors';
+import SendIcon from '@mui/icons-material/Send';
 import CancelIcon from '@mui/icons-material/Cancel';
 import Translate from '@components/Translate';
 import LabelSwitch from '@components/LabelSwitch';
+import { SUCCESS, ERROR } from '@constants/colors';
 import { isNumeric } from '@utils/number';
-import TeamInput from './components/TeamInput';
-import ScoreInput from './components/ScoreInput';
 import { ACTIONS } from './actions';
 import { matchReducer } from './reducers';
+import TeamInput from './components/TeamInput';
+import ScoreInput from './components/ScoreInput';
 
 export default function MatchForm({ match: initalMatch, teams, onCreate, onUpdate, onClose }) {
   const [state, dispatch] = useReducer(matchReducer, initalMatch);
