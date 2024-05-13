@@ -14,9 +14,7 @@ export function getColor({ isCreated, isUpdated, isComplete }) {
 export function getMatchResult({ isComplete, homeScore, awayScore, time }) {
   if (isComplete) {
     return `${homeScore} - ${awayScore}`;
-  } else if (time) {
-    return formatTime(time.millis);
-  } else {
-    return '-';
   }
+    return 'vs';
+  
 }
