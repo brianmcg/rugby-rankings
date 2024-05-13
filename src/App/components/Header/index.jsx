@@ -19,7 +19,7 @@ export default function Header({
   return (
     <Box>
 
-      <Box sx={{ width: '100%', p: 3, bgcolor: 'primary.main', color: 'common.white', textAlign: 'left' }}>
+      <Box sx={{ width: '100%', p: 2, bgcolor: 'primary.main', color: 'common.white', textAlign: 'left' }}>
         <Container>
           <Stack direction="row" spacing={2} alignItems="center">
             <SportsRugbyIcon sx={{ fontSize: 48 }}/>

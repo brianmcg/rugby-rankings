@@ -46,12 +46,12 @@ function renderMatchResult({ match, color }) {
 
 function renderButtons(options) {
   return(
-    <Stack spacing={1} direction="row" alignItems="center" justifyContent="flex-end">
+    <Stack spacing={2} direction="row" alignItems="center" justifyContent="flex-end">
       {options.map(({ icon, action, color }) => (
         <IconButton
           key={color}
           color="primary"
-          sx={{ '&:hover': { color }}}
+          sx={{ p: 0, '&:hover': { color }}}
           onClick={action}
           size="small"
         >
