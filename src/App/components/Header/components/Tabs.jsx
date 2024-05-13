@@ -6,7 +6,24 @@ import Typography from '@mui/material/Typography';
 import Translate from '@components/Translate';
 import { VALUES } from '@constants/sports';
 
+function renderTab({ value, disabled }) {
+  return (
+    <Tab
+      key={value}
+      value={value}
+      disabled={disabled}
+      label={
+        <Typography color="inherit" variant="h6" align="center">
+          <Translate text={`app.main.tabs.${value}`} />
+        </Typography>
+      }
+    />
+  );
+}
+
 export default function Tabs({ sport, disabled, onChangeSport }) {
+  const options = [VALUES.MENS, VALUES.WOMENS];
+
   return (
     <Box sx={{ width: '100%', backgroundColor: 'white' }}>
       <Container>
@@ -17,24 +34,8 @@ export default function Tabs({ sport, disabled, onChangeSport }) {
           textColor="primary"
           indicatorColor="primary"
         >
-          <Tab
-            value={VALUES.MENS}
-            disabled={disabled}
-            label={
-              <Typography color="inherit" variant="h6" align="center">
-                <Translate text="app.main.tabs.mru" />
-              </Typography>
-            }
-          />
-          <Tab
-            value={VALUES.WOMENS}
-            disabled={disabled}
-            label={
-              <Typography color="inherit" variant="h6" align="center">
-                <Translate text="app.main.tabs.wru" />
-              </Typography>
-            }
-          />
+          {options.map(value => renderTab({ value, disabled }))}
+         
         </MuiTabs>
       </Container>
     </Box>

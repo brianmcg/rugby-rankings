@@ -19,7 +19,7 @@ export default function Matches({ matches, teams, label, sport, onSelectMatch, o
         </Stack>
       </CardMedia>  
       <CardContent>
-        <List sx={{ p: 0, maxHeight: '100%', overflow: 'auto' }}> {
+        <List> {
           matches.map(match => 
             (
               <ListItem key={match.matchId}>

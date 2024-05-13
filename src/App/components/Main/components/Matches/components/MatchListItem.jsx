@@ -11,7 +11,6 @@ import { getColor, getMatchResult } from './helpers';
 
 function renderMatchInfo(match) {
   const { time, competition, venue } = match;
-
   const dateLabel = time ? formatDay(time?.millis) : null;
   const venueLabel = venue?.country ? `@ ${venue.country}` : null;
   const topRightLabel = [dateLabel, venueLabel].filter(Boolean).join(', ');
@@ -30,9 +29,41 @@ function renderMatchInfo(match) {
   return null;
 }
 
+function renderMatchResult({ match, color }) {
+  const { homeTeam, awayTeam } = match;
+  return (
+    <Stack spacing={1} direction="row" alignItems="center" justifyContent="flex-start">
+      <Typography variant="body1">{homeTeam.name}</Typography>
+      <Typography variant="h6" color={color}>
+        {getMatchResult(match)}
+      </Typography>
+      <Typography variant="body1">{awayTeam.name}</Typography>
+    </Stack>
+  );
+}
+
+function renderButton({ icon, action, color }) {
+  return (
+    <IconButton
+      key={color}
+      color="primary"
+      sx={{ '&:hover': { color }}}
+      onClick={action}
+      size="small"
+    >
+      {icon}
+    </IconButton>
+  );
+}
+
 export default function MatchListItem({ match, onSelectMatch, onRemoveMatch }) {
-  const { homeTeam, awayTeam, matchId } = match;
+  const { matchId } = match;
   const color = getColor(match);
+
+  const options = [
+    { icon: <EditIcon />, action: () => onSelectMatch(match), color: SUCCESS },
+    { icon: <DeleteIcon />, action: () => onRemoveMatch(matchId), color: ERROR },
+  ];
   
   return (
     <Paper elevation={3} sx={{ padding: 2, width: '100%', borderLeft: `solid 5px ${color}` }} >
@@ -42,33 +73,11 @@ export default function MatchListItem({ match, onSelectMatch, onRemoveMatch }) {
       <Grid container direction="row" alignItems="center" justifyContent="space-between">
 
         {/* Render match result */}
-        <Stack spacing={1} direction="row" alignItems="center" justifyContent="flex-start">
-          <Typography variant="body1">{homeTeam.name}</Typography>
-          <Typography variant="h6" color={color}>
-            {getMatchResult(match)}
-          </Typography>
-          <Typography variant="body1">{awayTeam.name}</Typography>
-        </Stack>
+        {renderMatchResult({ match, color })}
  
         {/* Render option buttons */}
         <Stack spacing={1} direction="row" alignItems="center" justifyContent="flex-end">
-          <IconButton
-            color="primary"
-            sx={{ '&:hover': { color: SUCCESS }}}
-            onClick={() => onSelectMatch(match)}
-            size="small"
-          >
-            <EditIcon />
-          </IconButton>
-
-          <IconButton
-            color="primary"
-            sx={{ '&:hover': { color: ERROR }}}
-            onClick={() => onRemoveMatch(matchId)}
-            size="small"
-          >
-            <DeleteIcon />
-          </IconButton>
+          {options.map(option => renderButton(option))}
         </Stack>
 
       </Grid>

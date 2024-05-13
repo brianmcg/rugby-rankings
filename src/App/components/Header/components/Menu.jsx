@@ -9,12 +9,27 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Translate from '@components/Translate';
 import { formatDay } from '@utils/date';
 
+function renderButton({ icon, action, disabled, label }) {
+  return (
+    <Button
+      key={label}
+      disabled={disabled}
+      sx={{ opacity: 0.6, '&:hover': { opacity: 1 }, '&:disabled': { opacity: 0 } }}
+      color="inherit"
+      startIcon={icon}
+      onClick={action}
+    >
+      <Translate text={label} />
+    </Button>
+  );
+}
+
 export default function Menu({ effective, disabled, onResetMatches, onClearMatches, onSelectMatch }) {
-  const buttonStyle = {
-    opacity: 0.6,
-    '&:hover': { opacity: 1 } ,
-    '&:disabled': { opacity: 0 },
-  };
+  const options = [
+    { label: 'app.main.reset', icon: <RefreshIcon />, action: onResetMatches },
+    { label: 'app.main.clear', icon: <DeleteIcon />, action: onClearMatches },
+    { label: 'app.main.add', icon: <AddIcon />, action: () => onSelectMatch() },
+  ];
   
   return (
     <Box sx={{ width: '100%', p: 3, bgcolor: 'secondary.main', color: 'common.white'}}>
@@ -30,36 +45,7 @@ export default function Menu({ effective, disabled, onResetMatches, onClearMatch
           </Stack>
 
           <Stack direction="row" spacing={2} alignItems="center" justifyContent="flex-end">
-            {/* Reset Button */}
-            <Button
-              disabled={disabled}
-              sx={buttonStyle}
-              color="inherit"
-              startIcon={<RefreshIcon />}
-              onClick={onResetMatches}
-            >
-              <Translate text="app.main.reset" />
-            </Button>
-            {/* Clear Button*/}
-            <Button
-              disabled={disabled}
-              sx={buttonStyle}
-              color="inherit"
-              startIcon={<DeleteIcon />}
-              onClick={onClearMatches}
-            >
-              <Translate text="app.main.clear" />
-            </Button>
-            {/* Add Button */}
-            <Button
-              disabled={disabled}
-              sx={buttonStyle}
-              color="inherit"
-              startIcon={<AddIcon />}
-              onClick={() => onSelectMatch()}
-            >
-              <Translate text="app.main.add" />
-            </Button>
+            {options.map(option => renderButton({ ...option, disabled }))}
           </Stack>
         </Stack>
       </Container>

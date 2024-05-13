@@ -53,8 +53,8 @@ export default function App() {
   useUpdateCache(cache, data?.id, data);
 
   // TODO:
+  // Make table and list scrollable
   // Update modal style
-  // reduce jsx
 
   return (
     <Stack sx={{ minHeight: '100vh' }} justifyContent="space-between">

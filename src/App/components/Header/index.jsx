@@ -7,14 +7,6 @@ import Translate from '@components/Translate';
 import Menu from './components/Menu';
 import Tabs from './components/Tabs';
 
-const style = {
-  width: '100%',
-  p: 3,
-  bgcolor: 'primary.main',
-  color: 'common.white',
-  textAlign: 'left',
-};
-
 export default function Header({
   sport,
   effective,
@@ -26,7 +18,8 @@ export default function Header({
 }) {
   return (
     <Box>
-      <Box sx={style}>
+
+      <Box sx={{ width: '100%', p: 3, bgcolor: 'primary.main', color: 'common.white', textAlign: 'left' }}>
         <Container>
           <Stack direction="row" spacing={2} alignItems="center">
             <SportsRugbyIcon sx={{ fontSize: 48 }}/>
