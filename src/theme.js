@@ -40,6 +40,27 @@ const theme = createTheme({
     },
   },
   components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          '*::-webkit-scrollbar': {
+            width: 20,
+          },
+          '*::-webkit-scrollbar-track': {
+            backgroundColor: 'transparent',
+          },
+          '*::-webkit-scrollbar-thumb': {
+            backgroundColor: '#d6dee1',
+            border: '6px solid transparent',
+            backgroundClip: 'content-box',
+            '&:hover': {
+              backgroundColor: '#a8bbbf',
+            },
+          },
+
+        },
+      },
+    },
     MuiButton: {
       styleOverrides: {
         root: {
