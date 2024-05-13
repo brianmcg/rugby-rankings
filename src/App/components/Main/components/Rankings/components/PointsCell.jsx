@@ -7,7 +7,7 @@ import { SECONDARY, SUCCESS, ERROR } from '@constants/colors';
 
 const formatPoints = pts => (Math.round(pts * 100) / 100).toFixed(2);
 
-const renderContents = (pts, previousPts) => {
+function renderContents(pts, previousPts) {
   const upStyle = { color: SUCCESS, fontSize: 14 };
   const downStyle = { color: ERROR, fontSize: 14 };
 

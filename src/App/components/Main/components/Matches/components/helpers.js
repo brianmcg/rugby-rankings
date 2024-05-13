@@ -1,7 +1,7 @@
 import { PRIMARY, SUCCESS, ERROR } from '@constants/colors';
 import { formatTime } from '@utils/date';
 
-export const getColor = ({ isCreated, isComplete }) => {
+export function getColor({ isCreated, isComplete }) {
   if (isCreated) {
     return SUCCESS;
   } else if (isComplete) {
@@ -9,9 +9,9 @@ export const getColor = ({ isCreated, isComplete }) => {
   } else {
     return ERROR;
   }
-};
+}
 
-export const getMatchResult = ({ isComplete, homeScore, awayScore, time }) => {
+export function getMatchResult({ isComplete, homeScore, awayScore, time }) {
   if (isComplete) {
     return `${homeScore} - ${awayScore}`;
   } else if (time) {
@@ -19,4 +19,4 @@ export const getMatchResult = ({ isComplete, homeScore, awayScore, time }) => {
   } else {
     return '-';
   }
-};
+}

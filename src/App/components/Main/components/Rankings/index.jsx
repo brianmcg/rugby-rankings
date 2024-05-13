@@ -22,7 +22,7 @@ import Typography from '@mui/material/Typography';
 
 const INITIAL_ROWS = 10;
 
-const renderTableRows = (rankings, fullTable) => {
+function renderTableRows(rankings, fullTable) {
   const rows = fullTable ? rankings : rankings.slice(0, INITIAL_ROWS);
 
   return rows.map(({ pos, previousPos, pts, previousPts, team }) => (
@@ -37,7 +37,7 @@ const renderTableRows = (rankings, fullTable) => {
       <PointsCell pts={pts} previousPts={previousPts} />
     </TableRow>
   ))
-};
+}
 
 export default function Rankings({ rankings, label, sport }) {
   const [fullTable, setFullTable] = useState(false);

@@ -53,14 +53,12 @@ export default function App() {
   useUpdateCache(cache, data?.id, data);
 
   // TODO:
-  // Rename `on` props.
-  // Rename `Match` functions
+  // Replace arrow functions
+  // order imports
   // Add top info to created match
   // Update modal style
   // extract transition style
   // reduce jsx
-  // Replace arrow functions
-  // order imports
   // npm lint
   // update eslint
 

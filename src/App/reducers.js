@@ -16,15 +16,11 @@ const newMatch = {
   venue: null,
 };
 
-const onFetchStart = state => {
-  return {
-    ...state,
-    isLoading: true,
-    isError: false,
-  };
+function onFetchStart(state) {
+  return { ...state, isLoading: true, isError: false };
 }
 
-const onFetchSuccess = (state, payload) => {
+function onFetchSuccess(state, payload) {
   const { data } = payload;
   const { rankings, matches, id } = data;
 
@@ -41,47 +37,40 @@ const onFetchSuccess = (state, payload) => {
     },
     isLoading: false,
   }
-};
+}
 
-const onCacheFetchSuccess = (state, payload) => {
-  const result = {
-    ...state,
-    data: payload.data,
-    isLoading: false,
-  }
-  
-  return result;
-};
+function onCacheFetchSuccess(state, payload) {
+  return { ...state, data: payload.data, isLoading: false };
+}
 
-const onFetchError = (state) => ({
-  ...state,
-  isError: true,
-  isLoading: false,
-});
+function onFetchError(state) {
+  return { ...state, isError: true, isLoading: false };
+}
 
-const onChangeSport = (state, payload) => ({ ...state, sport: payload.sport });
+function onChangeSport(state, payload) {
+  return { ...state, sport: payload.sport };
+}
 
-const onSelectMatch = (state, payload) => {
+function onSelectMatch(state, payload) {
   if (payload.match === null) {
-    return {
-      ...state,
-      selectedMatch: null,
-    }
+    return { ...state, selectedMatch: null };
   }
-  return {
-    ...state,
-    selectedMatch: payload.match ? payload.match : newMatch,
-  }
-};
 
-const onAddMatch = (state, payload) => {
-  const matches = [...state.data.matches, { ...payload.match, matchId: `new-${matchIdCounter++}` }];
+  return { ...state, selectedMatch: payload.match ? payload.match : newMatch };
+}
+
+function onAddMatch(state, payload) {
+  const matches = [
+    ...state.data.matches,
+    { ...payload.match, matchId: `new-${matchIdCounter++}` },
+  ];
+
   const rankings = calculateRankingChange(state.initialData[state.sport].rankings, matches);
   
   return { ...state, data: { ...state.data, rankings, matches }, selectedMatch: null };
-};
+}
 
-const onUpdateMatch = (state, payload) => {
+function onUpdateMatch(state, payload) {
   const matches = state.data.matches.map(match => {
     if (match.matchId === payload.match.matchId) {
       return { ...payload.match };
@@ -93,16 +82,16 @@ const onUpdateMatch = (state, payload) => {
   const rankings = calculateRankingChange(state.initialData[state.sport].rankings, matches);
 
   return { ...state, data: { ...state.data, rankings, matches }, selectedMatch: null };
-};
+}
 
-const onRemoveMatch = (state, payload) => {
+function onRemoveMatch(state, payload) {
   const matches = state.data.matches.filter(match => match.matchId !== payload.matchId);
   const rankings = calculateRankingChange(state.initialData[state.sport].rankings, matches);
   
   return { ...state, data: { ...state.data, rankings, matches } };
-};
+}
 
-const onupdateMatches = (state, payload) => {
+function onupdateMatches(state, payload) {
   const { matches } = payload;
   const rankings = calculateRankingChange(state.initialData[state.sport].rankings, matches);
   return { ...state, data: { ...state.data, rankings, matches } };

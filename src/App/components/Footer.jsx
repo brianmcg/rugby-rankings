@@ -23,18 +23,20 @@ const options = [{
   href: 'http://www.bmcgrath.net',
 }];
 
-const renderOption = ({ icon, label, href }) => (
-  <Stack key={href} direction="row" alignItems="center" gap={1}>
-    {icon}
-    <Link href={href} target="_blank" color="inherit">
-      <Typography variant="caption">
-        <Translate text={label} />
-      </Typography>
-    </Link>
-  </Stack>
-);
+function renderOption({ icon, label, href }) {
+  return (
+    <Stack key={href} direction="row" alignItems="center" gap={1}>
+      {icon}
+      <Link href={href} target="_blank" color="inherit">
+        <Typography variant="caption">
+          <Translate text={label} />
+        </Typography>
+      </Link>
+    </Stack>
+  );
+}
 
-function Footer() {
+export default function Footer() {
   return (
     <Box style={{
       color: 'white',
@@ -52,5 +54,3 @@ function Footer() {
     </Box>
   );
 }
-
-export default Footer;

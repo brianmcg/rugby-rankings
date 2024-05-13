@@ -1,4 +1,4 @@
-const calculatePointsChanges = (rankings, match) => {
+function calculatePointsChanges(rankings, match) {
   let ratingGap;
   let ratingChange;
 
@@ -66,9 +66,9 @@ const calculatePointsChanges = (rankings, match) => {
 
     return entry;
   });
-};
+}
 
-export const calculateRankingChange = (rankings, matches = []) => {
+export function calculateRankingChange(rankings, matches = []) {
   return matches
     .reduce((memo, match) => {
       if (match.isComplete) {
@@ -81,4 +81,4 @@ export const calculateRankingChange = (rankings, matches = []) => {
     })
     .map((entry, i) => ({ ...entry, pos: i + 1 }));
   
-};
+}

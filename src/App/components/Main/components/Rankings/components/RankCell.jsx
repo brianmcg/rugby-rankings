@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import { SUCCESS, ERROR } from '@constants/colors';
 
-const renderContents = (pos, previousPos) => {
+function renderContents(pos, previousPos) {
   const upStyle = { color: SUCCESS, fontSize: 14 };
   const downStyle = { color: ERROR, fontSize: 14 };
 

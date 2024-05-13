@@ -1,7 +1,7 @@
 import { ACTIONS } from './actions';
 import { validateScore, validateTeam } from './helpers';
 
-const isMatchComplete = match => {
+function isMatchComplete(match) {
   const { homeTeam, awayTeam, homeScore, awayScore } = match;
 
   return validateTeam(homeTeam)
@@ -10,7 +10,7 @@ const isMatchComplete = match => {
     && validateScore(awayScore);
 }
 
-export const matchReducer = (state, action) => {
+export function matchReducer(state, action) {
   switch (action.type) {
     case ACTIONS.CHANGE_HOME_TEAM: {
       const { homeTeam } = action.payload;

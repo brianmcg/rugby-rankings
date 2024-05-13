@@ -9,7 +9,7 @@ import { getColor, getMatchResult } from './helpers';
 import { SUCCESS, ERROR } from '@constants/colors';
 import { formatDay } from '@utils/date'; 
 
-const renderMatchInfo = ({ competition, time, venue }) => {
+function renderMatchInfo({ competition, time, venue }) {
   const rightLabel = [time ? formatDay(time?.millis) : null, venue?.country].filter(Boolean).join(' @ ');
   
   if (competition || rightLabel) {
@@ -22,7 +22,7 @@ const renderMatchInfo = ({ competition, time, venue }) => {
   }
 
   return null;
-};
+}
 
 export default function MatchListItem({ match, onSelectMatch, onRemoveMatch }) {
   const { homeTeam, awayTeam, matchId } = match;

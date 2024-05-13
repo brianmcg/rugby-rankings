@@ -14,48 +14,39 @@ import { ACTIONS } from './actions';
 import { matchReducer } from './reducers';
 
 export default function MatchForm({ match: initalMatch, teams, onCreate, onUpdate, onClose }) {
-  const [match, dispatch] = useReducer(matchReducer, initalMatch);
-  
-  const {
-    homeTeam,
-    awayTeam,
-    homeScore,
-    awayScore,
-    isNeutralVenue,
-    isWorldCup,
-    isComplete,
-  } = match;
+  const [state, dispatch] = useReducer(matchReducer, initalMatch);
+  const { homeTeam, awayTeam, homeScore, awayScore, isNeutralVenue, isWorldCup, isComplete } = state;
 
   const onHomeTeamChange = (e, homeTeam) => dispatch({
     type: ACTIONS.CHANGE_HOME_TEAM,
     payload: { homeTeam },
   });
 
-  const handleAwayTeamChange = (e, awayTeam) => dispatch({
+  const onAwayTeamChange = (e, awayTeam) => dispatch({
     type: ACTIONS.CHANGE_AWAY_TEAM,
     payload: { awayTeam },
   });
 
-  const handleHomeScoreChange = e => {
+  const onHomeScoreChange = e => {
     const value = e.target.value;
     const homeScore = isNumeric(value) ? parseInt(value, 10) : null;
 
     dispatch({ type: ACTIONS.CHANGE_HOME_SCORE, payload: { homeScore } });
   };
 
-  const handleAwayScoreChange = e => {
+  const onAwayScoreChange = e => {
     const value = e.target.value;
     const awayScore = isNumeric(value) ? parseInt(value, 10) : null;
 
     dispatch({ type: ACTIONS.CHANGE_AWAY_SCORE, payload: { awayScore } });
   };
 
-  const handleNeutralVenueChange = (e, isNeutralVenue) => dispatch({
+  const onNeutralVenueChange = (e, isNeutralVenue) => dispatch({
     type: ACTIONS.CHANGE_IS_NEUTRAL_VENUE,
     payload: { isNeutralVenue },
   });
 
-  const handleWorldCupChange = (e, isWorldCup) => dispatch({
+  const onWorldCupChange = (e, isWorldCup) => dispatch({
     type: ACTIONS.CHANGE_IS_WORLD_CUP,
     payload: { isWorldCup },
   });
@@ -80,17 +71,17 @@ export default function MatchForm({ match: initalMatch, teams, onCreate, onUpdat
         <ScoreInput
           value={homeScore}
           label={<Translate text="app.main.modal.score" />}
-          onChange={handleHomeScoreChange}
+          onChange={onHomeScoreChange}
         />
         <ScoreInput
           value={awayScore}
           label={<Translate text="app.main.modal.score" />}
-          onChange={handleAwayScoreChange}
+          onChange={onAwayScoreChange}
         />
         <TeamInput
           options={teams.filter(team => team.id !== homeTeam?.id)}
           value={awayTeam}
-          onChange={handleAwayTeamChange}
+          onChange={onAwayTeamChange}
           label={<Translate text="app.main.modal.team" />}
         />
       </Stack>
@@ -100,12 +91,12 @@ export default function MatchForm({ match: initalMatch, teams, onCreate, onUpdat
           <LabelSwitch
             disabled={isWorldCup}
             label={<Translate text="app.main.modal.neutral" />}
-            onChange={handleNeutralVenueChange}
+            onChange={onNeutralVenueChange}
             checked={isNeutralVenue}
           />
           <LabelSwitch
             label={<Translate text="app.main.modal.rwc" />}
-            onChange={handleWorldCupChange}
+            onChange={onWorldCupChange}
             checked={isWorldCup}
           />
         </Stack>
@@ -121,7 +112,7 @@ export default function MatchForm({ match: initalMatch, teams, onCreate, onUpdat
             sx={{ color: 'secondary', '&:hover': { color: SUCCESS }}}
             disabled={!isComplete}
             startIcon={<SendIcon />}
-            onClick={() => onClickConfirm(match)}
+            onClick={() => onClickConfirm(state)}
           >
             <Translate text="app.main.modal.confirm" />
           </Button>
