@@ -52,7 +52,6 @@ export default function App() {
   useUpdateCache(cache, data);
 
   // TODO:
-  // Make table and list scrollable
   // Update modal style
 
   return (
