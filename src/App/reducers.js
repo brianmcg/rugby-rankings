@@ -22,7 +22,7 @@ function onFetchStart(state) {
 
 function onFetchSuccess(state, payload) {
   const { data } = payload;
-  const { rankings, matches, id } = data;
+  const { rankings, matches, sport } = data;
 
   return {
     ...state,
@@ -33,7 +33,7 @@ function onFetchSuccess(state, payload) {
     },
     initialData: {
       ...state.initialData,
-      [id]: data,
+      [sport]: data,
     },
     isLoading: false,
   };

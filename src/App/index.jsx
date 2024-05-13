@@ -48,7 +48,7 @@ export default function App() {
     type: ACTIONS.UPDATE_MATCHES, payload: { matches },
   });
 
-  useUpdateCache(cache, data?.id, data);
+  useUpdateCache(cache, data?.sport, data);
 
   // TODO:
   // Make table and list scrollable

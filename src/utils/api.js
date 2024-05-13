@@ -39,15 +39,15 @@ async function fetchMatches(sport = VALUES.MENS, teams, startDate, endDate) {
   return parseMatchResponse(response, teams);
 }
 
-export async function fetchData(id) {
+export async function fetchData(sport) {
   try {
-    const { entries: rankings, label, effective } = await fetchRankings(id);
+    const { entries: rankings, label, effective } = await fetchRankings(sport);
     const teams = rankings.map(entry => entry.team);
     const startDate = effective.millis;
     const endDate = addWeeks(effective.millis, 2).valueOf();
-    const matches = await fetchMatches(id, teams, startDate, endDate);
+    const matches = await fetchMatches(sport, teams, startDate, endDate);
 
-    return { id, label, teams, rankings, matches, startDate, endDate };
+    return { sport, label, teams, rankings, matches, startDate, endDate };
   } catch (error) {
     return Promise.reject(error);
   }
