@@ -80,5 +80,4 @@ export function calculateRankingChange(rankings, matches = []) {
       return entryB.pts - entryA.pts;
     })
     .map((entry, i) => ({ ...entry, pos: i + 1 }));
-  
 }

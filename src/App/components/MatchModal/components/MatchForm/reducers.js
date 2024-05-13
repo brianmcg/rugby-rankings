@@ -16,7 +16,7 @@ export function matchReducer(state, action) {
       const { homeTeam } = action.payload;
       const { awayTeam, homeScore, awayScore } = state;
       const isComplete = isMatchComplete({ homeTeam, awayTeam, homeScore, awayScore });
-      
+
       return { ...state, homeTeam, isComplete };
     }
     case ACTIONS.CHANGE_AWAY_TEAM: {

@@ -30,7 +30,7 @@ export default function Menu({ startDate, disabled, onResetMatches, onClearMatch
     { label: 'app.main.clear', icon: <DeleteIcon />, action: onClearMatches },
     { label: 'app.main.add', icon: <AddIcon />, action: () => onSelectMatch() },
   ];
-  
+
   return (
     <Box sx={{ width: '100%', p: 3, bgcolor: 'secondary.main', color: 'common.white'}}>
       <Container>

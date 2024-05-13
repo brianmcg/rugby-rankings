@@ -24,7 +24,7 @@ export default function Header({
           <Stack direction="row" spacing={2} alignItems="center">
             <SportsRugbyIcon sx={{ fontSize: 48 }}/>
             <Typography color="inherit" variant="h1" align="left">
-              <Translate text="app.header.title" /> 
+              <Translate text="app.header.title" />
             </Typography>
 
           </Stack>
@@ -32,7 +32,7 @@ export default function Header({
       </Box>
 
       <Tabs sport={sport} disabled={disabled} onChangeSport={onChangeSport} />
-      
+
       <Menu
         startDate={startDate}
         disabled={disabled}

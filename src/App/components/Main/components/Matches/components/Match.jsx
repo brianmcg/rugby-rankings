@@ -13,7 +13,7 @@ import { getColor } from './helpers';
 //   const { time, venue,competition } = match;
 //   const date = time ? formatDay(time?.millis) : null;
 //   const country = venue?.country ? `@ ${venue.country}` : null;
-  
+
 //   return (
 //     <Stack direction="row" spacing={1} mb={1} justifyContent="flex-start" sx={{ opacity: 0.6 }}>
 //       <Breadcrumb>
@@ -70,7 +70,7 @@ export default function Match({ match, onSelectMatch, onRemoveMatch }) {
     { icon: <EditIcon />, action: () => onSelectMatch(match), color: SUCCESS },
     { icon: <DeleteIcon />, action: () => onRemoveMatch(matchId), color: ERROR },
   ];
-  
+
   return (
     <Paper elevation={3} sx={{ padding: 2, width: '100%', borderLeft: `solid 5px ${color}` }} >
       <Grid container direction="row" alignItems="center" justifyContent="space-between">

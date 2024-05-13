@@ -46,14 +46,14 @@ const theme = createTheme({
           ...transitionStyle,
           borderRadius: 0,
         },
-      }, 
+      },
     },
     MuiStack: {
       styleOverrides: {
         root: {
           ...transitionStyle,
         },
-      }, 
+      },
     },
     MuiIconButton: {
       styleOverrides: {
@@ -61,7 +61,7 @@ const theme = createTheme({
           ...transitionStyle,
           borderRadius: 0,
         },
-      }, 
+      },
     },
     MuiCardMedia: {
       styleOverrides: {

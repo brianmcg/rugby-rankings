@@ -66,7 +66,7 @@ function onAddMatch(state, payload) {
   ];
 
   const rankings = calculateRankingChange(state.initialData[state.sport].rankings, matches);
-  
+
   return { ...state, data: { ...state.data, rankings, matches }, selectedMatch: null };
 }
 
@@ -87,7 +87,7 @@ function onUpdateMatch(state, payload) {
 function onRemoveMatch(state, payload) {
   const matches = state.data.matches.filter(match => match.matchId !== payload.matchId);
   const rankings = calculateRankingChange(state.initialData[state.sport].rankings, matches);
-  
+
   return { ...state, data: { ...state.data, rankings, matches } };
 }
 
