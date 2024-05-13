@@ -4,7 +4,7 @@ import { default as MuiTabs } from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Translate from '@components/Translate';
-import { MENS, WOMENS } from '@constants/sports';
+import { VALUES } from '@constants/sports';
 
 export default function Tabs({ sport, changeSport }) {
   return (
@@ -18,7 +18,7 @@ export default function Tabs({ sport, changeSport }) {
           indicatorColor="primary"
         >
           <Tab
-            value={MENS}
+            value={VALUES.MENS}
             label={
               <Typography color="inherit" variant="h6" align="center">
                 <Translate text="app.main.tabs.mru" />
@@ -26,7 +26,7 @@ export default function Tabs({ sport, changeSport }) {
             }
           />
           <Tab
-            value={WOMENS}
+            value={VALUES.WOMENS}
             label={
               <Typography color="inherit" variant="h6" align="center">
                 <Translate text="app.main.tabs.wru" />

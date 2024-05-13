@@ -1,5 +1,5 @@
 import { fetchData } from '@utils/api';
-import { MENS } from '@constants/sports';
+import { KEY, VALUES } from '@constants/sports';
 import { ACTIONS } from './actions';
 import Header from './components/Header';
 import Main from './components/Main';
@@ -17,12 +17,12 @@ const initialState = {
   isError: null,
   isLoading: true,
   selectedMatch: null,
-  sport: MENS,
+  sport: VALUES.MENS,
 };
 
 export default function App() {
-  const [state, dispatch] = useAsync(fetchData, initialState, { cache, key: 'sport' });
-  const { data, selectedMatch, sport, isLoading, isError } = state;
+  const [state, dispatch] = useAsync(fetchData, initialState, { cache, key: KEY });
+  const { data, initialData, selectedMatch, sport, isLoading, isError } = state;
   const { label, effective, teams, rankings, matches } = data ?? {};
 
   const changeSport = sport => dispatch({
@@ -49,11 +49,7 @@ export default function App() {
     type: ACTIONS.UPDATE_MATCHES, payload: { matches },
   });
 
-  const clearMatches = () => dispatch({ type: ACTIONS.CLEAR_MATCHES });
-
-  const resetMatches = () => dispatch({ type: ACTIONS.RESET_MATCHES });
-
-  useUpdateCache(cache, data?.cacheKey, data);
+  useUpdateCache(cache, data?.id, data);
 
   return (
     <Stack sx={{ minHeight: '100vh' }} justifyContent="space-between">
@@ -63,8 +59,8 @@ export default function App() {
           effective={effective}
           disabled={isLoading || isError}
           changeSport={changeSport}
-          resetMatches={resetMatches}
-          clearMatches={clearMatches}
+          resetMatches={() => updateMatches(initialData[sport]?.matches)}
+          clearMatches={() => updateMatches([])}
           selectMatch={selectMatch}
         />
       </header>

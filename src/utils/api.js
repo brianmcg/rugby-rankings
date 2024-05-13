@@ -2,7 +2,7 @@ import axios from 'axios';
 import { formatApiDate, addWeeks } from '@utils/date';
 import { parseMatchResponse } from '@utils/parsers';
 import { RANKINGS, FIXTURES } from '@constants/urls';
-import { MENS } from '@constants/sports';
+import { VALUES } from '@constants/sports';
 
 // This is for slowing down requests for development purposes.
 // const sleep = t => new Promise(resolve => setTimeout(resolve, t))
@@ -17,11 +17,11 @@ async function axiosGet(url, params) {
   }
 }
 
-function fetchRankings(sport = MENS) {
+function fetchRankings(sport = VALUES.MENS) {
   return axiosGet(`${RANKINGS}/${sport}`);
 }
 
-async function fetchMatches(sport = MENS, teams, date) {
+async function fetchMatches(sport = VALUES.MENS, teams, date) {
   // const startDate = subtractWeeks(date, 1, 'week');
   const endDate = addWeeks(date, 1);
 
@@ -39,13 +39,13 @@ async function fetchMatches(sport = MENS, teams, date) {
   return parseMatchResponse(response, teams);
 }
 
-export async function fetchData(sport) {
+export async function fetchData(id) {
   try {
-    const { entries: rankings, label, effective } = await fetchRankings(sport);
+    const { entries: rankings, label, effective } = await fetchRankings(id);
     const teams = rankings.map(entry => entry.team);
-    const matches = await fetchMatches(sport, teams, effective.millis);
+    const matches = await fetchMatches(id, teams, effective.millis);
 
-    return { cacheKey: sport, label, teams, rankings, matches, effective };
+    return { id, label, teams, rankings, matches, effective };
   } catch (error) {
     return Promise.reject(error)
   }

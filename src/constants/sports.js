@@ -1,3 +1,3 @@
-export const MENS = 'mru';
+export const KEY = 'sport';
 
-export const WOMENS = 'wru';
+export const VALUES = { MENS: 'mru', WOMENS: 'wru' };

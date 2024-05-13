@@ -26,7 +26,7 @@ const onFetchStart = state => {
 
 const onFetchSuccess = (state, payload) => {
   const { data } = payload;
-  const { rankings, matches, cacheKey } = data;
+  const { rankings, matches, id } = data;
 
   return {
     ...state,
@@ -37,7 +37,7 @@ const onFetchSuccess = (state, payload) => {
     },
     initialData: {
       ...state.initialData,
-      [cacheKey]: data,
+      [id]: data,
     },
     isLoading: false,
   }
@@ -102,27 +102,6 @@ const onRemoveMatch = (state, payload) => {
   return { ...state, data: { ...state.data, rankings, matches } };
 };
 
-const onClearMatches = state => {
-  const matches = [];
-  const rankings = calculateRankingChange(state.initialData[state.sport].rankings, matches);
-
-  return { ...state, data: { ...state.data, rankings, matches } };
-};
-
-const onResetMatches = state => {
-  const initialSportData = state.initialData[state.sport];
-  const { rankings, matches } = initialSportData;
-
-  return {
-    ...state,
-    data: {
-      ...initialSportData,
-      // Recalculate rankings based on initial data.
-      rankings: calculateRankingChange(rankings, matches),
-    },
-  }
-};
-
 const onupdateMatches = (state, payload) => {
   const { matches } = payload;
   const rankings = calculateRankingChange(state.initialData[state.sport].rankings, matches);
@@ -139,8 +118,6 @@ export function rankingsReducer(state, { type, payload }) {
     case ACTIONS.REMOVE_MATCH: return onRemoveMatch(state, payload);
     case ACTIONS.UPDATE_MATCH: return onUpdateMatch(state, payload);
     case ACTIONS.SELECT_MATCH: return onSelectMatch(state, payload);
-    case ACTIONS.RESET_MATCHES: return onResetMatches(state, payload);
-    case ACTIONS.CLEAR_MATCHES: return onClearMatches(state, payload);
     case ACTIONS.UPDATE_MATCHES: return onupdateMatches(state, payload);
     case ACTIONS.CHANGE_SPORT: return onChangeSport(state, payload);
     default: return state;
