@@ -17,12 +17,12 @@ export default function Menu({ effective, disabled, resetMatches, clearMatches, 
     '&:hover': { opacity: 1 } ,
     '&:disabled': { opacity: 0 },
   };
-
+  
   return (
     <Box sx={{ width: '100%', p: 3, bgcolor: 'secondary.main', color: 'common.white'}}>
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between">
-          <Stack direction="row" spacing={1} alignItems="center">
+          <Stack direction="row" spacing={1} alignItems="center" sx={{ opacity: disabled ? 0 : 1 }}>
             <Typography variant="subtitle2" sx={{ textTransform: 'uppercase' }}>
               <Translate text="app.main.updated" />
             </Typography>

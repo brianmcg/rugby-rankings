@@ -41,7 +41,17 @@ const theme = createTheme({
           transitionDuration: '0.2s',
           transitionProperty: 'all',
           transitionTimingFunction: 'linear',
-          textDecoration: 'none',
+        },
+      }, 
+    },
+    MuiStack: {
+      styleOverrides: {
+        root: {
+          transitionBehavior :'normal',
+          transitionDelay: '0s',
+          transitionDuration: '0.2s',
+          transitionProperty: 'all',
+          transitionTimingFunction: 'linear',
         },
       }, 
     },
@@ -54,7 +64,6 @@ const theme = createTheme({
           transitionDuration: '0.2s',
           transitionProperty: 'all',
           transitionTimingFunction: 'linear',
-          textDecoration: 'none',
         },
       }, 
     },

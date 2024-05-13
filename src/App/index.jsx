@@ -55,12 +55,12 @@ export default function App() {
   // TODO:
   // Rename `on` props.
   // Rename `Match` functions
-  // Pass cache key instead of value to `useUpdateCache`
-  // Don't display last updated until value exists
-  // order imports
   // Add top info to created match
   // Update modal style
+  // extract transition style
   // reduce jsx
+  // Replace arrow functions
+  // order imports
   // npm lint
   // update eslint
 
