@@ -10,6 +10,14 @@ import {
   ERROR,
 } from '@constants/colors';
 
+const transitionStyle = {
+  transitionBehavior :'normal',
+  transitionDelay: '0s',
+  transitionDuration: '0.2s',
+  transitionProperty: 'all',
+  transitionTimingFunction: 'linear',
+};
+
 const theme = createTheme({
   typography: {
     fontFamily: 'Webb Ellis Cup',
@@ -35,35 +43,23 @@ const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
+          ...transitionStyle,
           borderRadius: 0,
-          transitionBehavior :'normal',
-          transitionDelay: '0s',
-          transitionDuration: '0.2s',
-          transitionProperty: 'all',
-          transitionTimingFunction: 'linear',
         },
       }, 
     },
     MuiStack: {
       styleOverrides: {
         root: {
-          transitionBehavior :'normal',
-          transitionDelay: '0s',
-          transitionDuration: '0.2s',
-          transitionProperty: 'all',
-          transitionTimingFunction: 'linear',
+          ...transitionStyle,
         },
       }, 
     },
     MuiIconButton: {
       styleOverrides: {
         root: {
+          ...transitionStyle,
           borderRadius: 0,
-          transitionBehavior :'normal',
-          transitionDelay: '0s',
-          transitionDuration: '0.2s',
-          transitionProperty: 'all',
-          transitionTimingFunction: 'linear',
         },
       }, 
     },
@@ -99,11 +95,7 @@ const theme = createTheme({
     MuiLink: {
       styleOverrides: {
         root: {
-          transitionBehavior :'normal',
-          transitionDelay: '0s',
-          transitionDuration: '0.2s',
-          transitionProperty: 'all',
-          transitionTimingFunction: 'linear',
+          ...transitionStyle,
           textDecoration: 'none',
           '&:hover': {
             color: INFO,
