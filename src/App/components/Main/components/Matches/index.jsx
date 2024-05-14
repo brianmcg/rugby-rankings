@@ -4,6 +4,7 @@ import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import List from '@mui/material/List';
+import Typography from '@mui/material/Typography';
 import ListItem from '@mui/material/ListItem';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
@@ -36,21 +37,31 @@ export default function Matches({ matches, teams, label, sport, onSelectMatch, o
       </CardMedia>
       <CardContent>
         <Box sx={{ maxHeight: listContainerHeight ,overflow: 'auto' }}>
-          <List ref={listRef} sx={{ p: 0 }}> {
-            matches.map(match =>
-              (
-                <ListItem key={match.matchId}>
-                  <Match
-                    match={match}
-                    teams={teams}
-                    onRemoveMatch={onRemoveMatch}
-                    onSelectMatch={onSelectMatch}
-                  />
-                </ListItem>
-              ),
-            )
+          {
+            matches.length
+              ? (
+                <List ref={listRef} sx={{ p: 0 }}> {
+                  matches.map(match =>
+                    (
+                      <ListItem key={match.matchId}>
+                        <Match
+                          match={match}
+                          teams={teams}
+                          onRemoveMatch={onRemoveMatch}
+                          onSelectMatch={onSelectMatch}
+                        />
+                      </ListItem>
+                    ),
+                  )
+                }
+                </List>
+              )
+              : (
+                <Typography variant="body2" sx={{ color: 'secondary.main' }}>
+                  <Translate text="app.main.matches.empty" />
+                </Typography>
+              )
           }
-          </List>
         </Box>
       </CardContent>
     </Card>
