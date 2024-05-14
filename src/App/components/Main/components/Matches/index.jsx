@@ -28,6 +28,7 @@ export default function Matches({ matches, teams, label, sport, onSelectMatch, o
       setListContainerHeight(displayHeight);
     }
   }, []);
+
 	return (
 		<Card>
       <CardMedia image={imageSrc(sport)} sx={{ height: 100, color: 'white' }}>
@@ -36,33 +37,31 @@ export default function Matches({ matches, teams, label, sport, onSelectMatch, o
         </Stack>
       </CardMedia>
       <CardContent>
-        <Box sx={{ maxHeight: listContainerHeight ,overflow: 'auto' }}>
-          {
-            matches.length
-              ? (
-                <List ref={listRef} sx={{ p: 0 }}> {
-                  matches.map(match =>
-                    (
-                      <ListItem key={match.matchId}>
-                        <Match
-                          match={match}
-                          teams={teams}
-                          onRemoveMatch={onRemoveMatch}
-                          onSelectMatch={onSelectMatch}
-                        />
-                      </ListItem>
-                    ),
-                  )
-                }
-                </List>
+      {
+        matches.length ? (
+          <Box sx={{ maxHeight: listContainerHeight ,overflow: 'auto' }}>
+            <List ref={listRef} sx={{ p: 0 }}> {
+              matches.map(match =>
+                (
+                  <ListItem key={match.matchId}>
+                    <Match
+                      match={match}
+                      teams={teams}
+                      onRemoveMatch={onRemoveMatch}
+                      onSelectMatch={onSelectMatch}
+                    />
+                  </ListItem>
+                ),
               )
-              : (
-                <Typography variant="body2" sx={{ color: 'secondary.main' }}>
-                  <Translate text="app.main.matches.empty" />
-                </Typography>
-              )
-          }
-        </Box>
+            }
+            </List>
+          </Box>
+        ) : (
+          <Typography variant="body2" sx={{ color: 'secondary.main' }}>
+            <Translate text="app.main.matches.empty" />
+          </Typography>
+        )
+      }
       </CardContent>
     </Card>
 	);
