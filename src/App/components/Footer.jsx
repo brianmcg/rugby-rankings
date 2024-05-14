@@ -43,7 +43,7 @@ export default function Footer() {
   return (
     <Box sx={{
       color: 'common.white',
-      marginTop: 20,
+      marginTop: 2,
       backgroundImage: `linear-gradient(${primary.main}, ${secondary.main})`,
       borderTop: `solid 4px ${success.main}`,
     }}>
