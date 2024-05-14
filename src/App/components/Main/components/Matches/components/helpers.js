@@ -1,5 +1,4 @@
 import { PRIMARY, SUCCESS, ERROR } from '@constants/colors';
-import { formatTime } from '@utils/date';
 
 export function getColor({ isCreated, isUpdated, isComplete }) {
   if (isCreated || isUpdated) {
@@ -11,10 +10,10 @@ export function getColor({ isCreated, isUpdated, isComplete }) {
   }
 }
 
-export function getMatchResult({ isComplete, homeScore, awayScore, time }) {
+export function getMatchResult({ isComplete, homeScore, awayScore }) {
   if (isComplete) {
     return `${homeScore} - ${awayScore}`;
   }
-    return 'vs';
-  
+
+  return 'vs';
 }

@@ -19,12 +19,12 @@ export default function Header({
   return (
     <Box>
 
-      <Box sx={{ width: '100%', p: 3, bgcolor: 'primary.main', color: 'common.white', textAlign: 'left' }}>
+      <Box sx={{ width: '100%', p: 2, bgcolor: 'primary.main', color: 'common.white', textAlign: 'left' }}>
         <Container>
           <Stack direction="row" spacing={2} alignItems="center">
             <SportsRugbyIcon sx={{ fontSize: 48 }}/>
             <Typography color="inherit" variant="h1" align="left">
-              <Translate text="app.header.title" /> 
+              <Translate text="app.header.title" />
             </Typography>
 
           </Stack>
@@ -32,7 +32,7 @@ export default function Header({
       </Box>
 
       <Tabs sport={sport} disabled={disabled} onChangeSport={onChangeSport} />
-      
+
       <Menu
         startDate={startDate}
         disabled={disabled}

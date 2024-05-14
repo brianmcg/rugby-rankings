@@ -16,13 +16,9 @@ import { SECONDARY } from '@constants/colors';
 import RankCell from './components/RankCell';
 import PointsCell from './components/PointsCell';
 
-
-
 const imageSrc = sport => `/src/assets/images/${sport}/rankings.png`;
 
 function renderTableRows(rankings) {
-  // const rows = fullTable ? rankings : rankings.slice(0, INITIAL_ROWS);
-
   return rankings.map(({ pos, previousPos, pts, previousPts, team }) => (
     <TableRow
       key={team.id}

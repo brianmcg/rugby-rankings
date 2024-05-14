@@ -35,7 +35,6 @@ export default function Tabs({ sport, disabled, onChangeSport }) {
           indicatorColor="primary"
         >
           {options.map(value => renderTab({ value, disabled }))}
-         
         </MuiTabs>
       </Container>
     </Box>

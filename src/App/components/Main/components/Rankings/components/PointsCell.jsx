@@ -31,7 +31,6 @@ function renderContents(pts, previousPts) {
     return (
       <Stack alignItems="center" direction="row">
         <Typography variant="body1">{formatPoints(pts)}</Typography>
-        
       </Stack>
     );
   }

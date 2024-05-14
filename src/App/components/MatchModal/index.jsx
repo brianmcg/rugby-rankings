@@ -1,8 +1,11 @@
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
+import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
+import CancelIcon from '@mui/icons-material/Cancel';
 import Translate from '@components/Translate';
 import MatchForm from './components/MatchForm';
 
@@ -36,16 +39,27 @@ export default function TransitionsModal({
     >
       <Fade in={isOpen}>
         <Box sx={style}>
-          <Typography color="primary" variant="h6" mb={4}>
-            <Translate text="app.main.modal.title" />
-          </Typography>
+          <Stack direction="row" alignItems="flex-start" justifyContent="space-between">
+            <Typography color="common.black" variant="h6" mb={4}>
+              <Translate text="app.main.modal.title" />
+            </Typography>
+
+            <IconButton
+              color="primary"
+              sx={{ p: 0, '&:hover': { color: 'error.main' }}}
+              onClick={onClose}
+              size="small"
+            >
+              <CancelIcon />
+            </IconButton>
+          </Stack>
+
           <MatchForm
             match={match}
             teams={teams}
             endDate={endDate}
             onCreate={onCreate}
             onUpdate={onUpdate}
-            onClose={onClose}
           />
         </Box>
       </Fade>

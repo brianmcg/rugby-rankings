@@ -22,7 +22,7 @@ export default function Header({ onClickScroll }) {
     <ParallaxBanner style={parallaxStyle} layers={[{ image: backgroundSrc, speed: -30 }]}>
       <Stack style={headingStyle} sx={{ flexGrow: 1 }}>
         <Typography color="inherit" variant="h1" align="center">
-          <Translate text="app.header.title" /> 
+          <Translate text="app.header.title" />
         </Typography>
         <IconButton
           sx={{ border: '2px solid white', color: 'white', m: 2 }}

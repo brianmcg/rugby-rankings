@@ -1,20 +1,16 @@
 import { useReducer } from 'react';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
 import SendIcon from '@mui/icons-material/Send';
-import CancelIcon from '@mui/icons-material/Cancel';
 import Translate from '@components/Translate';
 import LabelSwitch from '@components/LabelSwitch';
-import { SUCCESS, ERROR } from '@constants/colors';
 import { isNumeric } from '@utils/number';
 import { ACTIONS } from './actions';
 import { matchReducer } from './reducers';
-import TeamInput from './components/TeamInput';
-import ScoreInput from './components/ScoreInput';
 import { useTranslation } from 'react-i18next';
+import EntryInput from './components/EntryInput';
 
-export default function MatchForm({ match, teams, endDate, onCreate, onUpdate, onClose }) {
+export default function MatchForm({ match, teams, endDate, onCreate, onUpdate }) {
   const [state, dispatch] = useReducer(matchReducer, match);
   const { homeTeam, awayTeam, homeScore, awayScore, isNeutralVenue, isWorldCup, isComplete } = state;
   const { t } = useTranslation();
@@ -66,65 +62,55 @@ export default function MatchForm({ match, teams, endDate, onCreate, onUpdate, o
   };
 
   return (
-    <Box>
-      <Stack direction="row" justifyContent="center" spacing={1} sx={{ mb: 4 }}>
-        <TeamInput
-          options={teams.filter(team => team.id !== awayTeam?.id)}
-          value={homeTeam}
-          onChange={onHomeTeamChange}
-          label={<Translate text="app.main.modal.team" />}
+    <Stack direction="column" spacing={4}>
+
+      <EntryInput
+        team={homeTeam}
+        score={homeScore}
+        otherTeam={awayTeam}
+        teams={teams}
+        onTeamChange={onHomeTeamChange}
+        onScoreChange={onHomeScoreChange}
+        label={
+          <Translate text={isNeutralVenue ? 'app.main.modal.team' : 'app.main.modal.home'} />
+        }
+      />
+
+      <EntryInput
+        team={awayTeam}
+        score={awayScore}
+        otherTeam={homeTeam}
+        teams={teams}
+        onTeamChange={onAwayTeamChange}
+        onScoreChange={onAwayScoreChange}
+        label={
+          <Translate text={isNeutralVenue ? 'app.main.modal.team' : 'app.main.modal.away'} />
+        }
+      />
+
+      <Stack direction="row" spacing={1} alignItems="center" justifyContent="flex-start">
+        <LabelSwitch
+          disabled={isWorldCup}
+          label={<Translate text="app.main.modal.neutral" />}
+          onChange={onNeutralVenueChange}
+          checked={isNeutralVenue}
         />
-        <ScoreInput
-          value={homeScore}
-          label={<Translate text="app.main.modal.score" />}
-          onChange={onHomeScoreChange}
-        />
-        <ScoreInput
-          value={awayScore}
-          label={<Translate text="app.main.modal.score" />}
-          onChange={onAwayScoreChange}
-        />
-        <TeamInput
-          options={teams.filter(team => team.id !== homeTeam?.id)}
-          value={awayTeam}
-          onChange={onAwayTeamChange}
-          label={<Translate text="app.main.modal.team" />}
+        <LabelSwitch
+          label={<Translate text="app.main.modal.rwc" />}
+          onChange={onWorldCupChange}
+          checked={isWorldCup}
         />
       </Stack>
 
-      <Stack direction="row" alignItems="center" justifyContent="space-between">
-        <Stack direction="row" spacing={1} alignItems="center" justifyContent="flex-start">
-          <LabelSwitch
-            disabled={isWorldCup}
-            label={<Translate text="app.main.modal.neutral" />}
-            onChange={onNeutralVenueChange}
-            checked={isNeutralVenue}
-          />
-          <LabelSwitch
-            label={<Translate text="app.main.modal.rwc" />}
-            onChange={onWorldCupChange}
-            checked={isWorldCup}
-          />
-        </Stack>
-        <Stack direction="row" spacing={1} alignItems="center" justifyContent="flex-end">
-          <Button
-            sx={{ color: 'secondary', '&:hover': { color: ERROR }}}
-            startIcon={<CancelIcon />}
-            onClick={onClose}
-          >
-            <Translate text="app.main.modal.cancel" />
-          </Button>
-          <Button
-            sx={{ color: 'secondary', '&:hover': { color: SUCCESS }}}
-            disabled={!isComplete}
-            startIcon={<SendIcon />}
-            onClick={() => onClickConfirm(state)}
-          >
-            <Translate text="app.main.modal.confirm" />
-          </Button>
-        </Stack>
-      </Stack>
+      <Button
+        variant="contained"
+        disabled={!isComplete}
+        startIcon={<SendIcon />}
+        onClick={() => onClickConfirm(state)}
+      >
+        <Translate text="app.main.modal.confirm" />
+      </Button>
 
-    </Box>
+    </Stack>
   );
 }

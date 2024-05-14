@@ -14,7 +14,7 @@ function renderButton({ icon, action, disabled, label }) {
     <Button
       key={label}
       disabled={disabled}
-      sx={{ opacity: 0.6, '&:hover': { opacity: 1 }, '&:disabled': { opacity: 0 } }}
+      sx={{ p: 0, opacity: 0.6, '&:hover': { opacity: 1 }, '&:disabled': { opacity: 0 } }}
       color="inherit"
       startIcon={icon}
       onClick={action}
@@ -30,7 +30,7 @@ export default function Menu({ startDate, disabled, onResetMatches, onClearMatch
     { label: 'app.main.clear', icon: <DeleteIcon />, action: onClearMatches },
     { label: 'app.main.add', icon: <AddIcon />, action: () => onSelectMatch() },
   ];
-  
+
   return (
     <Box sx={{ width: '100%', p: 3, bgcolor: 'secondary.main', color: 'common.white'}}>
       <Container>
@@ -44,7 +44,7 @@ export default function Menu({ startDate, disabled, onResetMatches, onClearMatch
             </Typography>
           </Stack>
 
-          <Stack direction="row" spacing={2} alignItems="center" justifyContent="flex-end">
+          <Stack direction="row" spacing={4} alignItems="center" justifyContent="flex-end">
             {options.map(option => renderButton({ ...option, disabled }))}
           </Stack>
         </Stack>

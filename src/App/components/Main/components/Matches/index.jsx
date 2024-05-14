@@ -18,11 +18,11 @@ export default function Matches({ matches, teams, label, sport, onSelectMatch, o
         <Stack sx={{ height: '100%' }} direction="row" alignItems="flex-end" justifyContent="space-between">
           <CardHeader title={<Translate text="app.main.matches.title" options={{ label }}/>} />
         </Stack>
-      </CardMedia>  
+      </CardMedia>
       <CardContent>
         <Box sx={{ maxHeight: 440 ,overflow: 'auto' }}>
           <List sx={{ p: 0 }}> {
-            matches.map(match => 
+            matches.map(match =>
               (
                 <ListItem key={match.matchId}>
                   <Match

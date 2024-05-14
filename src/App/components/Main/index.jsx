@@ -18,7 +18,7 @@ export default function Main({
 }) {
 
   if (isError) return <ErrorMessage message="app.errors.fetch" />;
-     
+
   if (isLoading) return <Loading />;
 
   return (
