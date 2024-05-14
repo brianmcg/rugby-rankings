@@ -43,7 +43,7 @@ export async function fetchData(sport) {
     const { entries: rankings, label, effective } = await fetchRankings(sport);
     const teams = rankings.map(entry => entry.team);
     const startDate = effective.millis;
-    const endDate = addWeeks(effective.millis, 1).valueOf();
+    const endDate = addWeeks(effective.millis, 2).valueOf();
     const matches = await fetchMatches(sport, teams, startDate, endDate);
 
     return { sport, label, teams, rankings, matches, startDate, endDate };

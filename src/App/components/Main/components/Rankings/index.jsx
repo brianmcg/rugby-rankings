@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useLayoutEffect } from 'react';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
@@ -15,6 +15,8 @@ import Translate from '@components/Translate';
 import { SECONDARY } from '@constants/colors';
 import RankCell from './components/RankCell';
 import PointsCell from './components/PointsCell';
+
+const DISPLAY_ROWS = 16;
 
 const imageSrc = sport => `/src/assets/images/${sport}/rankings.png`;
 
@@ -34,6 +36,18 @@ function renderTableRows(rankings) {
 }
 
 export default function Rankings({ rankings, label, sport }) {
+  const tableBodyRef = useRef();
+  const [tableContainerHeight, setTableContainerHeight] = useState(0);
+
+  useLayoutEffect(() => {
+    if (tableBodyRef.current) {
+      const { offsetHeight } = tableBodyRef.current.firstChild;
+      const displayHeight = ((DISPLAY_ROWS + 1) * offsetHeight) - 1;
+
+      setTableContainerHeight(displayHeight);
+    }
+  }, []);
+
   return (
     <Card>
       <CardMedia image={imageSrc(sport)} sx={{ height: 100, color: 'white' }}>
@@ -42,8 +56,8 @@ export default function Rankings({ rankings, label, sport }) {
         </Stack>
       </CardMedia>
       <CardContent>
-        <TableContainer sx={{ maxHeight: 628 }}>
-          <Table stickyHeader={true} size="small">
+        <TableContainer sx={{ maxHeight: tableContainerHeight }}>
+          <Table stickyHeader size="small">
             <TableHead>
               <TableRow>
                 <TableCell sx={{ backgroundColor: 'white' }}>
@@ -57,7 +71,7 @@ export default function Rankings({ rankings, label, sport }) {
                 </TableCell>
               </TableRow>
             </TableHead>
-            <TableBody>
+            <TableBody ref={tableBodyRef}>
               {renderTableRows(rankings)}
             </TableBody>
           </Table>

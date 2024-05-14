@@ -1,3 +1,4 @@
+import { useState, useRef, useLayoutEffect } from 'react';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
@@ -11,7 +12,21 @@ import Match from './components/Match';
 
 const imageSrc = sport => `/src/assets/images/${sport}/matches.png`;
 
+const DISPLAY_ITEMS = 8;
+
 export default function Matches({ matches, teams, label, sport, onSelectMatch, onRemoveMatch }) {
+  const listRef = useRef();
+  const [listContainerHeight, setListContainerHeight] = useState(0);
+
+  useLayoutEffect(() => {
+    if (listRef.current) {
+      const { offsetHeight } = listRef.current.children[0];
+
+      const displayHeight = DISPLAY_ITEMS * offsetHeight;
+
+      setListContainerHeight(displayHeight);
+    }
+  }, []);
 	return (
 		<Card>
       <CardMedia image={imageSrc(sport)} sx={{ height: 100, color: 'white' }}>
@@ -20,8 +35,8 @@ export default function Matches({ matches, teams, label, sport, onSelectMatch, o
         </Stack>
       </CardMedia>
       <CardContent>
-        <Box sx={{ maxHeight: 440 ,overflow: 'auto' }}>
-          <List sx={{ p: 0 }}> {
+        <Box sx={{ maxHeight: listContainerHeight ,overflow: 'auto' }}>
+          <List ref={listRef} sx={{ p: 0 }}> {
             matches.map(match =>
               (
                 <ListItem key={match.matchId}>
