@@ -50,9 +50,8 @@ export function matchReducer(state, action) {
     case ACTIONS.CHANGE_IS_WORLD_CUP: {
       const { isWorldCup } = action.payload;
       const isComplete = isMatchComplete(state);
-      const isNeutralVenue = isWorldCup;
 
-      return { ...state, isWorldCup, isNeutralVenue, isComplete };
+      return { ...state, isWorldCup, isComplete };
     }
     default: {
       return state;

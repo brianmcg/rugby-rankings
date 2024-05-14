@@ -90,7 +90,6 @@ export default function MatchForm({ match, teams, endDate, onCreate, onUpdate })
 
       <Stack direction="row" spacing={1} alignItems="center" justifyContent="flex-start">
         <LabelSwitch
-          disabled={isWorldCup}
           label={<Translate text="app.main.modal.neutral" />}
           onChange={onNeutralVenueChange}
           checked={isNeutralVenue}
