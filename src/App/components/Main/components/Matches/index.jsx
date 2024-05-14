@@ -9,9 +9,16 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import { formatRange } from '@utils/date';
 import Translate from '@components/Translate';
+import { VALUES } from '@constants/sports';
 import Match from './components/Match';
 
-const imageSrc = sport => `/src/assets/images/${sport}/matches.png`;
+import mruImageSrc from '@assets/images/mru/matches.png';
+import wruImageSrc from '@assets/images/wru/matches.png';
+
+const IMAGES = {
+  [VALUES.MENS]: mruImageSrc,
+  [VALUES.WOMENS]: wruImageSrc,
+};
 
 const DISPLAY_ITEMS = 8;
 
@@ -38,7 +45,7 @@ export default function Matches({
 
 	return (
 		<Card>
-      <CardMedia image={imageSrc(sport)} sx={{ height: 100, color: 'common.white' }}>
+      <CardMedia image={IMAGES[sport]} sx={{ height: 100, color: 'common.white' }}>
         <Stack
           sx={{ height: '100%', p: 2 }}
           spacing={2}

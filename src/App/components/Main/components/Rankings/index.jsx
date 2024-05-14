@@ -12,12 +12,19 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 import Translate from '@components/Translate';
+import { VALUES } from '@constants/sports';
 import RankCell from './components/RankCell';
 import PointsCell from './components/PointsCell';
 
-const DISPLAY_ROWS = 16;
+import mruImageSrc from '@assets/images/mru/rankings.png';
+import wruImageSrc from '@assets/images/wru/rankings.png';
 
-const imageSrc = sport => `/src/assets/images/${sport}/rankings.png`;
+const IMAGES = {
+  [VALUES.MENS]: mruImageSrc,
+  [VALUES.WOMENS]: wruImageSrc,
+};
+
+const DISPLAY_ROWS = 16;
 
 function renderTableRows(rankings) {
   return rankings.map(({ pos, previousPos, pts, previousPts, team }) => (
@@ -49,7 +56,7 @@ export default function Rankings({ rankings, label, sport }) {
 
   return (
     <Card>
-      <CardMedia image={imageSrc(sport)} sx={{ height: 100, color: 'common.white' }}>
+      <CardMedia image={IMAGES[sport]} sx={{ height: 100, color: 'common.white' }}>
         <Stack sx={{ height: '100%' }} direction="row" alignItems="flex-end" justifyContent="space-between">
           <CardHeader title={<Translate text="app.main.rankings.title" options={{ label }}/>} />
         </Stack>
