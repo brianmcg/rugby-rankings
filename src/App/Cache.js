@@ -9,9 +9,7 @@ export default function Cache({ dataKey }) {
     },
 
     set(key, value) {
-      const res = cache.set(key, value);
-      console.log(cache);
-      return res;
+      return cache.set(key, value);
     },
 
     get(key) {
