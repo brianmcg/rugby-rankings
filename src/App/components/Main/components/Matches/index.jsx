@@ -39,7 +39,7 @@ export default function Matches({ matches, teams, label, sport, onSelectMatch, o
       <CardContent>
       {
         matches.length ? (
-          <Box sx={{ maxHeight: listContainerHeight ,overflow: 'auto' }}>
+          <Box sx={{ maxHeight: listContainerHeight, overflow: 'auto' }}>
             <List ref={listRef} sx={{ p: 0 }}> {
               matches.map(match =>
                 (
