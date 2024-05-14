@@ -39,8 +39,13 @@ export default function TransitionsModal({
     >
       <Fade in={isOpen}>
         <Box sx={style}>
-          <Stack direction="row" alignItems="flex-start" justifyContent="space-between">
-            <Typography color="common.black" variant="h6" mb={4}>
+          <Stack
+            direction="row"
+            alignItems="flex-start"
+            justifyContent="space-between"
+            color="secondary.main"
+          >
+            <Typography variant="h6" mb={4}>
               <Translate text="app.main.modal.title" />
             </Typography>
 

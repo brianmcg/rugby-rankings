@@ -12,8 +12,8 @@ function renderContents(pts, previousPts) {
 
   if (pts > previousPts) {
     return (
-      <Stack color="primary.main" alignItems="center" direction="row" gap={1}>
-        <Typography variant="body1">{formatPoints(pts)}</Typography>
+      <Stack alignItems="center" direction="row" gap={1}>
+        <Typography color="secondary.main" variant="body1">{formatPoints(pts)}</Typography>
         <ArrowUpwardIcon sx={upStyle} />
         <Typography sx={upStyle} variant="body2">({formatPoints(previousPts)})</Typography>
       </Stack>
@@ -21,7 +21,7 @@ function renderContents(pts, previousPts) {
   } else if (pts < previousPts) {
     return (
       <Stack alignItems="center" direction="row" gap={1}>
-        <Typography variant="body1">{formatPoints(pts) }</Typography>
+        <Typography color="secondary.main" variant="body1">{formatPoints(pts) }</Typography>
         <ArrowDownwardIcon sx={downStyle} />
         <Typography sx={downStyle} variant="body2">({formatPoints(previousPts)})</Typography>
       </Stack>
@@ -29,7 +29,7 @@ function renderContents(pts, previousPts) {
   } else {
     return (
       <Stack alignItems="center" direction="row">
-        <Typography variant="body1">{formatPoints(pts)}</Typography>
+        <Typography color="secondary.main" variant="body1">{formatPoints(pts)}</Typography>
       </Stack>
     );
   }

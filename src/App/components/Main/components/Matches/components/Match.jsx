@@ -27,7 +27,7 @@ import { getColor } from './helpers';
 function renderMatchResult({ match, color }) {
   const { homeTeam, awayTeam, homeScore, awayScore, isComplete } = match;
   return (
-    <Stack>
+    <Stack sx={{ color: 'common.secondary' }}>
       <Grid container direction="row" gap={1} alignItems="center" justifyContent="flex-start">
         <Typography variant="body1">{homeTeam.name}</Typography>
         <Typography variant="h6" color={color}>
