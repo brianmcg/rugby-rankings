@@ -40,8 +40,8 @@ export default function Rankings({ rankings, label, sport }) {
 
   useLayoutEffect(() => {
     if (tableBodyRef.current) {
-      const { offsetHeight } = tableBodyRef.current.firstChild;
-      const displayHeight = ((DISPLAY_ROWS + 1) * offsetHeight) - 1;
+      const { offsetHeight: rowHeight } = tableBodyRef.current.children[0];
+      const displayHeight = ((DISPLAY_ROWS + 1) * rowHeight) - 1;
 
       setTableContainerHeight(displayHeight);
     }
@@ -59,13 +59,13 @@ export default function Rankings({ rankings, label, sport }) {
           <Table stickyHeader size="small">
             <TableHead>
               <TableRow>
-                <TableCell sx={{ bgcolor: 'inherit' }}>
+                <TableCell sx={{ bgcolor: 'common.white' }}>
                   <Translate text="app.main.rankings.table.rank" />
                 </TableCell>
-                <TableCell sx={{ bgcolor: 'inherit' }}>
+                <TableCell sx={{ bgcolor: 'common.white' }}>
                   <Translate text="app.main.rankings.table.team" />
                 </TableCell>
-                <TableCell sx={{ bgcolor: 'inherit' }}>
+                <TableCell sx={{ bgcolor: 'common.white' }}>
                   <Translate text="app.main.rankings.table.points" />
                 </TableCell>
               </TableRow>

@@ -29,9 +29,8 @@ export default function Matches({
 
   useLayoutEffect(() => {
     if (listRef.current) {
-      const { offsetHeight } = listRef.current.children[0];
-
-      const displayHeight = DISPLAY_ITEMS * offsetHeight;
+      const { offsetHeight: listItemHeight } = listRef.current.children[0];
+      const displayHeight = DISPLAY_ITEMS * listItemHeight;
 
       setListContainerHeight(displayHeight);
     }
