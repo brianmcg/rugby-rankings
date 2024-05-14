@@ -1,14 +1,19 @@
 import { createTheme  } from '@mui/material/styles';
+import { blueGrey } from '@mui/material/colors';
 
-import {
-  PRIMARY,
-  SECONDARY,
-  BACKGROUND,
-  INFO,
-  WARNING,
-  SUCCESS,
-  ERROR,
-} from '@constants/colors';
+export const PRIMARY = '#00419b';
+
+export const SECONDARY = '#19194b';
+
+export const BACKGROUND = '#e6e7eb';
+
+export const INFO = '#00917b';
+
+export const WARNING = '#e31394';
+
+export const SUCCESS = '#58be46';
+
+export const ERROR = '#c30019';
 
 const transitionStyle = {
   transitionBehavior :'normal',
@@ -50,11 +55,11 @@ const theme = createTheme({
             backgroundColor: 'transparent',
           },
           '*::-webkit-scrollbar-thumb': {
-            backgroundColor: '#d6dee1',
+            backgroundColor: blueGrey[100],
             border: '6px solid transparent',
             backgroundClip: 'content-box',
             '&:hover': {
-              backgroundColor: '#a8bbbf',
+              backgroundColor: blueGrey[200],
             },
           },
 
@@ -93,9 +98,6 @@ const theme = createTheme({
     },
     MuiTabs: {
       styleOverrides: {
-        root: {
-          backgroundColor: 'white',
-        },
         indicator: {
           backgroundColor: SUCCESS,
           height: 5,
@@ -146,7 +148,7 @@ const theme = createTheme({
       main: SECONDARY,
     },
     background: {
-      default: BACKGROUND,
+      default: blueGrey[50],
     },
     info: {
       main: INFO,

@@ -1,12 +1,10 @@
-import { PRIMARY, SUCCESS, ERROR } from '@constants/colors';
-
 export function getColor({ isCreated, isUpdated, isComplete }) {
   if (isCreated || isUpdated) {
-    return SUCCESS;
+    return 'success.main';
   } else if (isComplete) {
-    return PRIMARY;
+    return 'primary.main';
   } else {
-    return ERROR;
+    return 'error.main';
   }
 }
 

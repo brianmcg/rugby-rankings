@@ -36,7 +36,7 @@
         }
       },
       "matches": {
-        "title": "{{label}} Fixtures",
+        "title": "Fixtures {{range}}",
         "predict": "Predict",
         "update": "Update",
         "clear": "Clear",

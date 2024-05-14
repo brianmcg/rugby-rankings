@@ -4,6 +4,12 @@ export const formatTime = date => dayjs(date).format('H:mm');
 
 export const formatDay = date => dayjs(date).format('DD MMM YYYY');
 
+export const formatDayMonth = date => dayjs(date).format('DD MMM');
+
+export const formatRange = (startDate, endDate) => {
+	return `${formatDayMonth(startDate)} - ${formatDayMonth(endDate)}`;
+};
+
 export const formatApiDate = date => dayjs(date).format('YYYY-MM-DD');
 
 export const addWeeks = (date, amount) => dayjs(date).add(amount, 'week');

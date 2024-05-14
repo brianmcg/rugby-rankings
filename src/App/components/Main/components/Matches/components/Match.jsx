@@ -6,7 +6,6 @@ import Typography from '@mui/material/Typography';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import Translate from '@components/Translate';
-import { SUCCESS, ERROR } from '@constants/colors';
 import { getColor } from './helpers';
 
 // function renderMatchInfo(match) {
@@ -67,8 +66,8 @@ export default function Match({ match, onSelectMatch, onRemoveMatch }) {
   const color = getColor(match);
 
   const options = [
-    { icon: <EditIcon />, action: () => onSelectMatch(match), color: SUCCESS },
-    { icon: <DeleteIcon />, action: () => onRemoveMatch(matchId), color: ERROR },
+    { icon: <EditIcon />, action: () => onSelectMatch(match), color: 'success.main' },
+    { icon: <DeleteIcon />, action: () => onRemoveMatch(matchId), color: 'error.main' },
   ];
 
   return (

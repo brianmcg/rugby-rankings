@@ -11,6 +11,8 @@ export default function Main({
   label,
   teams,
   sport,
+  startDate,
+  endDate,
   isError,
   isLoading,
   onSelectMatch,
@@ -29,7 +31,8 @@ export default function Main({
             matches={matches}
             teams={teams}
             sport={sport}
-            label={label}
+            startDate={startDate}
+            endDate={endDate}
             onSelectMatch={onSelectMatch}
             onRemoveMatch={onRemoveMatch}
           />

@@ -25,7 +25,7 @@ export default function Tabs({ sport, disabled, onChangeSport }) {
   const options = [VALUES.MENS, VALUES.WOMENS];
 
   return (
-    <Box sx={{ width: '100%', backgroundColor: 'white' }}>
+    <Box sx={{ width: '100%', bgcolor: 'common.white' }}>
       <Container>
         <MuiTabs
           variant="fullWidth"

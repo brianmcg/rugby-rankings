@@ -15,17 +15,18 @@ export default function Header({ onClickScroll }) {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    color: 'white',
+    color: 'common.white',
+    flexGrow: 1,
   };
 
   return (
     <ParallaxBanner style={parallaxStyle} layers={[{ image: backgroundSrc, speed: -30 }]}>
-      <Stack style={headingStyle} sx={{ flexGrow: 1 }}>
+      <Stack sx={headingStyle}>
         <Typography color="inherit" variant="h1" align="center">
           <Translate text="app.header.title" />
         </Typography>
         <IconButton
-          sx={{ border: '2px solid white', color: 'white', m: 2 }}
+          sx={{ border: '2px solid white', color: 'common.white', m: 2 }}
           onClick={onClickScroll}
           size="large"
         >

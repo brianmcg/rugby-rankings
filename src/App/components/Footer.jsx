@@ -6,8 +6,8 @@ import Link from '@mui/material/Link';
 import SportsRugbyIcon from '@mui/icons-material/SportsRugby';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { useTheme } from '@mui/material';
 import Translate from '@components/Translate';
-import { PRIMARY, SECONDARY, SUCCESS } from '@constants/colors';
 
 const options = [{
   icon: <SportsRugbyIcon />,
@@ -37,12 +37,15 @@ function renderOption({ icon, label, href }) {
 }
 
 export default function Footer() {
+  const { palette } = useTheme();
+  const { primary, secondary, success } = palette;
+
   return (
-    <Box style={{
-      color: 'white',
+    <Box sx={{
+      color: 'common.white',
       marginTop: 20,
-      backgroundImage: `linear-gradient(${PRIMARY}, ${SECONDARY})`,
-      borderTop: `solid 4px ${SUCCESS}`,
+      backgroundImage: `linear-gradient(${primary.main}, ${secondary.main})`,
+      borderTop: `solid 4px ${success.main}`,
     }}>
       <Container>
         <Box p={8}>

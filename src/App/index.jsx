@@ -71,6 +71,8 @@ export default function App() {
           matches={matches}
           teams={teams}
           sport={sport}
+          startDate={startDate}
+          endDate={endDate}
           isError={isError}
           isLoading={isLoading}
           onSelectMatch={selectMatch}
