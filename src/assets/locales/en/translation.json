@@ -17,7 +17,7 @@
       "fetch": "Failed to load data!"
     },
     "main": {
-      "updated": "Last updated",
+      "updated": "Updated",
       "add": "Add Fixture",
       "clear": "Clear Fixtures",
       "reset": "Reset Fixtures",

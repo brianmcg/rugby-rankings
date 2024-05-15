@@ -41,19 +41,21 @@ export default function Footer() {
   const { primary, secondary, success } = palette;
 
   return (
-    <Box sx={{
-      color: 'common.white',
-      marginTop: 2,
-      backgroundImage: `linear-gradient(${primary.main}, ${secondary.main})`,
-      borderTop: `solid 4px ${success.main}`,
-    }}>
-      <Container>
-        <Box p={8}>
-          <Stack direction="column" justifyContent="center" alignItems="flex-start" gap={4}>
-            {options.map(option => renderOption(option))}
-          </Stack>
-        </Box>
-      </Container>
-    </Box>
+    <footer>
+      <Box sx={{
+        color: 'common.white',
+        marginTop: 2,
+        backgroundImage: `linear-gradient(${primary.main}, ${secondary.main})`,
+        borderTop: `solid 4px ${success.main}`,
+      }}>
+        <Container>
+          <Box p={8}>
+            <Stack direction="column" justifyContent="center" alignItems="flex-start" gap={4}>
+              {options.map(option => renderOption(option))}
+            </Stack>
+          </Box>
+        </Container>
+      </Box>
+    </footer>
   );
 }

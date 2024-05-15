@@ -5,16 +5,13 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 
 function renderContents(pos, previousPos) {
-  const upStyle = { color: 'success.main', fontSize: 14 };
-  const downStyle = { color: 'error.main', fontSize: 14 };
-
   if (pos < previousPos) {
     return (
       <Stack alignItems="center" direction="row" gap={1}>
         <Typography color="secondary.main" variant="body1">{pos}</Typography>
-        <ArrowUpwardIcon sx={upStyle} />
+        <ArrowUpwardIcon sx={{ color: 'success.main', fontSize: 14 }} />
         <Typography
-          sx={{ ...upStyle, display: { xs: 'none', sm: 'block' } }}
+          sx={{ color: 'success.main', fontSize: 14, display: { xs: 'none', sm: 'block' } }}
           variant="body2"
         >
           ({previousPos})
@@ -25,9 +22,9 @@ function renderContents(pos, previousPos) {
     return (
       <Stack alignItems="center" direction="row" gap={1}>
         <Typography color="secondary.main" variant="body1">{pos}</Typography>
-        <ArrowDownwardIcon sx={downStyle} />
+        <ArrowDownwardIcon sx={{ color: 'error.main', fontSize: 14 }} />
         <Typography
-          sx={{ ...downStyle, display: { xs: 'none', sm: 'block' } }}
+          sx={{ color: 'error.main', fontSize: 14, display: { xs: 'none', sm: 'block' } }}
           variant="body2"
         >
           ({previousPos})

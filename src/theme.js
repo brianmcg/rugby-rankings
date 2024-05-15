@@ -66,6 +66,16 @@ const theme = createTheme({
         },
       },
     },
+    MuiMenu: {
+      styleOverrides: {
+        list: {
+          '&[role="menu"]': {
+          backgroundColor: SECONDARY,
+          color: 'common.white',
+          },
+        },
+      },
+    },
     MuiButton: {
       styleOverrides: {
         root: {

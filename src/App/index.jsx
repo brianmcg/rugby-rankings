@@ -8,6 +8,7 @@ import Main from './components/Main';
 import Footer from './components/Footer';
 import MatchModal from './components/MatchModal';
 import Cache from './Cache';
+import ResponsiveAppBar from './components/ResponsiveAppBar';
 
 const cache = new Cache({ dataKey: KEY });
 
@@ -52,19 +53,20 @@ export default function App() {
   useUpdateCache(cache, data);
 
   return (
-    <Stack sx={{ minHeight: '100vh' }} justifyContent="space-between">
-      <header>
-        <Header
-          sport={sport}
+    <>
+      <Header
+        sport={sport}
+        disabled={isLoading}
+        onChangeSport={changeSport}
+      />
+      <Stack sx={{ minHeight: '100vh' }} justifyContent="space-between">
+        <ResponsiveAppBar
           startDate={startDate}
           disabled={isLoading || isError}
-          onChangeSport={changeSport}
+          onSelectMatch={selectMatch}
           onResetMatches={() => updateMatches(initialData[sport]?.matches)}
           onClearMatches={() => updateMatches([])}
-          onSelectMatch={selectMatch}
         />
-      </header>
-      <main>
         <Main
           rankings={rankings}
           label={label}
@@ -78,10 +80,9 @@ export default function App() {
           onSelectMatch={selectMatch}
           onRemoveMatch={removeMatch}
         />
-      </main>
-      <footer>
         <Footer />
-      </footer>
+      </Stack>
+
       <MatchModal
         match={selectedMatch}
         teams={teams}
@@ -90,6 +91,6 @@ export default function App() {
         onCreate={addMatch}
         onUpdate={updateMatch}
       />
-    </Stack>
+    </>
   );
 }

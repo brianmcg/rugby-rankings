@@ -7,16 +7,13 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 const formatPoints = pts => (Math.round(pts * 100) / 100).toFixed(2);
 
 function renderContents(pts, previousPts) {
-  const upStyle = { fontSize: 14, color: 'success.main'};
-  const downStyle = { fontSize: 14, color: 'error.main'};
-
   if (pts > previousPts) {
     return (
       <Stack alignItems="center" direction="row" gap={1}>
         <Typography color="secondary.main" variant="body1">{formatPoints(pts)}</Typography>
-        <ArrowUpwardIcon sx={upStyle} />
+        <ArrowUpwardIcon sx={{ fontSize: 14, color: 'success.main' }} />
         <Typography
-          sx={{ ...upStyle, display: { xs: 'none', sm: 'block' } }}
+          sx={{ fontSize: 14, color: 'success.main', display: { xs: 'none', sm: 'block' } }}
           variant="body2"
         >
           ({formatPoints(previousPts)})
@@ -28,10 +25,10 @@ function renderContents(pts, previousPts) {
     return (
       <Stack alignItems="center" direction="row" gap={1}>
         <Typography color="secondary.main" variant="body1">{formatPoints(pts) }</Typography>
-        <ArrowDownwardIcon sx={downStyle} />
+        <ArrowDownwardIcon sx={{ fontSize: 14, color: 'error.main' }} />
 
         <Typography
-          sx={{ ...downStyle, display: { xs: 'none', sm: 'block' } }}
+          sx={{ fontSize: 14, color: 'error.main', display: { xs: 'none', sm: 'block' } }}
           variant="body2"
         >
           ({formatPoints(previousPts)})

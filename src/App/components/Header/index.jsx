@@ -4,23 +4,11 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import SportsRugbyIcon from '@mui/icons-material/SportsRugby';
 import Translate from '@components/Translate';
-import Menu from './components/Menu';
 import Tabs from './components/Tabs';
 
-import ResponsiveAppBar from './components/ResponsiveAppBar';
-
-export default function Header({
-  sport,
-  startDate,
-  disabled,
-  onChangeSport,
-  onResetMatches,
-  onClearMatches,
-  onSelectMatch,
-}) {
+export default function Header({ sport, disabled, onChangeSport }) {
   return (
-    <Box>
-
+    <header>
       <Box sx={{ width: '100%', p: 2, bgcolor: 'primary.main', color: 'common.white', textAlign: 'left' }}>
         <Container>
           <Stack direction="row" spacing={2} alignItems="center">
@@ -28,28 +16,10 @@ export default function Header({
             <Typography color="inherit" variant="h1" align="left">
               <Translate text="app.header.title" />
             </Typography>
-
           </Stack>
         </Container>
       </Box>
-
       <Tabs sport={sport} disabled={disabled} onChangeSport={onChangeSport} />
-
-      <ResponsiveAppBar
-        startDate={startDate}
-        disabled={disabled}
-        onSelectMatch={onSelectMatch}
-        onResetMatches={onResetMatches}
-        onClearMatches={onClearMatches}
-      />
-
-{/*      <Menu
-        startDate={startDate}
-        disabled={disabled}
-        onSelectMatch={onSelectMatch}
-        onResetMatches={onResetMatches}
-        onClearMatches={onClearMatches}
-      />*/}
-    </Box>
+    </header>
   );
 }

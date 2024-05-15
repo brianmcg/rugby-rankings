@@ -50,6 +50,8 @@
     font-display: swap;
 }
 
-body {
-  margin: 0;
+/*body {
+  min-height: 100vh;
+  margin: 20px;
 }
+*/
