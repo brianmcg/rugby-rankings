@@ -45,7 +45,7 @@ function ResponsiveAppBar({
   const options = [
     { label: 'app.main.reset', icon: <RefreshIcon />, action: onResetMatches },
     { label: 'app.main.clear', icon: <DeleteIcon />, action: onClearMatches },
-    { label: 'app.main.add', icon: <AddIcon />, action: () => onSelectMatch() },
+    { label: 'app.main.add', icon: <AddIcon />, action: onSelectMatch },
   ];
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -82,6 +82,7 @@ function ResponsiveAppBar({
               transformOrigin={{ vertical: 'top', horizontal: 'right' }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
+              onClick={handleCloseNavMenu}
               sx={{ display: { xs: 'block', sm: 'none' } }}
             >
               {options.map((option, i) => (

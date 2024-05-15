@@ -63,7 +63,7 @@ export default function App() {
         <ResponsiveAppBar
           startDate={startDate}
           disabled={isLoading || isError}
-          onSelectMatch={selectMatch}
+          onSelectMatch={() => selectMatch()}
           onResetMatches={() => updateMatches(initialData[sport]?.matches)}
           onClearMatches={() => updateMatches([])}
         />
