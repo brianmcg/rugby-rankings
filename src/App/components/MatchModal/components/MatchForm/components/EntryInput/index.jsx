@@ -1,4 +1,5 @@
 import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 import Translate from '@components/Translate';
 import TeamInput from './components/TeamInput';
 import ScoreInput from './components/ScoreInput';
@@ -14,21 +15,25 @@ export default function EntryInput({
 
 }) {
   return (
-    <Grid container gap={1} alignItems="center" justifyContent="flex-start">
-      <Grid item xs={12} sm={8}>
-        <TeamInput
-          options={teams.filter(team => team.id !== otherTeam?.id)}
-          value={team}
-          onChange={onTeamChange}
-          label={label}
-        />
+    <Grid container alignItems="flex-start" justifyContent="space-between">
+      <Grid item xs={12} sm={9}>
+        <Box style={{ margin: 8 }}>
+          <TeamInput
+            options={teams.filter(team => team.id !== otherTeam?.id)}
+            value={team}
+            onChange={onTeamChange}
+            label={label}
+          />
+        </Box>
       </Grid>
       <Grid item xs={12} sm={3}>
-        <ScoreInput
-          value={score}
-          label={<Translate text="app.main.modal.score" />}
-          onChange={onScoreChange}
-        />
+        <Box style={{ margin: 8 }}>
+          <ScoreInput
+            value={score}
+            label={<Translate text="app.main.modal.score" />}
+            onChange={onScoreChange}
+          />
+        </Box>
       </Grid>
     </Grid>
   );

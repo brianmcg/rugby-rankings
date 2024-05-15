@@ -15,6 +15,7 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   bgcolor: 'background.paper',
+  minWidth: { xs: 300, sm: 600 },
   p: 2,
 };
 
@@ -44,8 +45,9 @@ export default function TransitionsModal({
             alignItems="flex-start"
             justifyContent="space-between"
             color="secondary.main"
+            sx={{ p: 1 }}
           >
-            <Typography variant="h6" mb={4}>
+            <Typography variant="h6">
               <Translate text="app.main.modal.title" />
             </Typography>
 

@@ -1,23 +1,20 @@
-import * as React from 'react';
+import { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-// import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
-import Translate from '@components/Translate';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
-import Typography from '@mui/material/Typography';
-
+import Translate from '@components/Translate';
 import { formatDay } from '@utils/date';
-
 
 function renderButton({ icon, action, disabled, label }) {
   return (
@@ -41,14 +38,13 @@ function ResponsiveAppBar({
   onResetMatches,
   onClearMatches,
 }) {
-
   const options = [
     { label: 'app.main.reset', icon: <RefreshIcon />, action: onResetMatches },
     { label: 'app.main.clear', icon: <DeleteIcon />, action: onClearMatches },
     { label: 'app.main.add', icon: <AddIcon />, action: onSelectMatch },
   ];
 
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorElNav, setAnchorElNav] = useState(null);
 
   const handleOpenNavMenu = event => setAnchorElNav(event.currentTarget);
 

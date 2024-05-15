@@ -7,13 +7,11 @@ import LabelSwitch from '@components/LabelSwitch';
 import { isNumeric } from '@utils/number';
 import { ACTIONS } from './actions';
 import { matchReducer } from './reducers';
-import { useTranslation } from 'react-i18next';
 import EntryInput from './components/EntryInput';
 
 export default function MatchForm({ match, teams, endDate, onCreate, onUpdate }) {
   const [state, dispatch] = useReducer(matchReducer, match);
   const { homeTeam, awayTeam, homeScore, awayScore, isNeutralVenue, isWorldCup, isComplete } = state;
-  const { t } = useTranslation();
 
   const onHomeTeamChange = (e, homeTeam) => dispatch({
     type: ACTIONS.CHANGE_HOME_TEAM,
@@ -53,17 +51,13 @@ export default function MatchForm({ match, teams, endDate, onCreate, onUpdate })
     if (match.matchId) {
       onUpdate({ ...match, isCreated: true });
     } else {
-      const competition = t('app.main.matches.created');
       const time = { millis: endDate };
-      const country = isNeutralVenue ? t('app.main.matches.neutral') : homeTeam?.name;
-
-      onCreate({ ...match, time, competition, venue: { country }, isCreated: true });
+      onCreate({ ...match, time, isCreated: true });
     }
   };
 
   return (
-    <Stack direction="column" spacing={2} sx={{ overflow: 'auto' }}>
-
+    <Stack direction="column">
       <EntryInput
         team={homeTeam}
         score={homeScore}
@@ -88,28 +82,35 @@ export default function MatchForm({ match, teams, endDate, onCreate, onUpdate })
         }
       />
 
-      <Stack direction="row" spacing={1} alignItems="center" justifyContent="flex-start">
-        <LabelSwitch
-          label={<Translate text="app.main.modal.neutral" />}
-          onChange={onNeutralVenueChange}
-          checked={isNeutralVenue}
-        />
-        <LabelSwitch
-          label={<Translate text="app.main.modal.rwc" />}
-          onChange={onWorldCupChange}
-          checked={isWorldCup}
-        />
-      </Stack>
-
-      <Button
-        variant="contained"
-        disabled={!isComplete}
-        startIcon={<SendIcon />}
-        onClick={() => onClickConfirm(state)}
+      <Stack
+        direction={{ xs: 'column', sm: 'row'}}
+        alignItems="flex-end"
+        justifyContent="space-between"
+        spacing={2}
+        sx={{ p: 1 }}
       >
-        <Translate text="app.main.modal.confirm" />
-      </Button>
+        <Stack direction="row">
+          <LabelSwitch
+            label={<Translate text="app.main.modal.neutral" />}
+            onChange={onNeutralVenueChange}
+            checked={isNeutralVenue}
+          />
+          <LabelSwitch
+            label={<Translate text="app.main.modal.rwc" />}
+            onChange={onWorldCupChange}
+            checked={isWorldCup}
+          />
+        </Stack>
 
+          <Button
+            variant="contained"
+            disabled={!isComplete}
+            startIcon={<SendIcon />}
+            onClick={() => onClickConfirm(state)}
+          >
+            <Translate text="app.main.modal.confirm" />
+          </Button>
+      </Stack>
     </Stack>
   );
 }

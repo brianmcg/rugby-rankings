@@ -4,11 +4,11 @@ import { KEY, VALUES } from '@constants/sports';
 import { ACTIONS } from './actions';
 import { useAsync, useUpdateCache } from './hooks';
 import Header from './components/Header';
+import ResponsiveAppBar from './components/ResponsiveAppBar';
 import Main from './components/Main';
 import Footer from './components/Footer';
 import MatchModal from './components/MatchModal';
 import Cache from './Cache';
-import ResponsiveAppBar from './components/ResponsiveAppBar';
 
 const cache = new Cache({ dataKey: KEY });
 
