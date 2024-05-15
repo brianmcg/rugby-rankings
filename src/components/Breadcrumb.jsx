@@ -7,7 +7,7 @@ export default function Breadcrumb({ children }) {
   return (
     children.filter(Boolean).map((crumb, index) => (
       <Fragment key={index}>
-        { !!index && divider }
+        { Boolean(index) && divider }
         { crumb }
       </Fragment>
     ))

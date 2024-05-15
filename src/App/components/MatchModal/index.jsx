@@ -15,7 +15,7 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   bgcolor: 'background.paper',
-  p: 4,
+  p: 2,
 };
 
 export default function TransitionsModal({
@@ -26,7 +26,7 @@ export default function TransitionsModal({
   onCreate,
   onUpdate,
 }) {
-  const isOpen = !!match;
+  const isOpen = Boolean(match);
   const onClose = () => onSelectMatch(null);
 
   return (

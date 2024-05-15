@@ -71,7 +71,7 @@ const theme = createTheme({
         list: {
           '&[role="menu"]': {
           backgroundColor: SECONDARY,
-          color: 'common.white',
+          color: 'white',
           },
         },
       },

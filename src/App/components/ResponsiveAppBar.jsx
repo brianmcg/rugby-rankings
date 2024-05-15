@@ -56,7 +56,7 @@ function ResponsiveAppBar({
 
   return (
     <AppBar position="sticky" elevation={0} sx={{ bgcolor: 'secondary.main' }}>
-      <Container maxWidth="xl">
+      <Container>
         <Toolbar disableGutters>
           <Stack direction="row" spacing={1} alignItems="center" sx={{ opacity: disabled ? 0 : 1 }}>
             <Typography variant="subtitle2" sx={{ textTransform: 'uppercase' }}>

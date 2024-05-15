@@ -8,7 +8,7 @@ export default function LabelSwitch({ label, checked, onChange, disabled }) {
     <FormGroup>
       <FormControlLabel
         disabled={disabled}
-        control={<Switch checked={!!checked} onChange={onChange} />}
+        control={<Switch checked={checked} onChange={onChange} />}
         label={<Typography variant="caption">{label}</Typography>}
       />
     </FormGroup>

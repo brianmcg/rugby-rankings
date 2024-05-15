@@ -28,7 +28,7 @@ const NumericFormatCustom = forwardRef(
 
 export default function ScoreInput({ onChange, value, label }) {
   return (
-    <FormControl sx={{ width: '8ch' }}>
+    <FormControl sx={{ width: '100%' }}>
       <TextField
         label={label}
         value={value}

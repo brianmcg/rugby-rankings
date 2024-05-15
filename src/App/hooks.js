@@ -27,10 +27,10 @@ export function useAsync(asyncCallback, initialState, cache) {
 
 export function useUpdateCache(cache, data) {
   useEffect(() => {
-    const key = data?.[cache.dataKey];
+    const cacheKey = data?.[cache.dataKey];
 
-    if (key) {
-      cache.set(key, data);
+    if (cacheKey) {
+      cache.set(cacheKey, data);
     }
   }, [data, cache]);
 }

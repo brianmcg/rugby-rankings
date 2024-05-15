@@ -62,7 +62,7 @@ export default function MatchForm({ match, teams, endDate, onCreate, onUpdate })
   };
 
   return (
-    <Stack direction="column" spacing={4}>
+    <Stack direction="column" spacing={2} sx={{ overflow: 'auto' }}>
 
       <EntryInput
         team={homeTeam}

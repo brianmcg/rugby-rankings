@@ -5,7 +5,7 @@ import { validateTeam } from '@utils/validate';
 export default function TeamInput({ options, value, label, onChange }) {
   return (
     <Autocomplete
-      sx={{ width: '30ch' }}
+      sx={{ width: '100%' }}
       onChange={onChange}
       disablePortal
       value={value}
