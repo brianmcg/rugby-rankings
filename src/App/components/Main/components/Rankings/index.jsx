@@ -1,4 +1,4 @@
-import { useState, useRef, useLayoutEffect } from 'react';
+import { useState } from 'react';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
@@ -15,24 +15,31 @@ import Translate from '@components/Translate';
 import { VALUES } from '@constants/sports';
 import RankCell from './components/RankCell';
 import PointsCell from './components/PointsCell';
+import Button from '@mui/material/Button';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 import mruImageSrc from '@assets/images/mru/rankings.png';
 import wruImageSrc from '@assets/images/wru/rankings.png';
+
+const INITIAL_ROWS = 16;
 
 const IMAGES = {
   [VALUES.MENS]: mruImageSrc,
   [VALUES.WOMENS]: wruImageSrc,
 };
 
-function renderTableRows(rankings) {
-  return rankings.map(({ pos, previousPos, pts, previousPts, team }) => (
+function renderTableRows(rankings, fullTable) {
+  const rows = fullTable ? rankings : rankings.slice(0, INITIAL_ROWS);
+
+  return rows.map(({ pos, previousPos, pts, previousPts, team }) => (
     <TableRow
       key={team.id}
       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
     >
       <RankCell pos={pos} previousPos={previousPos} />
-      <TableCell>
-        <Typography color="secondary.main" variant="body2" sx={{ fontSize: 16 }}>{team.name}</Typography>
+      <TableCell sx={{ color: 'secondary.main' }}>
+        <Typography variant="body2" sx={{ fontSize: 16 }}>{team.name}</Typography>
       </TableCell>
       <PointsCell pts={pts} previousPts={previousPts} />
     </TableRow>
@@ -40,6 +47,8 @@ function renderTableRows(rankings) {
 }
 
 export default function Rankings({ rankings, label, sport }) {
+  const [fullTable, setFullTable] = useState(false);
+
   return (
     <Card>
       <CardMedia image={IMAGES[sport]} sx={{ height: 100, color: 'common.white' }}>
@@ -64,10 +73,19 @@ export default function Rankings({ rankings, label, sport }) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {renderTableRows(rankings)}
+              {renderTableRows(rankings, fullTable)}
             </TableBody>
           </Table>
         </TableContainer>
+        <Stack direction="column" p={2} mt={2}>
+          <Button
+            variant="contained"
+            startIcon={fullTable ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+            onClick={() => setFullTable(!fullTable)}
+          >
+            <Translate text={`app.main.rankings.${fullTable ? 'collapse' : 'expand'}` } />
+          </Button>
+        </Stack>
       </CardContent>
     </Card>
   );

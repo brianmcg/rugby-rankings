@@ -13,7 +13,12 @@ function renderContents(pos, previousPos) {
       <Stack alignItems="center" direction="row" gap={1}>
         <Typography color="secondary.main" variant="body1">{pos}</Typography>
         <ArrowUpwardIcon sx={upStyle} />
-        <Typography sx={upStyle} variant="body2">({previousPos})</Typography>
+        <Typography
+          sx={{ ...upStyle, display: { xs: 'none', sm: 'block' } }}
+          variant="body2"
+        >
+          ({previousPos})
+        </Typography>
       </Stack>
     );
   } else if (pos > previousPos) {
@@ -21,7 +26,12 @@ function renderContents(pos, previousPos) {
       <Stack alignItems="center" direction="row" gap={1}>
         <Typography color="secondary.main" variant="body1">{pos}</Typography>
         <ArrowDownwardIcon sx={downStyle} />
-        <Typography sx={downStyle} variant="body2">({previousPos})</Typography>
+        <Typography
+          sx={{ ...downStyle, display: { xs: 'none', sm: 'block' } }}
+          variant="body2"
+        >
+          ({previousPos})
+        </Typography>
       </Stack>
     );
   } else {
