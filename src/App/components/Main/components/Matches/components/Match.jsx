@@ -7,6 +7,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import Translate from '@components/Translate';
 import { getColor } from './helpers';
+import { useTheme } from '@mui/material';
+
 
 // function renderMatchInfo(match) {
 //   const { time, venue,competition } = match;
@@ -27,7 +29,7 @@ import { getColor } from './helpers';
 function renderMatchResult({ match, color }) {
   const { homeTeam, awayTeam, homeScore, awayScore, isComplete } = match;
   return (
-    <Stack sx={{ color: 'common.secondary' }}>
+    <Stack sx={{ color: 'scondary.main' }}>
       <Grid container direction="row" gap={1} alignItems="center" justifyContent="flex-start">
         <Typography variant="body1">{homeTeam.name}</Typography>
         <Typography variant="h6" color={color}>
@@ -63,7 +65,8 @@ function renderButtons(options) {
 
 export default function Match({ match, onSelectMatch, onRemoveMatch }) {
   const { matchId } = match;
-  const color = getColor(match);
+  const { palette } = useTheme();
+  const color = getColor(match, palette);
 
   const options = [
     { icon: <EditIcon />, action: () => onSelectMatch(match), color: 'success.main' },
@@ -71,7 +74,7 @@ export default function Match({ match, onSelectMatch, onRemoveMatch }) {
   ];
 
   return (
-    <Paper elevation={3} sx={{ padding: 2, width: '100%', borderLeft: `solid 5px ${color}` }} >
+    <Paper elevation={2} sx={{ padding: 1, width: '100%', borderLeft: `solid 5px ${color}` }} >
       <Stack direction="row" alignItems="center" justifyContent="space-between">
         {renderMatchResult({ match, color })}
         {renderButtons(options)}

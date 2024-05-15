@@ -20,8 +20,6 @@ const IMAGES = {
   [VALUES.WOMENS]: wruImageSrc,
 };
 
-const DISPLAY_ITEMS = 4;
-
 export default function Matches({
   matches,
   teams,
@@ -31,18 +29,6 @@ export default function Matches({
   onSelectMatch,
   onRemoveMatch,
 }) {
-  const listRef = useRef();
-  const [listContainerHeight, setListContainerHeight] = useState(0);
-
-  useLayoutEffect(() => {
-    if (listRef.current) {
-      const { offsetHeight: listItemHeight } = listRef.current.children[0];
-      const displayHeight = DISPLAY_ITEMS * listItemHeight;
-
-      setListContainerHeight(displayHeight);
-    }
-  }, []);
-
 	return (
 		<Card>
       <CardMedia image={IMAGES[sport]} sx={{ height: 100, color: 'common.white' }}>
@@ -64,11 +50,11 @@ export default function Matches({
       <CardContent>
       {
         matches.length ? (
-          <Box sx={{ maxHeight: listContainerHeight, overflow: 'auto' }}>
-            <List ref={listRef} sx={{ p: 0 }}> {
+          <Box>
+            <List sx={{ p: 0 }}> {
               matches.map(match =>
                 (
-                  <ListItem key={match.matchId}>
+                  <ListItem sx={{ p: 1 }} key={match.matchId}>
                     <Match
                       match={match}
                       teams={teams}

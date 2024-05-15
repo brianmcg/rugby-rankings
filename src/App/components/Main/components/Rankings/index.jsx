@@ -24,8 +24,6 @@ const IMAGES = {
   [VALUES.WOMENS]: wruImageSrc,
 };
 
-const DISPLAY_ROWS = 16;
-
 function renderTableRows(rankings) {
   return rankings.map(({ pos, previousPos, pts, previousPts, team }) => (
     <TableRow
@@ -42,18 +40,6 @@ function renderTableRows(rankings) {
 }
 
 export default function Rankings({ rankings, label, sport }) {
-  const tableBodyRef = useRef();
-  const [tableContainerHeight, setTableContainerHeight] = useState(0);
-
-  useLayoutEffect(() => {
-    if (tableBodyRef.current) {
-      const { offsetHeight: rowHeight } = tableBodyRef.current.children[0];
-      const displayHeight = ((DISPLAY_ROWS + 1) * rowHeight) - 1;
-
-      setTableContainerHeight(displayHeight);
-    }
-  }, []);
-
   return (
     <Card>
       <CardMedia image={IMAGES[sport]} sx={{ height: 100, color: 'common.white' }}>
@@ -62,8 +48,8 @@ export default function Rankings({ rankings, label, sport }) {
         </Stack>
       </CardMedia>
       <CardContent>
-        <TableContainer sx={{ maxHeight: tableContainerHeight }}>
-          <Table stickyHeader size="small">
+        <TableContainer>
+          <Table size="small">
             <TableHead>
               <TableRow>
                 <TableCell sx={{ bgcolor: 'common.white' }}>
@@ -77,7 +63,7 @@ export default function Rankings({ rankings, label, sport }) {
                 </TableCell>
               </TableRow>
             </TableHead>
-            <TableBody ref={tableBodyRef}>
+            <TableBody>
               {renderTableRows(rankings)}
             </TableBody>
           </Table>

@@ -1,10 +1,10 @@
-export function getColor({ isCreated, isUpdated, isComplete }) {
+export function getColor({ isCreated, isUpdated, isComplete }, { success, primary, error }) {
   if (isCreated || isUpdated) {
-    return 'success.main';
+    return success.main;
   } else if (isComplete) {
-    return 'primary.main';
+    return primary.main;
   } else {
-    return 'error.main';
+    return error.main;
   }
 }
 
