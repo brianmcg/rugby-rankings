@@ -20,7 +20,7 @@ const IMAGES = {
   [VALUES.WOMENS]: wruImageSrc,
 };
 
-const DISPLAY_ITEMS = 8;
+const DISPLAY_ITEMS = 4;
 
 export default function Matches({
   matches,

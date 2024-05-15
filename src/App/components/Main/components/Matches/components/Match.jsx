@@ -72,10 +72,10 @@ export default function Match({ match, onSelectMatch, onRemoveMatch }) {
 
   return (
     <Paper elevation={3} sx={{ padding: 2, width: '100%', borderLeft: `solid 5px ${color}` }} >
-      <Grid container direction="row" alignItems="center" justifyContent="space-between">
+      <Stack direction="row" alignItems="center" justifyContent="space-between">
         {renderMatchResult({ match, color })}
         {renderButtons(options)}
-      </Grid>
+      </Stack>
     </Paper>
   );
 }
