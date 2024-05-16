@@ -8,7 +8,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import Translate from '@components/Translate';
 import Breadcrumb from '@components/Breadcrumb';
-import { formatDay } from '@utils/date';
+import { formatDayMonth } from '@utils/date';
 
 function getColor(match, palette) {
   const { isCreated, isUpdated, isComplete } = match;
@@ -25,7 +25,7 @@ function getColor(match, palette) {
 
 function renderMatchInfo(match) {
   const { time, venue,competition } = match;
-  const date = time ? formatDay(time?.millis) : null;
+  const date = time ? formatDayMonth(time?.millis) : null;
   const country = venue?.country ? `@ ${venue.country}` : null;
 
   return (
@@ -33,10 +33,10 @@ function renderMatchInfo(match) {
       direction="row"
       spacing={1}
       justifyContent="flex-start"
-      sx={{ color: 'secondary.main', opacity: 0.6, display: { xs: 'none', sm: 'flex' } }}
+      sx={{ color: 'secondary.main', opacity: 0.6, display: { xs: 'none', md: 'flex' } }}
     >
       <Breadcrumb>
-        { competition ? <Typography variant="caption">{competition}</Typography> : null }
+        { competition ? <Typography variant="caption" sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{competition}</Typography> : null }
         { date ? <Typography variant="caption">{date}</Typography> : null }
         { country ? <Typography variant="caption">{country}</Typography> : null }
       </Breadcrumb>

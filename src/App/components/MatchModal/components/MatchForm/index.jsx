@@ -8,10 +8,12 @@ import { isNumeric } from '@utils/number';
 import { ACTIONS } from './actions';
 import { matchReducer } from './reducers';
 import EntryInput from './components/EntryInput';
+import { useTranslation } from 'react-i18next';
 
 export default function MatchForm({ match, teams, endDate, addMatch, updateMatch }) {
   const [state, dispatch] = useReducer(matchReducer, match);
   const { homeTeam, awayTeam, homeScore, awayScore, isNeutralVenue, isWorldCup, isComplete } = state;
+  const { t } = useTranslation();
 
   const onHomeTeamChange = (e, homeTeam) => dispatch({
     type: ACTIONS.CHANGE_HOME_TEAM,
@@ -51,8 +53,10 @@ export default function MatchForm({ match, teams, endDate, addMatch, updateMatch
     if (match.matchId) {
       updateMatch({ ...match, isCreated: true });
     } else {
+      const competition = t('app.main.matches.created');
+      const country = isNeutralVenue ? t('app.main.matches.neutral') : homeTeam?.name;
       const time = { millis: endDate };
-      addMatch({ ...match, time, isCreated: true });
+      addMatch({ ...match, time, competition, venue: { country }, isCreated: true });
     }
   };
 

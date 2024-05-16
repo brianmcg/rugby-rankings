@@ -1,4 +1,4 @@
-import { StrictMode } from 'react';
+// import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import { I18nextProvider } from 'react-i18next';
 // import { ParallaxProvider } from 'react-scroll-parallax';
@@ -15,14 +15,14 @@ import theme from './theme';
 import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    {/*<ParallaxProvider>*/}
+  // <StrictMode>
+    // <ParallaxProvider>
     <I18nextProvider i18n={i18n}>
       <ThemeProvider theme={theme}>
       <CssBaseline/>
       <App />
     </ThemeProvider>
-    </I18nextProvider>
-    {/*</ParallaxProvider>*/}
-  </StrictMode>,
+    </I18nextProvider>,
+    // </ParallaxProvider>
+  // </StrictMode>,
 );
