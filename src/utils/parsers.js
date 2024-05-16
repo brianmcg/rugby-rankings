@@ -15,20 +15,18 @@ export function parseMatchResponse(response, teams) {
         teams: matchTeams = [],
         scores = [],
         status,
-        rankingsWeight,
         matchId,
         time,
         competition,
       } = match;
 
-
       // Check if home advantage applies in this compeition.
       // I see nothing in the api data that can tell me this.
       // So I'm just going to keep a list `hasCompHomeAdvantage` here in the code and update
-      // it whenever I see games where home advantage doesn't apply.
+      // it whenever I see results where home advantage didn't apply.
       const noHomeAdvantage = hasCompHomeAdvantage.some(t => t.test(competition));
 
-      // I want to use the teams from the teams list rather than the match data since
+      // I want to use the teams from the `teams` array rather than the match data since
       // they contain the country name of the team, which can be different from the
       // `name` of the team. Eg. for Moldova the team name is `Moldova` but the country
       // name is `Moldova, Republic of`. I compare this country name with the venue country below to
@@ -41,13 +39,12 @@ export function parseMatchResponse(response, teams) {
       const homeIndex = indexOfVenueTeam < 0 ? 0 : indexOfVenueTeam;
       const awayIndex = indexOfVenueTeam === 1 ? 0 : 1;
 
-
       const homeTeam = teams.find(team => team.id === participants[homeIndex]?.id) || null;
       const awayTeam = teams.find(team => team.id === participants[awayIndex]?.id) || null;
       const isComplete = status === 'C';
       const homeScore = isComplete ? scores[homeIndex] : null;
       const awayScore = isComplete ? scores[awayIndex] : null;
-      const isWorldCup = rankingsWeight == 2;
+      const isWorldCup = /Rugby World Cup \w+/gm.test(competition);
 
       return [
         ...memo,

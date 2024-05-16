@@ -56,6 +56,8 @@ export async function fetchData(sport) {
     const endDate = addWeeks(effective.millis, dateRange).valueOf();
     const matches = await fetchMatches(sport, startDate, endDate);
 
+    // Get id's of teams participating in matches in order to fetch
+    // the country data required to determine home advantage.
     const teamIds = matches.content.reduce((memo, match) => {
       match.teams.forEach(team => {
         if (!memo.includes(team.id)) {
@@ -65,6 +67,9 @@ export async function fetchData(sport) {
       return memo;
     }, []);
 
+    // I need to fetch each team that has a match, to get the name of the country,
+    // which can be different from the name of team. I need the name of the country
+    // later to compare with the venue country to to determine home advantage.
     const matchTeams = await fetchTeams(teamIds);
 
     const countriesByTeamId = matchTeams.reduce((memo, team) => {
@@ -74,6 +79,7 @@ export async function fetchData(sport) {
       };
     }, {});
 
+    // Get list of teams with name of country injected.
     const teamsWithCountry = teams.map(team => ({
       ...team, country:
       countriesByTeamId[team.id],
