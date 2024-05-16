@@ -50,39 +50,48 @@ export function fetchTeams(ids) {
 
 export async function fetchData(sport) {
   try {
+    // Fetch the rankings first.
     const { entries: rankings, label, effective } = await fetchRankings(sport);
+
+    // Create a list of teams from countries in the rankings.
+    // This will be used for the autocomplete team input, and also to exclude
+    // matches that have teams that are not in the rankings.
     const teams = rankings.map(entry => entry.team);
+
+    // Get thestart and end date for which to fetch matches.
     const startDate = effective.millis;
-    const endDate = addWeeks(effective.millis, dateRange).valueOf();
+    const endDate = addWeeks(startDate, dateRange).valueOf();
+
+    // Fetch the matches.
     const matches = await fetchMatches(sport, startDate, endDate);
 
     // Get id's of teams participating in matches in order to fetch
     // the country data required to determine home advantage.
-    const teamIds = matches.content.reduce((memo, match) => {
-      match.teams.forEach(team => {
-        if (!memo.includes(team.id)) {
-          memo.push(team.id);
-        }
-      });
-      return memo;
-    }, []);
+    const teamIds = matches.content
+      .reduce(
+        (memo, match) => match.teams.reduce(
+          (teamIds, team) => teamIds.includes(team.id) ? teamIds : [ ...teamIds, team.id ],
+          memo,
+        ),
+        [],
+      );
 
     // I need to fetch each team that has a match, to get the name of the country,
     // which can be different from the name of team. I need the name of the country
     // later to compare with the venue country to to determine home advantage.
     const matchTeams = await fetchTeams(teamIds);
 
-    const countriesByTeamId = matchTeams.reduce((memo, team) => {
-      return {
-        ...memo,
-        [team.id]: team.country,
-      };
-    }, {});
+    // Create a map with team ids as the key and country as the value.
+    const countriesByTeamId = matchTeams.reduce((memo, team) => ({
+      ...memo,
+      [team.id]: team.country,
+    }), {});
 
-    // Get list of teams with name of country injected.
+    // Create a list of teams with name of the country injected
+    // for teams that have matches in the range.
     const teamsWithCountry = teams.map(team => ({
-      ...team, country:
-      countriesByTeamId[team.id],
+      ...team,
+      country: countriesByTeamId[team.id],
     }));
 
     return {

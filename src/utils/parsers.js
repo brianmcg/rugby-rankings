@@ -20,10 +20,11 @@ export function parseMatchResponse(response, teams) {
         competition,
       } = match;
 
-      // Check if home advantage applies in this compeition.
+      // Check if home advantage applies in this competition.
       // I see nothing in the api data that can tell me this.
       // So I'm just going to keep a list `hasCompHomeAdvantage` here in the code and update
-      // it whenever I see results where home advantage didn't apply.
+      // it whenever I see results where home advantage didn't apply. For example I've seen that
+      // home advantage didn't seem apply to the ranking calculations for the `Asia Rugby Championship 2024`.
       const noHomeAdvantage = hasCompHomeAdvantage.some(t => t.test(competition));
 
       // I want to use the teams from the `teams` array rather than the match data since
