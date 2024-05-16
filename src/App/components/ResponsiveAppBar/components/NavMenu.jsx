@@ -12,7 +12,13 @@ export default function NavMenu({ options, disabled }) {
       <Stack direction="row" spacing={2}>
         {options.map(({ icon, onClick, label }) => (
           <Box key={label}>
-            <MenuButton key={label} icon={icon} label={label} onClick={onClick} disabled={disabled} />
+            <MenuButton
+              key={label}
+              icon={icon}
+              label={label}
+              disabled={disabled}
+              onClick={onClick}
+            />
           </Box>
         ))}
       </Stack>
