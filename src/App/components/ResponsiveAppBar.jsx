@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -15,6 +15,7 @@ import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Translate from '@components/Translate';
 import { formatDay } from '@utils/date';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 function renderButton({ icon, onClick, disabled, label }) {
   return (
@@ -49,6 +50,15 @@ function ResponsiveAppBar({
   const handleOpenNavMenu = event => setAnchorElNav(event.currentTarget);
 
   const handleCloseNavMenu = () => setAnchorElNav(null);
+
+  const matches = useMediaQuery('(min-width:600px)');
+
+  // Close the nav menu if the screen changes to be greater than sm.
+  useEffect(() => {
+    if (matches) {
+      handleCloseNavMenu();
+    }
+  }, [matches]);
 
   return (
     <AppBar position="sticky" elevation={0} sx={{ bgcolor: 'secondary.main' }}>
