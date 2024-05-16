@@ -9,7 +9,7 @@ import { ACTIONS } from './actions';
 import { matchReducer } from './reducers';
 import EntryInput from './components/EntryInput';
 
-export default function MatchForm({ match, teams, endDate, onCreate, onUpdate }) {
+export default function MatchForm({ match, teams, endDate, addMatch, updateMatch }) {
   const [state, dispatch] = useReducer(matchReducer, match);
   const { homeTeam, awayTeam, homeScore, awayScore, isNeutralVenue, isWorldCup, isComplete } = state;
 
@@ -49,10 +49,10 @@ export default function MatchForm({ match, teams, endDate, onCreate, onUpdate })
 
   const onClickConfirm = match => {
     if (match.matchId) {
-      onUpdate({ ...match, isCreated: true });
+      updateMatch({ ...match, isCreated: true });
     } else {
       const time = { millis: endDate };
-      onCreate({ ...match, time, isCreated: true });
+      addMatch({ ...match, time, isCreated: true });
     }
   };
 

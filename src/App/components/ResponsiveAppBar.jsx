@@ -16,7 +16,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Translate from '@components/Translate';
 import { formatDay } from '@utils/date';
 
-function renderButton({ icon, action, disabled, label }) {
+function renderButton({ icon, onClick, disabled, label }) {
   return (
     <Button
       key={label}
@@ -24,7 +24,7 @@ function renderButton({ icon, action, disabled, label }) {
       sx={{ p: 0, opacity: 0.75, '&:hover': { opacity: 1 }, '&:disabled': { opacity: 0 } }}
       color="inherit"
       startIcon={icon}
-      onClick={action}
+      onClick={onClick}
     >
       <Translate text={label} />
     </Button>
@@ -39,9 +39,9 @@ function ResponsiveAppBar({
   onClearMatches,
 }) {
   const options = [
-    { label: 'app.main.reset', icon: <RefreshIcon />, action: onResetMatches },
-    { label: 'app.main.clear', icon: <DeleteIcon />, action: onClearMatches },
-    { label: 'app.main.add', icon: <AddIcon />, action: onSelectMatch },
+    { label: 'app.main.reset', icon: <RefreshIcon />, onClick: onResetMatches },
+    { label: 'app.main.clear', icon: <DeleteIcon />, onClick: onClearMatches },
+    { label: 'app.main.add', icon: <AddIcon />, onClick: onSelectMatch },
   ];
 
   const [anchorElNav, setAnchorElNav] = useState(null);

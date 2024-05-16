@@ -23,12 +23,12 @@ export default function TransitionsModal({
   match,
   teams,
   endDate,
-  onSelectMatch,
-  onCreate,
-  onUpdate,
+  selectMatch,
+  addMatch,
+  updateMatch,
 }) {
   const isOpen = Boolean(match);
-  const onClose = () => onSelectMatch(null);
+  const onClose = () => selectMatch(null);
 
   return (
     <Modal
@@ -65,8 +65,8 @@ export default function TransitionsModal({
             match={match}
             teams={teams}
             endDate={endDate}
-            onCreate={onCreate}
-            onUpdate={onUpdate}
+            addMatch={addMatch}
+            updateMatch={updateMatch}
           />
         </Box>
       </Fade>

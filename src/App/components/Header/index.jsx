@@ -6,7 +6,7 @@ import SportsRugbyIcon from '@mui/icons-material/SportsRugby';
 import Translate from '@components/Translate';
 import Tabs from './components/Tabs';
 
-export default function Header({ sport, disabled, onChangeSport }) {
+export default function Header({ sport, disabled, changeSport }) {
   return (
     <header>
       <Box sx={{ width: '100%', p: 2, bgcolor: 'primary.main', color: 'common.white', textAlign: 'left' }}>
@@ -19,7 +19,7 @@ export default function Header({ sport, disabled, onChangeSport }) {
           </Stack>
         </Container>
       </Box>
-      <Tabs sport={sport} disabled={disabled} onChangeSport={onChangeSport} />
+      <Tabs sport={sport} disabled={disabled} changeSport={changeSport} />
     </header>
   );
 }

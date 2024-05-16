@@ -1,6 +1,6 @@
 
 import axios from 'axios';
-import { formatApiDate, addWeeks } from '@utils/date';
+import { formatApiDate, addWeeks, subtractWeeks } from '@utils/date';
 import { parseMatchResponse } from '@utils/parsers';
 import { RANKINGS, FIXTURES } from '@constants/urls';
 import { VALUES } from '@constants/sports';
@@ -23,9 +23,9 @@ function fetchRankings(sport = VALUES.MENS) {
 }
 
 async function fetchMatches(sport = VALUES.MENS, teams, startDate, endDate) {
-  // const startDate = subtractWeeks(date, 1, 'week');
+  const startDatePrev = subtractWeeks(startDate, 1, 'week');
   const queryParams = {
-    startDate: formatApiDate(startDate),
+    startDate: formatApiDate(startDatePrev),
     endDate: formatApiDate(endDate),
     sort: 'asc',
     pageSize: 100,

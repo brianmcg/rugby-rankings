@@ -57,7 +57,7 @@ export default function App() {
       <Header
         sport={sport}
         disabled={isLoading}
-        onChangeSport={changeSport}
+        changeSport={changeSport}
       />
       <Stack sx={{ minHeight: '100vh' }} justifyContent="space-between">
         <ResponsiveAppBar
@@ -77,19 +77,18 @@ export default function App() {
           endDate={endDate}
           isError={isError}
           isLoading={isLoading}
-          onSelectMatch={selectMatch}
-          onRemoveMatch={removeMatch}
+          selectMatch={selectMatch}
+          removeMatch={removeMatch}
         />
         <Footer />
       </Stack>
-
       <MatchModal
         match={selectedMatch}
         teams={teams}
         endDate={endDate}
-        onSelectMatch={selectMatch}
-        onCreate={addMatch}
-        onUpdate={updateMatch}
+        selectMatch={selectMatch}
+        addMatch={addMatch}
+        updateMatch={updateMatch}
       />
     </>
   );

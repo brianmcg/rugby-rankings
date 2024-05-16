@@ -15,8 +15,8 @@ export default function Main({
   endDate,
   isError,
   isLoading,
-  onSelectMatch,
-  onRemoveMatch,
+  selectMatch,
+  removeMatch,
 }) {
 
   if (isError) return <ErrorMessage message="app.errors.fetch" />;
@@ -33,8 +33,8 @@ export default function Main({
             sport={sport}
             startDate={startDate}
             endDate={endDate}
-            onSelectMatch={onSelectMatch}
-            onRemoveMatch={onRemoveMatch}
+            selectMatch={selectMatch}
+            removeMatch={removeMatch}
           />
         </Grid>
         <Grid item xs={12} md={6}>

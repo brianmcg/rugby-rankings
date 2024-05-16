@@ -6,6 +6,8 @@ import Typography from '@mui/material/Typography';
 import Translate from '@components/Translate';
 import { VALUES } from '@constants/sports';
 
+const options = [VALUES.MENS, VALUES.WOMENS];
+
 function renderTab({ value, disabled }) {
   return (
     <Tab
@@ -21,8 +23,8 @@ function renderTab({ value, disabled }) {
   );
 }
 
-export default function Tabs({ sport, disabled, onChangeSport }) {
-  const options = [VALUES.MENS, VALUES.WOMENS];
+export default function Tabs({ sport, disabled, changeSport }) {
+  const onChange = (e, value) => changeSport(value);
 
   return (
     <Box sx={{ width: '100%', bgcolor: 'common.white' }}>
@@ -30,7 +32,7 @@ export default function Tabs({ sport, disabled, onChangeSport }) {
         <MuiTabs
           variant="fullWidth"
           value={sport}
-          onChange={(e, value) => onChangeSport(value)}
+          onChange={onChange}
           textColor="primary"
           indicatorColor="primary"
         >

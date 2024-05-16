@@ -25,8 +25,8 @@ export default function Matches({
   sport,
   startDate,
   endDate,
-  onSelectMatch,
-  onRemoveMatch,
+  selectMatch,
+  removeMatch,
 }) {
 	return (
 		<Card>
@@ -57,8 +57,8 @@ export default function Matches({
                     <Match
                       match={match}
                       teams={teams}
-                      onRemoveMatch={onRemoveMatch}
-                      onSelectMatch={onSelectMatch}
+                      selectMatch={selectMatch}
+                      removeMatch={removeMatch}
                     />
                   </ListItem>
                 ),
