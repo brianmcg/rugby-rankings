@@ -3,6 +3,7 @@ import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
 import CardContent from '@mui/material/CardContent';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -51,7 +52,7 @@ export default function Rankings({ rankings, label, sport }) {
 
   return (
     <Card>
-      <CardMedia image={IMAGES[sport]} sx={{ height: 100, color: 'common.white' }}>
+      <CardMedia image={IMAGES[sport]} sx={{ p: 1, color: 'common.white' }}>
         <Stack sx={{ height: '100%' }} direction="row" alignItems="flex-end" justifyContent="space-between">
           <CardHeader title={<Translate text="app.main.rankings.title" options={{ label }}/>} />
         </Stack>
@@ -77,7 +78,7 @@ export default function Rankings({ rankings, label, sport }) {
             </TableBody>
           </Table>
         </TableContainer>
-        <Stack direction="column" p={2} mt={2}>
+        <Box display="flex" justifyContent="center" p={2} mt={2}>
           <Button
             variant="contained"
             startIcon={fullTable ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
@@ -85,7 +86,7 @@ export default function Rankings({ rankings, label, sport }) {
           >
             <Translate text={`app.main.rankings.${fullTable ? 'collapse' : 'expand'}` } />
           </Button>
-        </Stack>
+        </Box>
       </CardContent>
     </Card>
   );

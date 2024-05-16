@@ -30,7 +30,7 @@ export default function Matches({
 }) {
 	return (
 		<Card>
-      <CardMedia image={IMAGES[sport]} sx={{ height: 100, color: 'common.white' }}>
+      <CardMedia image={IMAGES[sport]} sx={{ p: 1, color: 'common.white' }}>
         <Stack
           sx={{ height: '100%', p: 2 }}
           spacing={2}
