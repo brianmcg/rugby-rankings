@@ -1,7 +1,7 @@
 
 import axios from 'axios';
 import { formatApiDate, addWeeks } from '@utils/date';
-import { parseMatchResponse } from '@utils/parsers';
+import { parseMatches } from '@utils/parsers';
 import { RANKINGS, FIXTURES, TEAMS } from '@constants/urls';
 import { VALUES } from '@constants/sports';
 
@@ -53,10 +53,7 @@ export async function fetchData(sport) {
     // Fetch the rankings first.
     const { entries: rankings, label, effective } = await fetchRankings(sport);
 
-    // Create a list of teams from countries in the rankings.
-    // This will be used for the autocomplete team input, and also to exclude
-    // matches that have teams that are not in the rankings.
-    const teams = rankings.map(entry => entry.team);
+
 
     // Get thestart and end date for which to fetch matches.
     const startDate = effective.millis;
@@ -67,25 +64,29 @@ export async function fetchData(sport) {
 
     // Get id's of teams participating in matches in order to fetch
     // the country data required to determine home advantage.
-    const teamIds = matches.content
-      .reduce(
-        (memo, match) => match.teams.reduce(
-          (teamIds, team) => teamIds.includes(team.id) ? teamIds : [ ...teamIds, team.id ],
-          memo,
-        ),
-        [],
-      );
+    const ids = matches.content.reduce(
+      (matchIds, match) => match.teams.reduce(
+        (teamIds, { id }) => teamIds.includes(id) ? teamIds : [...teamIds, id],
+        matchIds,
+      ),
+      [],
+    );
 
     // I need to fetch each team that has a match, to get the name of the country,
     // which can be different from the name of team. I need the name of the country
     // later to compare with the venue country to to determine home advantage.
-    const matchTeams = await fetchTeams(teamIds);
+    const matchParticipants = await fetchTeams(ids);
 
     // Create a map with team ids as the key and country as the value.
-    const countriesByTeamId = matchTeams.reduce((memo, team) => ({
+    const countriesByTeamId = matchParticipants.reduce((memo, team) => ({
       ...memo,
       [team.id]: team.country,
     }), {});
+
+    // Create a list of teams from countries in the rankings.
+    // This will be used for the autocomplete team input, and also to exclude
+    // matches that have teams that are not in the rankings.
+    const teams = rankings.map(entry => entry.team);
 
     // Create a list of teams with name of the country injected
     // for teams that have matches in the range.
@@ -99,7 +100,7 @@ export async function fetchData(sport) {
       label,
       teams: teamsWithCountry,
       rankings,
-      matches: parseMatchResponse(matches, teamsWithCountry),
+      matches: parseMatches(matches, teamsWithCountry),
       startDate,
       endDate,
     };

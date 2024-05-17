@@ -16,13 +16,13 @@ import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   // <StrictMode>
-    // <ParallaxProvider>
-    <I18nextProvider i18n={i18n}>
-      <ThemeProvider theme={theme}>
+  // <ParallaxProvider>
+  <I18nextProvider i18n={i18n}>
+    <ThemeProvider theme={theme}>
       <CssBaseline/>
       <App />
     </ThemeProvider>
-    </I18nextProvider>,
-    // </ParallaxProvider>
+  </I18nextProvider>,
+  // </ParallaxProvider>
   // </StrictMode>,
 );

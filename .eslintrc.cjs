@@ -18,6 +18,7 @@ module.exports = {
     'comma-dangle': ['error', 'always-multiline'],
     'react/prop-types': 'off',
     'react/jsx-no-target-blank': 'off',
+    'indent': ['error', 2],
     'react-refresh/only-export-components': [
       'warn',
       { allowConstantExport: true },

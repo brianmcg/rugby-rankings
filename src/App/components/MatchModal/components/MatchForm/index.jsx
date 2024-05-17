@@ -106,14 +106,14 @@ export default function MatchForm({ match, teams, endDate, addMatch, updateMatch
           />
         </Stack>
 
-          <Button
-            variant="contained"
-            disabled={!isComplete}
-            startIcon={<SendIcon />}
-            onClick={() => onClickConfirm(state)}
-          >
-            <Translate text="app.main.modal.confirm" />
-          </Button>
+        <Button
+          variant="contained"
+          disabled={!isComplete}
+          startIcon={<SendIcon />}
+          onClick={() => onClickConfirm(state)}
+        >
+          <Translate text="app.main.modal.confirm" />
+        </Button>
       </Stack>
     </Stack>
   );

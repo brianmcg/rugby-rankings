@@ -6,9 +6,7 @@ export const formatDay = date => dayjs(date).format('DD MMM YYYY');
 
 export const formatDayMonth = date => dayjs(date).format('DD MMM');
 
-export const formatRange = (startDate, endDate) => {
-	return `${formatDayMonth(startDate)} - ${formatDayMonth(endDate)}`;
-};
+export const formatRange = (startDate, endDate) => `${formatDayMonth(startDate)} - ${formatDayMonth(endDate)}`;
 
 export const formatApiDate = date => dayjs(date).format('YYYY-MM-DD');
 

@@ -10,8 +10,8 @@ export function useAsync(asyncCallback, initialState, cache) {
     const data = cache?.get(cacheKey);
 
     if (data) {
-       dispatch({ type: ACTIONS.CACHE_FETCH_SUCCESS, payload: { data } });
-       return;
+      dispatch({ type: ACTIONS.CACHE_FETCH_SUCCESS, payload: { data } });
+      return;
     }
 
     dispatch({ type: ACTIONS.FETCH_START });

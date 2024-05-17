@@ -28,8 +28,8 @@ export default function Matches({
   selectMatch,
   removeMatch,
 }) {
-	return (
-		<Card>
+  return (
+    <Card>
       <CardMedia image={IMAGES[sport]} sx={{ p: 1, color: 'common.white' }}>
         <Stack
           sx={{ height: '100%', p: 2 }}
@@ -47,32 +47,32 @@ export default function Matches({
         </Stack>
       </CardMedia>
       <CardContent>
-      {
-        matches.length ? (
-          <Box>
-            <List sx={{ p: 0 }}> {
-              matches.map(match =>
-                (
-                  <ListItem sx={{ p: 1 }} key={match.matchId}>
-                    <Match
-                      match={match}
-                      teams={teams}
-                      selectMatch={selectMatch}
-                      removeMatch={removeMatch}
-                    />
-                  </ListItem>
-                ),
-              )
-            }
-            </List>
-          </Box>
-        ) : (
-          <Typography color="secondary.main" variant="body2">
-            <Translate text="app.main.matches.empty" />
-          </Typography>
-        )
-      }
+        {
+          matches.length ? (
+            <Box>
+              <List sx={{ p: 0 }}> {
+                matches.map(match =>
+                  (
+                    <ListItem sx={{ p: 1 }} key={match.matchId}>
+                      <Match
+                        match={match}
+                        teams={teams}
+                        selectMatch={selectMatch}
+                        removeMatch={removeMatch}
+                      />
+                    </ListItem>
+                  ),
+                )
+              }
+              </List>
+            </Box>
+          ) : (
+            <Typography color="secondary.main" variant="body2">
+              <Translate text="app.main.matches.empty" />
+            </Typography>
+          )
+        }
       </CardContent>
     </Card>
-	);
+  );
 }

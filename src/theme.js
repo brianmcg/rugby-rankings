@@ -70,8 +70,8 @@ const theme = createTheme({
       styleOverrides: {
         list: {
           '&[role="menu"]': {
-          backgroundColor: SECONDARY,
-          color: 'white',
+            backgroundColor: SECONDARY,
+            color: 'white',
           },
         },
       },
@@ -137,8 +137,8 @@ const theme = createTheme({
       },
     },
     MuiPaper: {
-        styleOverrides: {
-          rounded: { borderRadius: 0 },
+      styleOverrides: {
+        rounded: { borderRadius: 0 },
       },
     },
     MuiOutlinedInput: {

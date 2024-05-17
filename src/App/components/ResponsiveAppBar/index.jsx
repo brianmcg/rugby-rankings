@@ -39,11 +39,11 @@ export default function ResponsiveAppBar({
               {startDate ? formatDay(startDate) : null}
             </Typography>
           </Stack>
-            {
-              matchesSmallBreakpoint
-                ? <NavMenu options={options} disabled={disabled} />
-                : <DropdownNavMenu options={options} />
-            }
+          {
+            matchesSmallBreakpoint
+              ? <NavMenu options={options} disabled={disabled} />
+              : <DropdownNavMenu options={options} />
+          }
         </Toolbar>
       </Container>
     </AppBar>

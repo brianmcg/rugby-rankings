@@ -26,15 +26,8 @@ function onFetchSuccess(state, payload) {
 
   return {
     ...state,
-    data: {
-      ...data,
-      // Recalculate rankings based on fetched matches.
-      rankings: calculateRankingChange(rankings, matches),
-    },
-    initialData: {
-      ...state.initialData,
-      [sport]: data,
-    },
+    data: { ...data, rankings: calculateRankingChange(rankings, matches) },
+    initialData: { ...state.initialData, [sport]: data },
     isLoading: false,
   };
 }
@@ -99,16 +92,37 @@ function onupdateMatches(state, payload) {
 
 export function rankingsReducer(state, { type, payload }) {
   switch (type) {
-    case ACTIONS.FETCH_START: return onFetchStart(state, payload);
-    case ACTIONS.FETCH_SUCCESS: return onFetchSuccess(state, payload);
-    case ACTIONS.CACHE_FETCH_SUCCESS: return onCacheFetchSuccess(state, payload);
-    case ACTIONS.FETCH_ERROR: return onFetchError(state, payload);
-    case ACTIONS.ADD_MATCH: return onAddMatch(state, payload);
-    case ACTIONS.REMOVE_MATCH: return onRemoveMatch(state, payload);
-    case ACTIONS.UPDATE_MATCH: return onUpdateMatch(state, payload);
-    case ACTIONS.SELECT_MATCH: return onSelectMatch(state, payload);
-    case ACTIONS.UPDATE_MATCHES: return onupdateMatches(state, payload);
-    case ACTIONS.CHANGE_SPORT: return onChangeSport(state, payload);
-    default: return state;
+  case ACTIONS.FETCH_START: {
+    return onFetchStart(state, payload);
   }
+  case ACTIONS.FETCH_SUCCESS: {
+    return onFetchSuccess(state, payload);
+  }
+  case ACTIONS.CACHE_FETCH_SUCCESS: {
+    return onCacheFetchSuccess(state, payload);
+  }
+  case ACTIONS.FETCH_ERROR: {
+    return onFetchError(state, payload);
+  }
+  case ACTIONS.ADD_MATCH: {
+    return onAddMatch(state, payload);
+  }
+  case ACTIONS.REMOVE_MATCH: {
+    return onRemoveMatch(state, payload);
+  }
+  case ACTIONS.UPDATE_MATCH: {
+    return onUpdateMatch(state, payload);
+  }
+  case ACTIONS.SELECT_MATCH: {
+    return onSelectMatch(state, payload);
+  }
+  case ACTIONS.UPDATE_MATCHES: {
+    return onupdateMatches(state, payload);
+  }
+  case ACTIONS.CHANGE_SPORT: {
+    return onChangeSport(state, payload);
+  }
+  default: {
+    return state;
+  }}
 }
