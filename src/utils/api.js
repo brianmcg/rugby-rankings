@@ -1,24 +1,23 @@
 
 import axios from 'axios';
-import { formatApiDate, addWeeks } from '@utils/date';
+import { formatApiDate, addWeeks, subtractWeeks } from '@utils/date';
 import { parseMatches } from '@utils/parsers';
 import { RANKINGS, FIXTURES, TEAMS } from '@constants/urls';
 import { VALUES } from '@constants/sports';
 
-// This is for slowing down requests for development purposes.
-// eslint-disable-next-line
-const sleep = t => new Promise(resolve => setTimeout(resolve, t));
+const DEV_MODE = false;
 
-// This is for fetching old rankings for development purposes.
-// const currentDate = subtractWeeks(new Date(), 2);
+const DELAY_API_REQUESTS = false;
 
-const currentDate = new Date();
+const DATE_RANGE = DEV_MODE ? 3 : 1;
 
-const dateRange = 1;
+const CURRENT_DATE = DEV_MODE ? subtractWeeks(new Date(), 2) : new Date();
+
+const sleep = millis => new Promise(resolve => setTimeout(resolve, millis));
 
 async function axiosGet(url, params = {}) {
   try {
-    // await sleep(1000);
+    if (DELAY_API_REQUESTS) await sleep(1000);
     const { data } = await axios.get(url, { params });
     return data;
   } catch (error) {
@@ -35,7 +34,7 @@ export async function fetchCountries(teamIds) {
 
 function fetchRankings(sport = VALUES.MENS) {
   return axiosGet(`${RANKINGS}/${sport}`, {
-    date: formatApiDate(currentDate),
+    date: formatApiDate(CURRENT_DATE),
   });
 }
 
@@ -78,7 +77,7 @@ export async function fetchData(sport) {
     const { entries: rankings, label, effective } = await fetchRankings(sport);
 
     const startDate = effective.millis;
-    const endDate = addWeeks(startDate, dateRange);
+    const endDate = addWeeks(startDate, DATE_RANGE);
 
     const matches = await fetchMatches(sport, startDate, endDate, rankings);
 
