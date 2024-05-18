@@ -13,4 +13,8 @@ export default defineConfig({
       '@constants': '/src/constants',
     },
   },
+  test: {
+    globals: true,
+    environment: 'jsdom',
+  },
 });
