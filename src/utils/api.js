@@ -1,16 +1,12 @@
 
 import axios from 'axios';
-import { formatApiDate, addWeeks, subtractWeeks } from '@utils/date';
+import { formatApiDate, addDays, getPreviousMonday } from '@utils/date';
 import { parseMatches } from '@utils/parsers';
 import { RANKINGS, FIXTURES, TEAMS } from '@constants/urls';
 
-const DEV_MODE = false;
-
 const DELAY_API_REQUESTS = false;
 
-const DATE_RANGE = DEV_MODE ? 3 : 1;
-
-const CURRENT_DATE = DEV_MODE ? subtractWeeks(new Date(), 2) : new Date();
+const TODAY = new Date();
 
 const sleep = millis => new Promise(resolve => setTimeout(resolve, millis));
 
@@ -31,7 +27,7 @@ export async function fetchCountries(teamIds) {
   return teams.reduce((memo, team) => ({ ...memo, [team.id]: team.country }), {});
 }
 
-function fetchRankings(sport, date = CURRENT_DATE) {
+export function fetchRankings(sport, date) {
   return axiosGet(`${RANKINGS}/${sport}`, {
     date: formatApiDate(date),
   });
@@ -71,37 +67,43 @@ async function fetchMatches(sport, startDate, endDate, rankings) {
   }));
 }
 
-export async function fetchData(sport) {
-  const { entries: rankings, label, effective } = await fetchRankings(sport);
+export async function fetchData(sport, date = TODAY) {
+  try {
+    const startDate = getPreviousMonday(date);
 
-  const startDate = effective.millis;
-  const endDate = addWeeks(startDate, DATE_RANGE);
+    const { entries: rankings, label } = await fetchRankings(sport, startDate);
 
-  const matches = await fetchMatches(sport, startDate, endDate, rankings);
+    const endDate = addDays(startDate, 6);
 
-  // Make a map of teams participating in matches grouped by team id to be used below.
-  const matchTeamsById = matches.reduce(
-    (matchMemo, match) =>
-      match.teams.reduce(
-        (teamMemo, team) => ({ ...teamMemo, [team.id]: team }),
-        matchMemo,
-      ),
-    {},
-  );
+    const matches = await fetchMatches(sport, startDate, endDate, rankings);
 
-  // Create a list of teams from the fetched rankings,
-  // with the the teams participating in matches injected,
-  // since they have the country attribute missing from the teams fetched from the rankings.
-  const teams = rankings.map(({ team }) => matchTeamsById[team.id] ?? team, []);
+    // Make a map of teams participating in matches grouped by team id to be used below.
+    const matchTeamsById = matches.reduce(
+      (matchMemo, match) =>
+        match.teams.reduce(
+          (teamMemo, team) => ({ ...teamMemo, [team.id]: team }),
+          matchMemo,
+        ),
+      {},
+    );
 
-  return {
-    sport,
-    label,
-    teams,
-    rankings,
-    matches: parseMatches(matches),
-    startDate,
-    endDate,
-  };
+    // Create a list of teams from the fetched rankings,
+    // with the the teams participating in matches injected,
+    // since they have the country attribute missing from the teams fetched from the rankings.
+    const teams = rankings.map(({ team }) => matchTeamsById[team.id] ?? team, []);
+
+    return {
+      sport,
+      label,
+      teams,
+      rankings,
+      matches: parseMatches(matches),
+      startDate,
+      endDate,
+    };
+
+  } catch (error) {
+    return Promise.reject(error);
+  }
 }
 

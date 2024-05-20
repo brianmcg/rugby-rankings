@@ -3,8 +3,8 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import { formatPoints } from '@utils/number';
 
-const formatPoints = pts => (Math.round(pts * 100) / 100).toFixed(2);
 
 function renderContents(pts, previousPts) {
   if (pts > previousPts) {
