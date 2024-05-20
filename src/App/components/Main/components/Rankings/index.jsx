@@ -13,7 +13,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 import Translate from '@components/Translate';
-import { VALUES } from '@constants/sports';
+import { SPORTS } from '@constants/data';
 import RankCell from './components/RankCell';
 import PointsCell from './components/PointsCell';
 import Button from '@mui/material/Button';
@@ -26,8 +26,8 @@ import wruImageSrc from '@assets/images/wru/rankings.png';
 const INITIAL_ROWS = 16;
 
 const IMAGES = {
-  [VALUES.MENS]: mruImageSrc,
-  [VALUES.WOMENS]: wruImageSrc,
+  [SPORTS.VALUES.MENS]: mruImageSrc,
+  [SPORTS.VALUES.WOMENS]: wruImageSrc,
 };
 
 function renderTableRows(rankings, fullTable) {

@@ -9,3 +9,8 @@ export const WORLD_CUP = /^[Women's ]*Rugby World Cup \d+$/;
 export const NO_HOME_ADVANTAGE_COMPS = [
   /^Asia Rugby Championship 2024$/,
 ];
+
+export const UNRANKED_COMPS = [
+  /^Americas Rugby Trophy 2023$/,
+  // /^Women's Internationals 2023$/,
+];

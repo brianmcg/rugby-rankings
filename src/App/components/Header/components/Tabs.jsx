@@ -4,9 +4,9 @@ import { default as MuiTabs } from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Translate from '@components/Translate';
-import { VALUES } from '@constants/sports';
+import { SPORTS } from '@constants/data';
 
-const options = [VALUES.MENS, VALUES.WOMENS];
+const options = Object.values(SPORTS.VALUES);
 
 function renderTab({ value, disabled }) {
   return (

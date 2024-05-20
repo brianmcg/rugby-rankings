@@ -8,15 +8,15 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import { formatRange } from '@utils/date';
 import Translate from '@components/Translate';
-import { VALUES } from '@constants/sports';
+import { SPORTS } from '@constants/data';
 import Match from './components/Match';
 
 import mruImageSrc from '@assets/images/mru/matches.png';
 import wruImageSrc from '@assets/images/wru/matches.png';
 
 const IMAGES = {
-  [VALUES.MENS]: mruImageSrc,
-  [VALUES.WOMENS]: wruImageSrc,
+  [SPORTS.VALUES.MENS]: mruImageSrc,
+  [SPORTS.VALUES.WOMENS]: wruImageSrc,
 };
 
 export default function Matches({

@@ -1,6 +1,6 @@
 import Stack from '@mui/material/Stack';
 import { fetchData } from '@utils/api';
-import { KEY, VALUES } from '@constants/sports';
+import { SPORTS } from '@constants/data';
 import { ACTIONS } from './actions';
 import { useAsync, useUpdateCache } from './hooks';
 import Header from './components/Header';
@@ -10,7 +10,7 @@ import Footer from './components/Footer';
 import MatchModal from './components/MatchModal';
 import Cache from './Cache';
 
-const cache = new Cache({ dataKey: KEY });
+const cache = new Cache({ dataKey: SPORTS.KEY });
 
 const initialState = {
   data: null,
@@ -18,7 +18,7 @@ const initialState = {
   isError: null,
   isLoading: true,
   selectedMatch: null,
-  sport: VALUES.MENS,
+  sport: SPORTS.VALUES.MENS,
 };
 
 export default function App() {

@@ -1,9 +1,9 @@
 import { rankingsReducer } from './reducers';
 import { ACTIONS } from './actions';
-import { addWeeks } from '@utils/date';
+import { addWeeks, getPreviousMonday } from '@utils/date';
 import { fetchData, fetchRankings } from '@utils/api';
 import { formatPoints } from '@utils/number';
-import { VALUES } from '@constants/sports';
+import { SPORTS } from '@constants/data';
 
 describe('rankingsReducer', async () => {
   const initialState = {
@@ -12,14 +12,14 @@ describe('rankingsReducer', async () => {
     isError: null,
     isLoading: true,
     selectedMatch: null,
-    sport: VALUES.MENS,
+    sport: SPORTS.VALUES.MENS,
   };
 
   const startDate = new Date('2024-02-01');
 
   const dates = Array.from(Array(6).keys()).reduce((memo, i) => ([...memo, addWeeks(startDate, i + 1).toDate()]), [startDate]);
 
-  const sports = Object.values(VALUES);
+  const sports = Object.values(SPORTS.VALUES);
 
   const testData = sports.reduce(
     (outerMemo, sport) => (dates.reduce(
@@ -42,7 +42,7 @@ describe('rankingsReducer', async () => {
       });
 
 
-      const { entries: nextRankings } = await fetchRankings(sport, nextDate);
+      const { entries: nextRankings } = await fetchRankings(sport, getPreviousMonday(nextDate));
 
       state.data.rankings.forEach((entry) => {
         const nextEntry = nextRankings.find(r => r.team.id === entry.team.id);
