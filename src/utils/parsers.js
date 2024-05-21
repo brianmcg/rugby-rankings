@@ -1,17 +1,26 @@
-import { WORLD_CUP, NO_HOME_ADVANTAGE_COMPS } from '@utils/regex';
-import { MATCH_STATUSES } from '@constants/data';
+import { WORLD_CUP } from '@utils/regex';
+import { MATCH_STATUSES, COUNTRIES } from '@constants/data';
 
 // The Irish team represents both Ireland and Northern Ireland, so if the venue country
 // is Northern Ireland we still want it to count as home advantage.
 function getVenueCountry(venue) {
-  return venue?.country === 'Northern Ireland' ? 'Ireland' : venue?.country;
+  return venue?.country === COUNTRIES.NORTHERN_IRELAND ? COUNTRIES.IRELAND : venue?.country;
+}
+
+// Ukraine don't play home games in Ukraine, but home advantage still applies.
+function respectHomeAdvantage(teams) {
+  return teams.some(team => team.name === COUNTRIES.UKRAINE);
+}
+
+function isRWC(competition) {
+  return WORLD_CUP.test(competition);
 }
 
 function parseMatch({ matchId, teams, scores, status, venue, time, competition }) {
-  const noHomeAdvantage = NO_HOME_ADVANTAGE_COMPS.some(regex => Boolean(competition?.match(regex)));
   const venueCountry = getVenueCountry(venue);
-  const indexOfVenueTeam = venue ? teams.map(t => t.country).indexOf(venueCountry) : 0;
-  const isNeutralVenue = noHomeAdvantage ? true : indexOfVenueTeam < 0;
+  const indexOfVenueTeam = respectHomeAdvantage(teams) ? 0 : (venue ? teams.map(t => t.country).indexOf(venueCountry) : 0);
+
+  const isNeutralVenue = indexOfVenueTeam < 0;
   const homeIndex = indexOfVenueTeam < 0 ? 0 : indexOfVenueTeam;
   const awayIndex = indexOfVenueTeam === 1 ? 0 : 1;
 
@@ -20,7 +29,7 @@ function parseMatch({ matchId, teams, scores, status, venue, time, competition }
   const isComplete = status === MATCH_STATUSES.COMPLETE;
   const homeScore = isComplete ? scores[homeIndex] : null;
   const awayScore = isComplete ? scores[awayIndex] : null;
-  const isWorldCup = WORLD_CUP.test(competition);
+  const isWorldCup = isRWC(competition);
 
   return {
     matchId,

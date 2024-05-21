@@ -16,9 +16,7 @@ describe('rankingsReducer', async () => {
   };
 
   const startDate = new Date('2024-02-01');
-
   const dates = Array.from(Array(6).keys()).reduce((memo, i) => ([...memo, addWeeks(startDate, i + 1).toDate()]), [startDate]);
-
   const sports = Object.values(SPORTS.VALUES);
 
   const testData = sports.reduce(
@@ -40,7 +38,6 @@ describe('rankingsReducer', async () => {
         type: ACTIONS.FETCH_SUCCESS,
         payload: { data },
       });
-
 
       const { entries: nextRankings } = await fetchRankings(sport, getPreviousMonday(nextDate));
 

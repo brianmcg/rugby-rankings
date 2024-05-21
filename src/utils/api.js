@@ -3,7 +3,6 @@ import axios from 'axios';
 import { formatApiDate, addDays, getPreviousMonday } from '@utils/date';
 import { parseMatches } from '@utils/parsers';
 import { RANKINGS, FIXTURES, TEAMS } from '@constants/urls';
-import { UNRANKED_COMPS } from '@utils/regex';
 
 const DELAY_API_REQUESTS = false;
 
@@ -50,10 +49,9 @@ async function fetchMatches(sport, startDate, endDate, rankings) {
   const matches = response.content.filter(match => {
     const isTeamsConfirmed = match.teams.every(team => Boolean(team));
     const isTeamsRanked = match.teams.every(team => rankedTeamIds.includes(team.id));
-    const isCompRanked = !UNRANKED_COMPS.some(regex => Boolean(match.competition?.match(regex)));
     const isMatchRanked = Boolean(match.competition);
 
-    return isTeamsConfirmed && isTeamsRanked && isCompRanked && isMatchRanked;
+    return isTeamsConfirmed && isTeamsRanked && isMatchRanked;
   });
 
   // For each match I need to fetch the country for each participating team.
