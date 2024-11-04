@@ -5,41 +5,52 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import { formatPoints } from '@utils/number';
 
-
 function renderContents(pts, previousPts) {
   if (pts > previousPts) {
     return (
       <Stack alignItems="center" direction="row" gap={1}>
-        <Typography color="secondary.main" variant="body1">{formatPoints(pts)}</Typography>
+        <Typography color="secondary.main" variant="body1">
+          {formatPoints(pts)}
+        </Typography>
         <ArrowUpwardIcon sx={{ fontSize: 14, color: 'success.main' }} />
         <Typography
-          sx={{ fontSize: 14, color: 'success.main', display: { xs: 'none', sm: 'block' } }}
+          sx={{
+            fontSize: 14,
+            color: 'success.main',
+            display: { xs: 'none', sm: 'block' },
+          }}
           variant="body2"
         >
           ({formatPoints(previousPts)})
-        </Typography
-        >
+        </Typography>
       </Stack>
     );
   } else if (pts < previousPts) {
     return (
       <Stack alignItems="center" direction="row" gap={1}>
-        <Typography color="secondary.main" variant="body1">{formatPoints(pts) }</Typography>
+        <Typography color="secondary.main" variant="body1">
+          {formatPoints(pts)}
+        </Typography>
         <ArrowDownwardIcon sx={{ fontSize: 14, color: 'error.main' }} />
 
         <Typography
-          sx={{ fontSize: 14, color: 'error.main', display: { xs: 'none', sm: 'block' } }}
+          sx={{
+            fontSize: 14,
+            color: 'error.main',
+            display: { xs: 'none', sm: 'block' },
+          }}
           variant="body2"
         >
           ({formatPoints(previousPts)})
-        </Typography
-        >
+        </Typography>
       </Stack>
     );
   } else {
     return (
       <Stack alignItems="center" direction="row">
-        <Typography color="secondary.main" variant="body1">{formatPoints(pts)}</Typography>
+        <Typography color="secondary.main" variant="body1">
+          {formatPoints(pts)}
+        </Typography>
       </Stack>
     );
   }

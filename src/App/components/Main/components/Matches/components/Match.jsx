@@ -24,7 +24,7 @@ function getColor(match, palette) {
 }
 
 function renderMatchInfo(match) {
-  const { time, venue,competition } = match;
+  const { time, venue, competition } = match;
   const date = time ? formatDayMonth(time?.millis) : null;
   const country = venue?.country ? `@ ${venue.country}` : null;
 
@@ -33,12 +33,27 @@ function renderMatchInfo(match) {
       direction="row"
       spacing={1}
       justifyContent="flex-start"
-      sx={{ color: 'secondary.main', opacity: 0.6, display: { xs: 'none', md: 'flex' } }}
+      sx={{
+        color: 'secondary.main',
+        opacity: 0.6,
+        display: { xs: 'none', md: 'flex' },
+      }}
     >
       <Breadcrumb>
-        { competition ? <Typography variant="caption" sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{competition}</Typography> : null }
-        { date ? <Typography variant="caption">{date}</Typography> : null }
-        { country ? <Typography variant="caption">{country}</Typography> : null }
+        {competition ? (
+          <Typography
+            variant="caption"
+            sx={{
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+            }}
+          >
+            {competition}
+          </Typography>
+        ) : null}
+        {date ? <Typography variant="caption">{date}</Typography> : null}
+        {country ? <Typography variant="caption">{country}</Typography> : null}
       </Breadcrumb>
     </Stack>
   );
@@ -48,14 +63,20 @@ function renderMatchResult({ match, color }) {
   const { homeTeam, awayTeam, homeScore, awayScore, isComplete } = match;
   return (
     <Stack sx={{ color: 'secondary.main' }}>
-      <Grid container direction="row" gap={1} alignItems="center" justifyContent="flex-start">
+      <Grid
+        container
+        direction="row"
+        gap={1}
+        alignItems="center"
+        justifyContent="flex-start"
+      >
         <Typography variant="body1">{homeTeam.name}</Typography>
         <Typography variant="h6" color={color}>
-          {
-            isComplete
-              ? `${homeScore} - ${awayScore}`
-              : <Translate text="app.main.matches.vs"></Translate>
-          }
+          {isComplete ? (
+            `${homeScore} - ${awayScore}`
+          ) : (
+            <Translate text="app.main.matches.vs"></Translate>
+          )}
         </Typography>
         <Typography variant="body1">{awayTeam.name}</Typography>
       </Grid>
@@ -64,13 +85,18 @@ function renderMatchResult({ match, color }) {
 }
 
 function renderButtons(options) {
-  return(
-    <Stack spacing={2} direction="row" alignItems="center" justifyContent="flex-end">
+  return (
+    <Stack
+      spacing={2}
+      direction="row"
+      alignItems="center"
+      justifyContent="flex-end"
+    >
       {options.map(({ icon, onClick, color }) => (
         <IconButton
           key={color}
           color="primary"
-          sx={{ p: 0, '&:hover': { color }}}
+          sx={{ p: 0, '&:hover': { color } }}
           onClick={onClick}
           size="small"
         >
@@ -87,12 +113,23 @@ export default function Match({ match, selectMatch, removeMatch }) {
   const color = getColor(match, palette);
 
   const options = [
-    { icon: <EditIcon />, onClick: () => selectMatch(match), color: 'success.main' },
-    { icon: <DeleteIcon />, onClick: () => removeMatch(matchId), color: 'error.main' },
+    {
+      icon: <EditIcon />,
+      onClick: () => selectMatch(match),
+      color: 'success.main',
+    },
+    {
+      icon: <DeleteIcon />,
+      onClick: () => removeMatch(matchId),
+      color: 'error.main',
+    },
   ];
 
   return (
-    <Paper elevation={2} sx={{ padding: 1, width: '100%', borderLeft: `solid 5px ${color}` }} >
+    <Paper
+      elevation={2}
+      sx={{ padding: 1, width: '100%', borderLeft: `solid 5px ${color}` }}
+    >
       {renderMatchInfo(match)}
       <Stack direction="row" alignItems="center" justifyContent="space-between">
         {renderMatchResult({ match, color })}

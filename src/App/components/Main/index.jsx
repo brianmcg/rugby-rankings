@@ -18,7 +18,6 @@ export default function Main({
   selectMatch,
   removeMatch,
 }) {
-
   if (isError) return <ErrorMessage message="app.errors.fetch" />;
 
   if (isLoading) return <Loading />;
@@ -38,11 +37,7 @@ export default function Main({
           />
         </Grid>
         <Grid item xs={12} md={6}>
-          <Rankings
-            label={label}
-            rankings={rankings}
-            sport={sport}
-          />
+          <Rankings label={label} rankings={rankings} sport={sport} />
         </Grid>
       </Grid>
     </Container>

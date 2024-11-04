@@ -9,19 +9,23 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useTheme } from '@mui/material';
 import Translate from '@components/Translate';
 
-const options = [{
-  icon: <SportsRugbyIcon />,
-  label: 'app.footer.rankings',
-  href: 'https://www.world.rugby/rankings',
-}, {
-  icon: <GitHubIcon />,
-  label: 'app.footer.github',
-  href: 'https://github.com/brianmcg/rugby-rankings',
-}, {
-  icon: <AccountCircleIcon />,
-  label: 'app.footer.author',
-  href: 'http://www.bmcgrath.net',
-}];
+const options = [
+  {
+    icon: <SportsRugbyIcon />,
+    label: 'app.footer.rankings',
+    href: 'https://www.world.rugby/rankings',
+  },
+  {
+    icon: <GitHubIcon />,
+    label: 'app.footer.github',
+    href: 'https://github.com/brianmcg/rugby-rankings',
+  },
+  {
+    icon: <AccountCircleIcon />,
+    label: 'app.footer.author',
+    href: 'http://www.bmcgrath.net',
+  },
+];
 
 function renderOption({ icon, label, href }) {
   return (
@@ -42,15 +46,22 @@ export default function Footer() {
 
   return (
     <footer>
-      <Box sx={{
-        color: 'common.white',
-        marginTop: 2,
-        backgroundImage: `linear-gradient(${primary.main}, ${secondary.main})`,
-        borderTop: `solid 4px ${success.main}`,
-      }}>
+      <Box
+        sx={{
+          color: 'common.white',
+          marginTop: 2,
+          backgroundImage: `linear-gradient(${primary.main}, ${secondary.main})`,
+          borderTop: `solid 4px ${success.main}`,
+        }}
+      >
         <Container>
           <Box p={8}>
-            <Stack direction="column" justifyContent="center" alignItems="flex-start" gap={4}>
+            <Stack
+              direction="column"
+              justifyContent="center"
+              alignItems="flex-start"
+              gap={4}
+            >
               {options.map(option => renderOption(option))}
             </Stack>
           </Box>

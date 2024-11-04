@@ -6,4 +6,3 @@ export function isNumeric(str) {
 }
 
 export const formatPoints = pts => (Math.round(pts * 100) / 100).toFixed(2);
-

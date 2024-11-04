@@ -12,7 +12,7 @@ const NumericFormatCustom = forwardRef(
       <NumericFormat
         {...other}
         getInputRef={ref}
-        onValueChange={(values) => {
+        onValueChange={values => {
           onChange({
             target: {
               name: props.name,

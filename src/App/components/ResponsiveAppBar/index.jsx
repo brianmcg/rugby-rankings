@@ -31,19 +31,27 @@ export default function ResponsiveAppBar({
     <AppBar position="sticky" elevation={0} sx={{ bgcolor: 'secondary.main' }}>
       <Container>
         <Toolbar disableGutters>
-          <Stack direction="row" spacing={1} alignItems="center" sx={{ opacity: disabled ? 0 : 1 }}>
+          <Stack
+            direction="row"
+            spacing={1}
+            alignItems="center"
+            sx={{ opacity: disabled ? 0 : 1 }}
+          >
             <Typography variant="subtitle2" sx={{ textTransform: 'uppercase' }}>
               <Translate text="app.main.updated" />
             </Typography>
-            <Typography variant="subtitle2" sx={{ textTransform: 'uppercase', fontWeight: 900 }}>
+            <Typography
+              variant="subtitle2"
+              sx={{ textTransform: 'uppercase', fontWeight: 900 }}
+            >
               {startDate ? formatDay(startDate) : null}
             </Typography>
           </Stack>
-          {
-            matchesSmallBreakpoint
-              ? <NavMenu options={options} disabled={disabled} />
-              : <DropdownNavMenu options={options} />
-          }
+          {matchesSmallBreakpoint ? (
+            <NavMenu options={options} disabled={disabled} />
+          ) : (
+            <DropdownNavMenu options={options} />
+          )}
         </Toolbar>
       </Container>
     </AppBar>

@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 import { formatApiDate, addDays, getPreviousMonday } from '@utils/date';
 import { parseMatches } from '@utils/parsers';
@@ -24,7 +23,10 @@ export async function fetchCountries(teamIds) {
   const requests = teamIds.map(id => axiosGet(`${TEAMS}/${id}`));
   const teams = await axios.all(requests);
 
-  return teams.reduce((memo, team) => ({ ...memo, [team.id]: team.country }), {});
+  return teams.reduce(
+    (memo, team) => ({ ...memo, [team.id]: team.country }),
+    {},
+  );
 }
 
 export function fetchRankings(sport, date) {
@@ -48,7 +50,9 @@ async function fetchMatches(sport, startDate, endDate, rankings) {
   // Filter out matches with null teams or that feature teams that are not in the rankings.
   const matches = response.content.filter(match => {
     const isTeamsConfirmed = match.teams.every(team => Boolean(team));
-    const isTeamsRanked = match.teams.every(team => rankedTeamIds.includes(team.id));
+    const isTeamsRanked = match.teams.every(team =>
+      rankedTeamIds.includes(team.id),
+    );
     const isMatchRanked = Boolean(match.competition);
 
     return isTeamsConfirmed && isTeamsRanked && isMatchRanked;
@@ -57,15 +61,20 @@ async function fetchMatches(sport, startDate, endDate, rankings) {
   // For each match I need to fetch the country for each participating team.
   // The name of the country can be different from the name of team.
   // I need the name of the country later to compare with the venue to to determine home advantage.
-  return Promise.all(matches.map(async match => {
-    const matchTeamIds = match.teams.map(team => team.id);
-    const countries = await fetchCountries(matchTeamIds);
+  return Promise.all(
+    matches.map(async match => {
+      const matchTeamIds = match.teams.map(team => team.id);
+      const countries = await fetchCountries(matchTeamIds);
 
-    return {
-      ...match,
-      teams: match.teams.map(team => ({ ...team, country: countries[team.id] })),
-    };
-  }));
+      return {
+        ...match,
+        teams: match.teams.map(team => ({
+          ...team,
+          country: countries[team.id],
+        })),
+      };
+    }),
+  );
 }
 
 export async function fetchData(sport, date = TODAY) {
@@ -91,7 +100,7 @@ export async function fetchData(sport, date = TODAY) {
     // Create a list of teams from the fetched rankings,
     // with the the teams participating in matches injected,
     // since they have the country attribute missing from the teams fetched from the rankings.
-    const teams = rankings.map(({ team }) => matchTeamsById[team.id] ?? team, []);
+    const teams = rankings.map(({ team }) => matchTeamsById[team.id] ?? team);
 
     return {
       sport,
@@ -102,9 +111,7 @@ export async function fetchData(sport, date = TODAY) {
       startDate,
       endDate,
     };
-
   } catch (error) {
     return Promise.reject(error);
   }
 }
-

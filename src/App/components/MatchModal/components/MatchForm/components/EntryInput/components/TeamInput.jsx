@@ -10,13 +10,9 @@ export default function TeamInput({ options, value, label, onChange }) {
       disablePortal
       value={value}
       options={options}
-      getOptionLabel={(option) => option.name}
-      renderInput={(params) => (
-        <TextField
-          {...params}
-          error={!validateTeam(value)}
-          label={label}
-        />
+      getOptionLabel={option => option.name}
+      renderInput={params => (
+        <TextField {...params} error={!validateTeam(value)} label={label} />
       )}
     />
   );

@@ -58,9 +58,16 @@ function onAddMatch(state, payload) {
     { ...payload.match, matchId: `new-${matchIdCounter++}` },
   ];
 
-  const rankings = calculateRankingChange(state.initialData[state.sport].rankings, matches);
+  const rankings = calculateRankingChange(
+    state.initialData[state.sport].rankings,
+    matches,
+  );
 
-  return { ...state, data: { ...state.data, rankings, matches }, selectedMatch: null };
+  return {
+    ...state,
+    data: { ...state.data, rankings, matches },
+    selectedMatch: null,
+  };
 }
 
 function onUpdateMatch(state, payload) {
@@ -72,57 +79,73 @@ function onUpdateMatch(state, payload) {
     return match;
   });
 
-  const rankings = calculateRankingChange(state.initialData[state.sport].rankings, matches);
+  const rankings = calculateRankingChange(
+    state.initialData[state.sport].rankings,
+    matches,
+  );
 
-  return { ...state, data: { ...state.data, rankings, matches }, selectedMatch: null };
+  return {
+    ...state,
+    data: { ...state.data, rankings, matches },
+    selectedMatch: null,
+  };
 }
 
 function onRemoveMatch(state, payload) {
-  const matches = state.data.matches.filter(match => match.matchId !== payload.matchId);
-  const rankings = calculateRankingChange(state.initialData[state.sport].rankings, matches);
+  const matches = state.data.matches.filter(
+    match => match.matchId !== payload.matchId,
+  );
+  const rankings = calculateRankingChange(
+    state.initialData[state.sport].rankings,
+    matches,
+  );
 
   return { ...state, data: { ...state.data, rankings, matches } };
 }
 
 function onupdateMatches(state, payload) {
   const { matches } = payload;
-  const rankings = calculateRankingChange(state.initialData[state.sport].rankings, matches);
+  const rankings = calculateRankingChange(
+    state.initialData[state.sport].rankings,
+    matches,
+  );
   return { ...state, data: { ...state.data, rankings, matches } };
 }
 
 export function rankingsReducer(state, { type, payload }) {
   switch (type) {
-  case ACTIONS.FETCH_START: {
-    return onFetchStart(state, payload);
+    case ACTIONS.FETCH_START: {
+      return onFetchStart(state, payload);
+    }
+    case ACTIONS.FETCH_SUCCESS: {
+      return onFetchSuccess(state, payload);
+    }
+    case ACTIONS.CACHE_FETCH_SUCCESS: {
+      return onCacheFetchSuccess(state, payload);
+    }
+    case ACTIONS.FETCH_ERROR: {
+      return onFetchError(state, payload);
+    }
+    case ACTIONS.ADD_MATCH: {
+      return onAddMatch(state, payload);
+    }
+    case ACTIONS.REMOVE_MATCH: {
+      return onRemoveMatch(state, payload);
+    }
+    case ACTIONS.UPDATE_MATCH: {
+      return onUpdateMatch(state, payload);
+    }
+    case ACTIONS.SELECT_MATCH: {
+      return onSelectMatch(state, payload);
+    }
+    case ACTIONS.UPDATE_MATCHES: {
+      return onupdateMatches(state, payload);
+    }
+    case ACTIONS.CHANGE_SPORT: {
+      return onChangeSport(state, payload);
+    }
+    default: {
+      return state;
+    }
   }
-  case ACTIONS.FETCH_SUCCESS: {
-    return onFetchSuccess(state, payload);
-  }
-  case ACTIONS.CACHE_FETCH_SUCCESS: {
-    return onCacheFetchSuccess(state, payload);
-  }
-  case ACTIONS.FETCH_ERROR: {
-    return onFetchError(state, payload);
-  }
-  case ACTIONS.ADD_MATCH: {
-    return onAddMatch(state, payload);
-  }
-  case ACTIONS.REMOVE_MATCH: {
-    return onRemoveMatch(state, payload);
-  }
-  case ACTIONS.UPDATE_MATCH: {
-    return onUpdateMatch(state, payload);
-  }
-  case ACTIONS.SELECT_MATCH: {
-    return onSelectMatch(state, payload);
-  }
-  case ACTIONS.UPDATE_MATCHES: {
-    return onupdateMatches(state, payload);
-  }
-  case ACTIONS.CHANGE_SPORT: {
-    return onChangeSport(state, payload);
-  }
-  default: {
-    return state;
-  }}
 }

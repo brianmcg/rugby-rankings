@@ -2,7 +2,14 @@ function calculatePointsChanges(rankings, match) {
   let ratingGap;
   let ratingChange;
 
-  const { homeTeam, awayTeam, homeScore, awayScore, isNeutralVenue, isWorldCup } = match;
+  const {
+    homeTeam,
+    awayTeam,
+    homeScore,
+    awayScore,
+    isNeutralVenue,
+    isWorldCup,
+  } = match;
 
   const homeEntry = rankings.find(entry => entry.team.id === homeTeam.id);
   const awayEntry = rankings.find(entry => entry.team.id === awayTeam.id);
@@ -20,9 +27,9 @@ function calculatePointsChanges(rankings, match) {
   }
 
   if (homeScore > awayScore) {
-    ratingChange = 1 - (0.1 * ratingGap);
+    ratingChange = 1 - 0.1 * ratingGap;
   } else if (homeScore < awayScore) {
-    ratingChange = 1 + (0.1 * ratingGap);
+    ratingChange = 1 + 0.1 * ratingGap;
   } else {
     ratingChange = 0.1 * ratingGap;
   }
@@ -36,8 +43,14 @@ function calculatePointsChanges(rankings, match) {
   }
 
   if (homeScore > awayScore) {
-    const updatedHomeEntry = { ...homeEntry, pts: homeEntry.pts + ratingChange };
-    const updatedAwayEntry = { ...awayEntry, pts: awayEntry.pts - ratingChange };
+    const updatedHomeEntry = {
+      ...homeEntry,
+      pts: homeEntry.pts + ratingChange,
+    };
+    const updatedAwayEntry = {
+      ...awayEntry,
+      pts: awayEntry.pts - ratingChange,
+    };
 
     return rankings.map(entry => {
       if (entry.team.id === updatedHomeEntry.team.id) {

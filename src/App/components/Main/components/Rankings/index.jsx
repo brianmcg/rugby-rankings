@@ -40,7 +40,9 @@ function renderTableRows(rankings, fullTable) {
     >
       <RankCell pos={pos} previousPos={previousPos} />
       <TableCell sx={{ color: 'secondary.main' }}>
-        <Typography variant="body2" sx={{ fontSize: 16 }}>{team.name}</Typography>
+        <Typography variant="body2" sx={{ fontSize: 16 }}>
+          {team.name}
+        </Typography>
       </TableCell>
       <PointsCell pts={pts} previousPts={previousPts} />
     </TableRow>
@@ -53,8 +55,17 @@ export default function Rankings({ rankings, label, sport }) {
   return (
     <Card>
       <CardMedia image={IMAGES[sport]} sx={{ p: 1, color: 'common.white' }}>
-        <Stack sx={{ height: '100%' }} direction="row" alignItems="flex-end" justifyContent="space-between">
-          <CardHeader title={<Translate text="app.main.rankings.title" options={{ label }}/>} />
+        <Stack
+          sx={{ height: '100%' }}
+          direction="row"
+          alignItems="flex-end"
+          justifyContent="space-between"
+        >
+          <CardHeader
+            title={
+              <Translate text="app.main.rankings.title" options={{ label }} />
+            }
+          />
         </Stack>
       </CardMedia>
       <CardContent>
@@ -73,18 +84,20 @@ export default function Rankings({ rankings, label, sport }) {
                 </TableCell>
               </TableRow>
             </TableHead>
-            <TableBody>
-              {renderTableRows(rankings, fullTable)}
-            </TableBody>
+            <TableBody>{renderTableRows(rankings, fullTable)}</TableBody>
           </Table>
         </TableContainer>
         <Box display="flex" justifyContent="center" p={2} mt={2}>
           <Button
             variant="contained"
-            startIcon={fullTable ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+            startIcon={
+              fullTable ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />
+            }
             onClick={() => setFullTable(!fullTable)}
           >
-            <Translate text={`app.main.rankings.${fullTable ? 'collapse' : 'expand'}` } />
+            <Translate
+              text={`app.main.rankings.${fullTable ? 'collapse' : 'expand'}`}
+            />
           </Button>
         </Box>
       </CardContent>

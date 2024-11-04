@@ -8,10 +8,16 @@ function renderContents(pos, previousPos) {
   if (pos < previousPos) {
     return (
       <Stack alignItems="center" direction="row" gap={1}>
-        <Typography color="secondary.main" variant="body1">{pos}</Typography>
+        <Typography color="secondary.main" variant="body1">
+          {pos}
+        </Typography>
         <ArrowUpwardIcon sx={{ color: 'success.main', fontSize: 14 }} />
         <Typography
-          sx={{ color: 'success.main', fontSize: 14, display: { xs: 'none', sm: 'block' } }}
+          sx={{
+            color: 'success.main',
+            fontSize: 14,
+            display: { xs: 'none', sm: 'block' },
+          }}
           variant="body2"
         >
           ({previousPos})
@@ -21,10 +27,16 @@ function renderContents(pos, previousPos) {
   } else if (pos > previousPos) {
     return (
       <Stack alignItems="center" direction="row" gap={1}>
-        <Typography color="secondary.main" variant="body1">{pos}</Typography>
+        <Typography color="secondary.main" variant="body1">
+          {pos}
+        </Typography>
         <ArrowDownwardIcon sx={{ color: 'error.main', fontSize: 14 }} />
         <Typography
-          sx={{ color: 'error.main', fontSize: 14, display: { xs: 'none', sm: 'block' } }}
+          sx={{
+            color: 'error.main',
+            fontSize: 14,
+            display: { xs: 'none', sm: 'block' },
+          }}
           variant="body2"
         >
           ({previousPos})
@@ -34,7 +46,9 @@ function renderContents(pos, previousPos) {
   } else {
     return (
       <Stack alignItems="center" direction="row">
-        <Typography color="secondary.main" variant="body1">{pos}</Typography>
+        <Typography color="secondary.main" variant="body1">
+          {pos}
+        </Typography>
       </Stack>
     );
   }

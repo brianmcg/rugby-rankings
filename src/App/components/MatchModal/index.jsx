@@ -53,7 +53,7 @@ export default function TransitionsModal({
 
             <IconButton
               color="primary"
-              sx={{ p: 0, '&:hover': { color: 'error.main' }}}
+              sx={{ p: 0, '&:hover': { color: 'error.main' } }}
               onClick={onClose}
               size="small"
             >

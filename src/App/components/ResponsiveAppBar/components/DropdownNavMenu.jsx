@@ -14,12 +14,11 @@ export default function DropdownNavMenu({ options }) {
   const handleCloseNavMenu = () => setAnchorElNav(null);
 
   return (
-    <Box justifyContent="flex-end" sx={{ flexGrow: 1, display: { xs: 'flex', sm: 'none' } }}>
-      <IconButton
-        size="large"
-        onClick={handleOpenNavMenu}
-        color="inherit"
-      >
+    <Box
+      justifyContent="flex-end"
+      sx={{ flexGrow: 1, display: { xs: 'flex', sm: 'none' } }}
+    >
+      <IconButton size="large" onClick={handleOpenNavMenu} color="inherit">
         <MenuIcon />
       </IconButton>
       <Menu

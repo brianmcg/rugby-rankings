@@ -10,20 +10,36 @@ import { matchReducer } from './reducers';
 import EntryInput from './components/EntryInput';
 import { useTranslation } from 'react-i18next';
 
-export default function MatchForm({ match, teams, endDate, addMatch, updateMatch }) {
+export default function MatchForm({
+  match,
+  teams,
+  endDate,
+  addMatch,
+  updateMatch,
+}) {
   const [state, dispatch] = useReducer(matchReducer, match);
-  const { homeTeam, awayTeam, homeScore, awayScore, isNeutralVenue, isWorldCup, isComplete } = state;
+  const {
+    homeTeam,
+    awayTeam,
+    homeScore,
+    awayScore,
+    isNeutralVenue,
+    isWorldCup,
+    isComplete,
+  } = state;
   const { t } = useTranslation();
 
-  const onHomeTeamChange = (e, homeTeam) => dispatch({
-    type: ACTIONS.CHANGE_HOME_TEAM,
-    payload: { homeTeam },
-  });
+  const onHomeTeamChange = (e, homeTeam) =>
+    dispatch({
+      type: ACTIONS.CHANGE_HOME_TEAM,
+      payload: { homeTeam },
+    });
 
-  const onAwayTeamChange = (e, awayTeam) => dispatch({
-    type: ACTIONS.CHANGE_AWAY_TEAM,
-    payload: { awayTeam },
-  });
+  const onAwayTeamChange = (e, awayTeam) =>
+    dispatch({
+      type: ACTIONS.CHANGE_AWAY_TEAM,
+      payload: { awayTeam },
+    });
 
   const onHomeScoreChange = e => {
     const value = e.target.value;
@@ -39,24 +55,34 @@ export default function MatchForm({ match, teams, endDate, addMatch, updateMatch
     dispatch({ type: ACTIONS.CHANGE_AWAY_SCORE, payload: { awayScore } });
   };
 
-  const onNeutralVenueChange = (e, isNeutralVenue) => dispatch({
-    type: ACTIONS.CHANGE_IS_NEUTRAL_VENUE,
-    payload: { isNeutralVenue },
-  });
+  const onNeutralVenueChange = (e, isNeutralVenue) =>
+    dispatch({
+      type: ACTIONS.CHANGE_IS_NEUTRAL_VENUE,
+      payload: { isNeutralVenue },
+    });
 
-  const onWorldCupChange = (e, isWorldCup) => dispatch({
-    type: ACTIONS.CHANGE_IS_WORLD_CUP,
-    payload: { isWorldCup },
-  });
+  const onWorldCupChange = (e, isWorldCup) =>
+    dispatch({
+      type: ACTIONS.CHANGE_IS_WORLD_CUP,
+      payload: { isWorldCup },
+    });
 
   const onClickConfirm = match => {
     if (match.matchId) {
       updateMatch({ ...match, isCreated: true });
     } else {
       const competition = t('app.main.matches.created');
-      const country = isNeutralVenue ? t('app.main.matches.neutral') : homeTeam?.name;
+      const country = isNeutralVenue
+        ? t('app.main.matches.neutral')
+        : homeTeam?.name;
       const time = { millis: endDate };
-      addMatch({ ...match, time, competition, venue: { country }, isCreated: true });
+      addMatch({
+        ...match,
+        time,
+        competition,
+        venue: { country },
+        isCreated: true,
+      });
     }
   };
 
@@ -70,7 +96,11 @@ export default function MatchForm({ match, teams, endDate, addMatch, updateMatch
         onTeamChange={onHomeTeamChange}
         onScoreChange={onHomeScoreChange}
         label={
-          <Translate text={isNeutralVenue ? 'app.main.modal.team' : 'app.main.modal.home'} />
+          <Translate
+            text={
+              isNeutralVenue ? 'app.main.modal.team' : 'app.main.modal.home'
+            }
+          />
         }
       />
 
@@ -82,12 +112,16 @@ export default function MatchForm({ match, teams, endDate, addMatch, updateMatch
         onTeamChange={onAwayTeamChange}
         onScoreChange={onAwayScoreChange}
         label={
-          <Translate text={isNeutralVenue ? 'app.main.modal.team' : 'app.main.modal.away'} />
+          <Translate
+            text={
+              isNeutralVenue ? 'app.main.modal.team' : 'app.main.modal.away'
+            }
+          />
         }
       />
 
       <Stack
-        direction={{ xs: 'column', sm: 'row'}}
+        direction={{ xs: 'column', sm: 'row' }}
         alignItems="flex-end"
         justifyContent="space-between"
         spacing={2}

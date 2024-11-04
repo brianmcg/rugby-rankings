@@ -12,7 +12,6 @@ export default function EntryInput({
   onTeamChange,
   onScoreChange,
   label,
-
 }) {
   return (
     <Grid container alignItems="flex-start" justifyContent="space-between">
