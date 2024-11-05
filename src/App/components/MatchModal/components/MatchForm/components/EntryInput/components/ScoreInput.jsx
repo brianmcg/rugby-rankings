@@ -10,10 +10,9 @@ const NumericFormatCustom = forwardRef(function NumericFormatCustom(
 ) {
   const onValueChange = ({ value }) => {
     if (onChange) {
-      const event = {
+      onChange({
         target: { value },
-      };
-      onChange(event);
+      });
     }
   };
 
