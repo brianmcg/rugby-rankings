@@ -3,7 +3,7 @@ import { MatchStatusEnum, CountryEnum } from '@constants/enums';
 
 // The Irish team represents both Ireland and Northern Ireland, so if the venue country
 // is Northern Ireland we still want it to count as home advantage.
-const getVenueCountryEnum = venue =>
+const getVenueCountry = venue =>
   venue?.country === CountryEnum.NORTHERN_IRELAND
     ? CountryEnum.IRELAND
     : (venue?.country ?? '');
@@ -23,11 +23,11 @@ const parseMatch = ({
   time,
   competition,
 }) => {
-  const venueCountryEnum = getVenueCountryEnum(venue);
+  const venueCountry = getVenueCountry(venue);
   const indexOfVenueTeam = respectHomeAdvantage(teams)
     ? 0
     : venue
-      ? teams.map(t => t.country).indexOf(venueCountryEnum)
+      ? teams.map(t => t.country).indexOf(venueCountry)
       : 0;
 
   const isNeutralVenue = indexOfVenueTeam < 0;

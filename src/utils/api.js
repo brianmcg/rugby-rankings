@@ -95,7 +95,7 @@ export const fetchData = async (sport, date) => {
   // Create a list of teams from the fetched rankings,
   // with the the teams participating in matches injected,
   // since they have the country attribute missing from the teams fetched from the rankings.
-  const teams = rankings.map(({ team }) => matchTeamsById[team.id] ?? team, []);
+  const teams = rankings.map(({ team }) => matchTeamsById[team.id] ?? team);
 
   return {
     sport,
