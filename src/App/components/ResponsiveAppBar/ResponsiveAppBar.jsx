@@ -15,14 +15,14 @@ import DropdownNavMenu from './components/DropdownNavMenu';
 export default function ResponsiveAppBar({
   startDate,
   disabled,
-  onSelectMatch,
+  onCreateMatch,
   onResetMatches,
   onClearMatches,
 }) {
   const options = [
     { label: 'app.main.reset', icon: <RefreshIcon />, onClick: onResetMatches },
     { label: 'app.main.clear', icon: <DeleteIcon />, onClick: onClearMatches },
-    { label: 'app.main.add', icon: <AddIcon />, onClick: onSelectMatch },
+    { label: 'app.main.add', icon: <AddIcon />, onClick: onCreateMatch },
   ];
 
   const matchesSmallBreakpoint = useMediaQuery('(min-width:600px)');

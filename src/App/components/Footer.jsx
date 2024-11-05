@@ -27,19 +27,6 @@ const options = [
   },
 ];
 
-function renderOption({ icon, label, href }) {
-  return (
-    <Stack key={href} direction="row" alignItems="center" gap={1}>
-      {icon}
-      <Link href={href} target="_blank" color="inherit">
-        <Typography variant="caption">
-          <Translate text={label} />
-        </Typography>
-      </Link>
-    </Stack>
-  );
-}
-
 export default function Footer() {
   const { palette } = useTheme();
   const { primary, secondary, success } = palette;
@@ -62,7 +49,16 @@ export default function Footer() {
               alignItems="flex-start"
               gap={4}
             >
-              {options.map(option => renderOption(option))}
+              {options.map(({ icon, label, href }) => (
+                <Stack key={href} direction="row" alignItems="center" gap={1}>
+                  {icon}
+                  <Link href={href} target="_blank" color="inherit">
+                    <Typography variant="caption">
+                      <Translate text={label} />
+                    </Typography>
+                  </Link>
+                </Stack>
+              ))}
             </Stack>
           </Box>
         </Container>

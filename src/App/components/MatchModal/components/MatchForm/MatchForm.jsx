@@ -1,23 +1,23 @@
 import { useReducer } from 'react';
+import { useTranslation } from 'react-i18next';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
 import Translate from '@components/Translate';
 import LabelSwitch from '@components/LabelSwitch';
-import { isNumeric } from '@utils/number';
+import { NEW_MATCH, TODAY } from '@constants/defaults';
 import { ACTIONS } from './actions';
 import { matchReducer } from './reducers';
 import EntryInput from './components/EntryInput';
-import { useTranslation } from 'react-i18next';
 
 export default function MatchForm({
   match,
+  endDate = TODAY,
   teams,
-  endDate,
   addMatch,
   updateMatch,
 }) {
-  const [state, dispatch] = useReducer(matchReducer, match);
+  const [state, dispatch] = useReducer(matchReducer, match ?? NEW_MATCH);
   const {
     homeTeam,
     awayTeam,
@@ -29,42 +29,40 @@ export default function MatchForm({
   } = state;
   const { t } = useTranslation();
 
-  const onHomeTeamChange = (e, homeTeam) =>
+  const onHomeTeamChange = (_e, team) =>
     dispatch({
       type: ACTIONS.CHANGE_HOME_TEAM,
-      payload: { homeTeam },
+      payload: { team },
     });
 
-  const onAwayTeamChange = (e, awayTeam) =>
+  const onAwayTeamChange = (_e, team) =>
     dispatch({
       type: ACTIONS.CHANGE_AWAY_TEAM,
-      payload: { awayTeam },
+      payload: { team },
     });
 
-  const onHomeScoreChange = e => {
-    const value = e.target.value;
-    const homeScore = isNumeric(value) ? parseInt(value, 10) : null;
+  const onHomeScoreChange = e =>
+    dispatch({
+      type: ACTIONS.CHANGE_HOME_SCORE,
+      payload: { score: parseInt(e.target.value, 10) },
+    });
 
-    dispatch({ type: ACTIONS.CHANGE_HOME_SCORE, payload: { homeScore } });
-  };
+  const onAwayScoreChange = e =>
+    dispatch({
+      type: ACTIONS.CHANGE_AWAY_SCORE,
+      payload: { score: parseInt(e.target.value, 10) },
+    });
 
-  const onAwayScoreChange = e => {
-    const value = e.target.value;
-    const awayScore = isNumeric(value) ? parseInt(value, 10) : null;
-
-    dispatch({ type: ACTIONS.CHANGE_AWAY_SCORE, payload: { awayScore } });
-  };
-
-  const onNeutralVenueChange = (e, isNeutralVenue) =>
+  const onNeutralVenueChange = (_e, isSelected) =>
     dispatch({
       type: ACTIONS.CHANGE_IS_NEUTRAL_VENUE,
-      payload: { isNeutralVenue },
+      payload: { isSelected },
     });
 
-  const onWorldCupChange = (e, isWorldCup) =>
+  const onWorldCupChange = (_e, isSelected) =>
     dispatch({
       type: ACTIONS.CHANGE_IS_WORLD_CUP,
-      payload: { isWorldCup },
+      payload: { isSelected },
     });
 
   const onClickConfirm = match => {
@@ -72,15 +70,20 @@ export default function MatchForm({
       updateMatch({ ...match, isCreated: true });
     } else {
       const competition = t('app.main.matches.created');
+
       const country = isNeutralVenue
         ? t('app.main.matches.neutral')
         : homeTeam?.name;
-      const time = { millis: endDate };
+
+      const venue = country ? { country } : null;
+
+      const time = { millis: endDate.getTime() };
+
       addMatch({
         ...match,
         time,
         competition,
-        venue: { country },
+        venue,
         isCreated: true,
       });
     }

@@ -10,142 +10,186 @@ const newMatch = {
   homeTeam: null,
   isComplete: false,
   isNeutralVenue: false,
+  competition: null,
   isWorldCup: false,
   matchId: null,
   time: null,
   venue: null,
 };
 
-function onFetchStart(state) {
-  return { ...state, isLoading: true, isError: false };
-}
+const onFetchStart = state => ({
+  ...state,
+  isLoading: true,
+  isError: false,
+});
 
-function onFetchSuccess(state, payload) {
+const onFetchSuccess = (state, payload) => {
   const { data } = payload;
   const { rankings, matches, sport } = data;
 
   return {
     ...state,
     data: { ...data, rankings: calculateRankingChange(rankings, matches) },
-    initialData: { ...state.initialData, [sport]: data },
+    fetchedData: { ...state.fetchedData, [sport]: data },
     isLoading: false,
   };
-}
+};
 
-function onCacheFetchSuccess(state, payload) {
-  return { ...state, data: payload.data, isLoading: false };
-}
+const onCacheFetchSuccess = (state, payload) => ({
+  ...state,
+  data: payload.data,
+  isLoading: false,
+});
 
-function onFetchError(state) {
-  return { ...state, isError: true, isLoading: false };
-}
+const onFetchError = state => ({
+  ...state,
+  isError: true,
+  isLoading: false,
+});
 
-function onChangeSport(state, payload) {
-  return { ...state, sport: payload.sport };
-}
+const onChangeSport = (state, payload) => ({
+  ...state,
+  sport: payload.sport,
+});
 
-function onSelectMatch(state, payload) {
-  if (payload.match === null) {
-    return { ...state, selectedMatch: null };
-  }
+const onSelectMatch = (state, payload) => ({
+  ...state,
+  selectedMatch: payload.match,
+});
 
-  return { ...state, selectedMatch: payload.match ? payload.match : newMatch };
-}
+const onCreateMatch = state => ({
+  ...state,
+  selectedMatch: newMatch,
+});
 
-function onAddMatch(state, payload) {
-  const matches = [
-    ...state.data.matches,
-    { ...payload.match, matchId: `new-${matchIdCounter++}` },
-  ];
+const onUnselectMatch = state => ({
+  ...state,
+  selectedMatch: null,
+});
 
-  const rankings = calculateRankingChange(
-    state.initialData[state.sport].rankings,
-    matches,
-  );
+const onAddMatch = (state, payload) => {
+  const { data, fetchedData, sport } = state;
 
-  return {
-    ...state,
-    data: { ...state.data, rankings, matches },
-    selectedMatch: null,
-  };
-}
+  if (data && fetchedData && sport) {
+    const matches = [
+      ...data.matches,
+      { ...payload.match, matchId: `new-${matchIdCounter++}` },
+    ];
 
-function onUpdateMatch(state, payload) {
-  const matches = state.data.matches.map(match => {
-    if (match.matchId === payload.match.matchId) {
-      return { ...payload.match };
+    const { rankings: initialRankings } = fetchedData[sport] ?? {};
+
+    if (initialRankings) {
+      const rankings = calculateRankingChange(initialRankings, matches);
+
+      return {
+        ...state,
+        data: { ...data, rankings, matches },
+        selectedMatch: null,
+      };
     }
 
-    return match;
-  });
+    return state;
+  }
 
-  const rankings = calculateRankingChange(
-    state.initialData[state.sport].rankings,
-    matches,
-  );
+  return state;
+};
 
-  return {
-    ...state,
-    data: { ...state.data, rankings, matches },
-    selectedMatch: null,
-  };
-}
+const onUpdateMatch = (state, payload) => {
+  const { data, fetchedData, sport } = state;
 
-function onRemoveMatch(state, payload) {
-  const matches = state.data.matches.filter(
-    match => match.matchId !== payload.matchId,
-  );
-  const rankings = calculateRankingChange(
-    state.initialData[state.sport].rankings,
-    matches,
-  );
+  if (data && fetchedData && sport) {
+    const matches = data.matches.map(match => {
+      if (match.matchId === payload.match?.matchId) {
+        return { ...payload.match };
+      }
 
-  return { ...state, data: { ...state.data, rankings, matches } };
-}
+      return match;
+    });
 
-function onupdateMatches(state, payload) {
+    const { rankings: initialRankings } = fetchedData[sport] ?? {};
+
+    if (initialRankings) {
+      const rankings = calculateRankingChange(initialRankings, matches);
+
+      return {
+        ...state,
+        data: { ...data, rankings, matches },
+        selectedMatch: null,
+      };
+    }
+
+    return state;
+  }
+
+  return state;
+};
+
+const onRemoveMatch = (state, payload) => {
+  const { data, fetchedData, sport } = state;
+
+  if (data && fetchedData && sport) {
+    const matches = data.matches.filter(
+      match => match.matchId !== payload.matchId,
+    );
+
+    const { rankings: initialRankings } = fetchedData[sport] ?? {};
+
+    if (initialRankings) {
+      const rankings = calculateRankingChange(initialRankings, matches);
+
+      return { ...state, data: { ...data, rankings, matches } };
+    }
+
+    return state;
+  }
+
+  return state;
+};
+
+const onUpdateMatches = (state, payload) => {
+  const { data, fetchedData, sport } = state;
   const { matches } = payload;
-  const rankings = calculateRankingChange(
-    state.initialData[state.sport].rankings,
-    matches,
-  );
-  return { ...state, data: { ...state.data, rankings, matches } };
-}
 
-export function rankingsReducer(state, { type, payload }) {
-  switch (type) {
-    case ACTIONS.FETCH_START: {
-      return onFetchStart(state, payload);
+  if (data && fetchedData && sport) {
+    const { rankings: initialRankings } = fetchedData[sport] ?? {};
+
+    if (initialRankings) {
+      const rankings = calculateRankingChange(initialRankings, matches);
+      return { ...state, data: { ...data, rankings, matches } };
     }
-    case ACTIONS.FETCH_SUCCESS: {
-      return onFetchSuccess(state, payload);
-    }
-    case ACTIONS.CACHE_FETCH_SUCCESS: {
-      return onCacheFetchSuccess(state, payload);
-    }
-    case ACTIONS.FETCH_ERROR: {
-      return onFetchError(state, payload);
-    }
-    case ACTIONS.ADD_MATCH: {
-      return onAddMatch(state, payload);
-    }
-    case ACTIONS.REMOVE_MATCH: {
-      return onRemoveMatch(state, payload);
-    }
-    case ACTIONS.UPDATE_MATCH: {
-      return onUpdateMatch(state, payload);
-    }
-    case ACTIONS.SELECT_MATCH: {
-      return onSelectMatch(state, payload);
-    }
-    case ACTIONS.UPDATE_MATCHES: {
-      return onupdateMatches(state, payload);
-    }
-    case ACTIONS.CHANGE_SPORT: {
-      return onChangeSport(state, payload);
-    }
-    default: {
-      return state;
-    }
+    return state;
   }
-}
+
+  return state;
+};
+
+export const rankingsReducer = (state, { type, payload }) => {
+  switch (type) {
+    case ACTIONS.FETCH_START:
+      return onFetchStart(state);
+    case ACTIONS.FETCH_SUCCESS:
+      return onFetchSuccess(state, payload);
+    case ACTIONS.CACHE_FETCH_SUCCESS:
+      return onCacheFetchSuccess(state, payload);
+    case ACTIONS.FETCH_ERROR:
+      return onFetchError(state);
+    case ACTIONS.ADD_MATCH:
+      return onAddMatch(state, payload);
+    case ACTIONS.REMOVE_MATCH:
+      return onRemoveMatch(state, payload);
+    case ACTIONS.UPDATE_MATCH:
+      return onUpdateMatch(state, payload);
+    case ACTIONS.SELECT_MATCH:
+      return onSelectMatch(state, payload);
+    case ACTIONS.CREATE_MATCH:
+      return onCreateMatch(state);
+    case ACTIONS.UNSELECT_MATCH:
+      return onUnselectMatch(state);
+    case ACTIONS.UPDATE_MATCHES:
+      return onUpdateMatches(state, payload);
+    case ACTIONS.CHANGE_SPORT:
+      return onChangeSport(state, payload);
+    default:
+      return state;
+  }
+};

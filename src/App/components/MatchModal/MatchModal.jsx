@@ -19,26 +19,23 @@ const style = {
   p: 2,
 };
 
-export default function TransitionsModal({
+export default function MatchModal({
   match,
   teams,
   endDate,
-  selectMatch,
+  unselectMatch,
   addMatch,
   updateMatch,
 }) {
-  const isOpen = Boolean(match);
-  const onClose = () => selectMatch(null);
-
   return (
     <Modal
-      open={isOpen}
-      onClose={onClose}
+      open={Boolean(match)}
+      onClose={unselectMatch}
       closeAfterTransition
       slots={{ backdrop: Backdrop }}
       slotProps={{ backdrop: { timeout: 500 } }}
     >
-      <Fade in={isOpen}>
+      <Fade in={Boolean(match)}>
         <Box sx={style}>
           <Stack
             direction="row"
@@ -54,13 +51,12 @@ export default function TransitionsModal({
             <IconButton
               color="primary"
               sx={{ p: 0, '&:hover': { color: 'error.main' } }}
-              onClick={onClose}
+              onClick={unselectMatch}
               size="small"
             >
               <CancelIcon />
             </IconButton>
           </Stack>
-
           <MatchForm
             match={match}
             teams={teams}

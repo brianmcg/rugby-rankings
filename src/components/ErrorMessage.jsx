@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import Translate from '@components/Translate';
 
-function ErrorMessage({ message }) {
+export default function ErrorMessage({ message }) {
   return (
     <Stack
       direction="row"
@@ -19,5 +19,3 @@ function ErrorMessage({ message }) {
     </Stack>
   );
 }
-
-export default ErrorMessage;

@@ -1,36 +1,54 @@
 import { useReducer, useEffect } from 'react';
+import { fetchData } from '@utils/api';
+import { SportEnum } from '@constants/enums';
 import { rankingsReducer } from './reducers';
 import { ACTIONS } from './actions';
 
-export function useAsync(asyncCallback, initialState, cache) {
+const cache = new Map();
+
+const initialState = {
+  data: null,
+  fetchedData: {
+    [SportEnum.MENS]: null,
+    [SportEnum.WOMENS]: null,
+  },
+  isError: false,
+  isLoading: true,
+  selectedMatch: null,
+  sport: SportEnum.MENS,
+};
+
+export const useFetchData = () => {
   const [state, dispatch] = useReducer(rankingsReducer, initialState);
-  const cacheKey = state[cache.dataKey];
+  const { sport, data } = state;
 
   useEffect(() => {
-    const data = cache?.get(cacheKey);
+    const cachedData = cache.get(sport);
 
-    if (data) {
-      dispatch({ type: ACTIONS.CACHE_FETCH_SUCCESS, payload: { data } });
+    if (cachedData) {
+      dispatch({
+        type: ACTIONS.CACHE_FETCH_SUCCESS,
+        payload: { data: cachedData },
+      });
+
       return;
     }
 
     dispatch({ type: ACTIONS.FETCH_START });
 
-    asyncCallback(cacheKey).then(
+    fetchData(sport).then(
       data => dispatch({ type: ACTIONS.FETCH_SUCCESS, payload: { data } }),
-      error => dispatch({ type: ACTIONS.FETCH_ERROR, payload: { error } }),
+      () => dispatch({ type: ACTIONS.FETCH_ERROR }),
     );
-  }, [cacheKey, asyncCallback, cache]);
+  }, [sport]);
 
-  return [state, dispatch];
-}
-
-export function useUpdateCache(cache, data) {
   useEffect(() => {
-    const cacheKey = data?.[cache.dataKey];
+    const cacheKey = data?.sport;
 
     if (cacheKey) {
       cache.set(cacheKey, data);
     }
-  }, [data, cache]);
-}
+  }, [data]);
+
+  return [state, dispatch];
+};

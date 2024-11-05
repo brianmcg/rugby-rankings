@@ -2,39 +2,44 @@ import { I18nextProvider } from 'react-i18next';
 import { CssBaseline } from '@mui/material/';
 import { ThemeProvider } from '@mui/material/styles';
 import Stack from '@mui/material/Stack';
-import { fetchData } from '@utils/api';
 import i18n from '@utils/i18n';
 import theme from '@utils/theme';
-import { SPORTS } from '@constants/data';
 import { ACTIONS } from './actions';
-import { useAsync, useUpdateCache } from './hooks';
+import { useFetchData } from './hooks';
 import Header from './components/Header';
 import ResponsiveAppBar from './components/ResponsiveAppBar';
 import Main from './components/Main';
 import Footer from './components/Footer';
 import MatchModal from './components/MatchModal';
-import Cache from './Cache';
-
-const cache = new Cache({ dataKey: SPORTS.KEY });
-
-const initialState = {
-  data: null,
-  initialData: null,
-  isError: null,
-  isLoading: true,
-  selectedMatch: null,
-  sport: SPORTS.VALUES.MENS,
-};
 
 export default function App() {
-  const [state, dispatch] = useAsync(fetchData, initialState, cache);
-  const { data, initialData, selectedMatch, sport, isLoading, isError } = state;
-  const { label, startDate, endDate, teams, rankings, matches } = data ?? {};
+  const [state, dispatch] = useFetchData();
 
-  const changeSport = sport =>
+  const { data, fetchedData, selectedMatch, sport, isLoading, isError } = state;
+
+  const {
+    label,
+    startDate,
+    endDate,
+    teams = [],
+    rankings = [],
+    matches = [],
+  } = data ?? {};
+
+  const changeSport = newSport =>
     dispatch({
       type: ACTIONS.CHANGE_SPORT,
-      payload: { sport },
+      payload: { sport: newSport },
+    });
+
+  const createMatch = () =>
+    dispatch({
+      type: ACTIONS.CREATE_MATCH,
+    });
+
+  const unselectMatch = () =>
+    dispatch({
+      type: ACTIONS.UNSELECT_MATCH,
     });
 
   const selectMatch = match =>
@@ -67,8 +72,6 @@ export default function App() {
       payload: { matches },
     });
 
-  useUpdateCache(cache, data);
-
   return (
     <I18nextProvider i18n={i18n}>
       <ThemeProvider theme={theme}>
@@ -78,8 +81,10 @@ export default function App() {
           <ResponsiveAppBar
             startDate={startDate}
             disabled={isLoading || isError}
-            onSelectMatch={() => selectMatch()}
-            onResetMatches={() => updateMatches(initialData[sport]?.matches)}
+            onCreateMatch={createMatch}
+            onResetMatches={() =>
+              updateMatches(fetchedData[sport]?.matches ?? [])
+            }
             onClearMatches={() => updateMatches([])}
           />
           <Main
@@ -101,7 +106,7 @@ export default function App() {
           match={selectedMatch}
           teams={teams}
           endDate={endDate}
-          selectMatch={selectMatch}
+          unselectMatch={unselectMatch}
           addMatch={addMatch}
           updateMatch={updateMatch}
         />

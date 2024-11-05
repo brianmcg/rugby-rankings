@@ -2,24 +2,24 @@ import axios from 'axios';
 import { formatApiDate, addDays, getPreviousMonday } from '@utils/date';
 import { parseMatches } from '@utils/parsers';
 import { RANKINGS, FIXTURES, TEAMS } from '@constants/urls';
+import { TODAY } from '@constants/defaults';
 
 const DELAY_API_REQUESTS = false;
 
-const TODAY = new Date();
-
 const sleep = millis => new Promise(resolve => setTimeout(resolve, millis));
 
-async function axiosGet(url, params = {}) {
+const axiosGet = async (url, params = {}) => {
   try {
     if (DELAY_API_REQUESTS) await sleep(1000);
-    const { data } = await axios.get(url, { params });
-    return data;
+    const response = await axios.get(url, { params });
+    return response.data;
   } catch (error) {
-    return Promise.reject(error);
+    const message = error instanceof Error ? error.message : 'error';
+    return Promise.reject(new Error(message));
   }
-}
+};
 
-export async function fetchCountries(teamIds) {
+export const fetchCountries = async teamIds => {
   const requests = teamIds.map(id => axiosGet(`${TEAMS}/${id}`));
   const teams = await axios.all(requests);
 
@@ -27,15 +27,14 @@ export async function fetchCountries(teamIds) {
     (memo, team) => ({ ...memo, [team.id]: team.country }),
     {},
   );
-}
+};
 
-export function fetchRankings(sport, date) {
-  return axiosGet(`${RANKINGS}/${sport}`, {
+export const fetchRankings = async (sport, date) =>
+  axiosGet(`${RANKINGS}/${sport}`, {
     date: formatApiDate(date),
   });
-}
 
-async function fetchMatches(sport, startDate, endDate, rankings) {
+const fetchMatches = async (sport, startDate, endDate, rankings) => {
   const rankedTeamIds = rankings.map(entry => entry.team.id);
 
   const response = await axiosGet(FIXTURES, {
@@ -75,43 +74,36 @@ async function fetchMatches(sport, startDate, endDate, rankings) {
       };
     }),
   );
-}
+};
 
-export async function fetchData(sport, date = TODAY) {
-  try {
-    const startDate = getPreviousMonday(date);
+export const fetchData = async (sport, date) => {
+  const startDate = getPreviousMonday(date ?? TODAY);
+  const { entries: rankings, label } = await fetchRankings(sport, startDate);
+  const endDate = addDays(startDate, 6);
+  const matches = await fetchMatches(sport, startDate, endDate, rankings);
 
-    const { entries: rankings, label } = await fetchRankings(sport, startDate);
+  // Make a map of teams participating in matches grouped by team id to be used below.
+  const matchTeamsById = matches.reduce(
+    (matchMemo, match) =>
+      match.teams.reduce(
+        (teamMemo, team) => ({ ...teamMemo, [team.id]: team }),
+        matchMemo,
+      ),
+    {},
+  );
 
-    const endDate = addDays(startDate, 6);
+  // Create a list of teams from the fetched rankings,
+  // with the the teams participating in matches injected,
+  // since they have the country attribute missing from the teams fetched from the rankings.
+  const teams = rankings.map(({ team }) => matchTeamsById[team.id] ?? team, []);
 
-    const matches = await fetchMatches(sport, startDate, endDate, rankings);
-
-    // Make a map of teams participating in matches grouped by team id to be used below.
-    const matchTeamsById = matches.reduce(
-      (matchMemo, match) =>
-        match.teams.reduce(
-          (teamMemo, team) => ({ ...teamMemo, [team.id]: team }),
-          matchMemo,
-        ),
-      {},
-    );
-
-    // Create a list of teams from the fetched rankings,
-    // with the the teams participating in matches injected,
-    // since they have the country attribute missing from the teams fetched from the rankings.
-    const teams = rankings.map(({ team }) => matchTeamsById[team.id] ?? team);
-
-    return {
-      sport,
-      label,
-      teams,
-      rankings,
-      matches: parseMatches(matches),
-      startDate,
-      endDate,
-    };
-  } catch (error) {
-    return Promise.reject(error);
-  }
-}
+  return {
+    sport,
+    label,
+    teams,
+    rankings,
+    matches: parseMatches(matches),
+    startDate,
+    endDate,
+  };
+};

@@ -1,30 +1,31 @@
 import { forwardRef } from 'react';
 import { NumericFormat } from 'react-number-format';
-import TextField from '@mui/material/TextField';
+import { TextField } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
 import { validateScore } from '@utils/validate';
 
-const NumericFormatCustom = forwardRef(
-  function NumericFormatCustom(props, ref) {
-    const { onChange, ...other } = props;
+const NumericFormatCustom = forwardRef(function NumericFormatCustom(
+  { onChange, ...other },
+  ref,
+) {
+  const onValueChange = ({ value }) => {
+    if (onChange) {
+      const event = {
+        target: { value },
+      };
+      onChange(event);
+    }
+  };
 
-    return (
-      <NumericFormat
-        {...other}
-        getInputRef={ref}
-        onValueChange={values => {
-          onChange({
-            target: {
-              name: props.name,
-              value: values.value,
-            },
-          });
-        }}
-        valueIsNumericString
-      />
-    );
-  },
-);
+  return (
+    <NumericFormat
+      {...other}
+      getInputRef={ref}
+      onValueChange={onValueChange}
+      valueIsNumericString
+    />
+  );
+});
 
 export default function ScoreInput({ onChange, value, label }) {
   return (

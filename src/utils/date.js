@@ -11,29 +11,32 @@ export const formatRange = (startDate, endDate) =>
 
 export const formatApiDate = date => dayjs(date).format('YYYY-MM-DD');
 
-export const addDays = (date, amount) => dayjs(date).add(amount, 'day');
+export const addDays = (date, amount) =>
+  dayjs(date).add(amount, 'day').toDate();
 
 export const subtractDays = (date, amount) =>
-  dayjs(date).subtract(amount, 'day');
+  dayjs(date).subtract(amount, 'day').toDate();
 
-export const addWeeks = (date, amount) => dayjs(date).add(amount, 'week');
+export const addWeeks = (date, amount) =>
+  dayjs(date).add(amount, 'week').toDate();
 
 export const subtractWeeks = (date, amount) =>
-  dayjs(date).subtract(amount, 'week');
+  dayjs(date).subtract(amount, 'week').toDate();
 
-export const addMonths = (date, amount) => dayjs(date).add(amount, 'month');
+export const addMonths = (date, amount) =>
+  dayjs(date).add(amount, 'month').toDate();
 
 export const subtractMonths = (date, amount) =>
-  dayjs(date).subtract(amount, 'month');
+  dayjs(date).subtract(amount, 'month').toDate();
 
 export const getPreviousMonday = date => {
   const dayOfWeek = date.getDay();
 
   if (dayOfWeek === 0) {
-    return subtractDays(date, 6).toDate();
+    return subtractDays(date, 6);
   } else if (dayOfWeek === 1) {
     return date;
   } else {
-    return subtractDays(date, dayOfWeek - 1).toDate();
+    return subtractDays(date, dayOfWeek - 1);
   }
 };

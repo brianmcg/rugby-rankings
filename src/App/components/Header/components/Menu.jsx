@@ -9,26 +9,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Translate from '@components/Translate';
 import { formatDay } from '@utils/date';
 
-function renderButton({ icon, action, disabled, label }) {
-  return (
-    <Button
-      key={label}
-      disabled={disabled}
-      sx={{
-        p: 0,
-        opacity: 0.6,
-        '&:hover': { opacity: 1 },
-        '&:disabled': { opacity: 0 },
-      }}
-      color="inherit"
-      startIcon={icon}
-      onClick={action}
-    >
-      <Translate text={label} />
-    </Button>
-  );
-}
-
 export default function Menu({
   startDate,
   disabled,
@@ -80,7 +60,23 @@ export default function Menu({
             alignItems="center"
             justifyContent="flex-end"
           >
-            {options.map(option => renderButton({ ...option, disabled }))}
+            {options.map(({ icon, action, label }) => (
+              <Button
+                key={label}
+                disabled={disabled}
+                sx={{
+                  p: 0,
+                  opacity: 0.6,
+                  '&:hover': { opacity: 1 },
+                  '&:disabled': { opacity: 0 },
+                }}
+                color="inherit"
+                startIcon={icon}
+                onClick={action}
+              >
+                <Translate text={label} />
+              </Button>
+            ))}
           </Stack>
         </Stack>
       </Container>

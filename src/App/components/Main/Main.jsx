@@ -9,7 +9,6 @@ export default function Main({
   matches,
   rankings,
   label,
-  teams,
   sport,
   startDate,
   endDate,
@@ -28,7 +27,6 @@ export default function Main({
         <Grid item xs={12} md={6}>
           <Matches
             matches={matches}
-            teams={teams}
             sport={sport}
             startDate={startDate}
             endDate={endDate}

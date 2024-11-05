@@ -11,14 +11,12 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Typography from '@mui/material/Typography';
 import Translate from '@components/Translate';
-import { SPORTS } from '@constants/data';
-import RankCell from './components/RankCell';
-import PointsCell from './components/PointsCell';
 import Button from '@mui/material/Button';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import { SportEnum } from '@constants/enums';
+import Row from './components/Row';
 
 import mruImageSrc from '@assets/images/mru/rankings.png';
 import wruImageSrc from '@assets/images/wru/rankings.png';
@@ -26,31 +24,13 @@ import wruImageSrc from '@assets/images/wru/rankings.png';
 const INITIAL_ROWS = 16;
 
 const IMAGES = {
-  [SPORTS.VALUES.MENS]: mruImageSrc,
-  [SPORTS.VALUES.WOMENS]: wruImageSrc,
+  [SportEnum.MENS]: mruImageSrc,
+  [SportEnum.WOMENS]: wruImageSrc,
 };
-
-function renderTableRows(rankings, fullTable) {
-  const rows = fullTable ? rankings : rankings.slice(0, INITIAL_ROWS);
-
-  return rows.map(({ pos, previousPos, pts, previousPts, team }) => (
-    <TableRow
-      key={team.id}
-      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-    >
-      <RankCell pos={pos} previousPos={previousPos} />
-      <TableCell sx={{ color: 'secondary.main' }}>
-        <Typography variant="body2" sx={{ fontSize: 16 }}>
-          {team.name}
-        </Typography>
-      </TableCell>
-      <PointsCell pts={pts} previousPts={previousPts} />
-    </TableRow>
-  ));
-}
 
 export default function Rankings({ rankings, label, sport }) {
   const [fullTable, setFullTable] = useState(false);
+  const entries = fullTable ? rankings : rankings.slice(0, INITIAL_ROWS);
 
   return (
     <Card>
@@ -84,7 +64,11 @@ export default function Rankings({ rankings, label, sport }) {
                 </TableCell>
               </TableRow>
             </TableHead>
-            <TableBody>{renderTableRows(rankings, fullTable)}</TableBody>
+            <TableBody>
+              {entries.map(({ team, ...other }) => (
+                <Row key={team.id} team={team} {...other} />
+              ))}
+            </TableBody>
           </Table>
         </TableContainer>
         <Box display="flex" justifyContent="center" p={2} mt={2}>

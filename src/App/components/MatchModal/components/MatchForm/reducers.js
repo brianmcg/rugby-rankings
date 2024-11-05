@@ -1,22 +1,20 @@
 import { ACTIONS } from './actions';
 import { validateScore, validateTeam } from '@utils/validate';
 
-function isMatchComplete(match) {
-  const { homeTeam, awayTeam, homeScore, awayScore } = match;
-
+const isMatchComplete = ({ homeTeam, awayTeam, homeScore, awayScore }) => {
   return (
     validateTeam(homeTeam) &&
     validateTeam(awayTeam) &&
     validateScore(homeScore) &&
     validateScore(awayScore)
   );
-}
+};
 
-export function matchReducer(state, action) {
+export const matchReducer = (match, action) => {
   switch (action.type) {
     case ACTIONS.CHANGE_HOME_TEAM: {
-      const { homeTeam } = action.payload;
-      const { awayTeam, homeScore, awayScore } = state;
+      const { team: homeTeam } = action.payload;
+      const { awayTeam, homeScore, awayScore } = match;
       const isComplete = isMatchComplete({
         homeTeam,
         awayTeam,
@@ -24,11 +22,11 @@ export function matchReducer(state, action) {
         awayScore,
       });
 
-      return { ...state, homeTeam, isComplete };
+      return { ...match, homeTeam, isComplete };
     }
     case ACTIONS.CHANGE_AWAY_TEAM: {
-      const { awayTeam } = action.payload;
-      const { homeTeam, homeScore, awayScore } = state;
+      const { team: awayTeam } = action.payload;
+      const { homeTeam, homeScore, awayScore } = match;
       const isComplete = isMatchComplete({
         homeTeam,
         awayTeam,
@@ -36,11 +34,11 @@ export function matchReducer(state, action) {
         awayScore,
       });
 
-      return { ...state, awayTeam, isComplete };
+      return { ...match, awayTeam, isComplete };
     }
     case ACTIONS.CHANGE_HOME_SCORE: {
-      const { homeTeam, awayTeam, awayScore } = state;
-      const { homeScore } = action.payload;
+      const { homeTeam, awayTeam, awayScore } = match;
+      const { score: homeScore } = action.payload;
       const isComplete = isMatchComplete({
         homeTeam,
         awayTeam,
@@ -48,11 +46,11 @@ export function matchReducer(state, action) {
         awayScore,
       });
 
-      return { ...state, homeScore, isComplete };
+      return { ...match, homeScore, isComplete };
     }
     case ACTIONS.CHANGE_AWAY_SCORE: {
-      const { homeTeam, awayTeam, homeScore } = state;
-      const { awayScore } = action.payload;
+      const { homeTeam, awayTeam, homeScore } = match;
+      const { score: awayScore } = action.payload;
       const isComplete = isMatchComplete({
         homeTeam,
         awayTeam,
@@ -60,22 +58,22 @@ export function matchReducer(state, action) {
         awayScore,
       });
 
-      return { ...state, awayScore, isComplete };
+      return { ...match, awayScore, isComplete };
     }
     case ACTIONS.CHANGE_IS_NEUTRAL_VENUE: {
-      const { isNeutralVenue } = action.payload;
-      const isComplete = isMatchComplete(state);
+      const { isSelected: isNeutralVenue } = action.payload;
+      const isComplete = isMatchComplete(match);
 
-      return { ...state, isNeutralVenue, isComplete };
+      return { ...match, isNeutralVenue, isComplete };
     }
     case ACTIONS.CHANGE_IS_WORLD_CUP: {
-      const { isWorldCup } = action.payload;
-      const isComplete = isMatchComplete(state);
+      const { isSelected: isWorldCup } = action.payload;
+      const isComplete = isMatchComplete(match);
 
-      return { ...state, isWorldCup, isComplete };
+      return { ...match, isWorldCup, isComplete };
     }
     default: {
-      return state;
+      return match;
     }
   }
-}
+};

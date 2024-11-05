@@ -8,20 +8,19 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import { formatRange } from '@utils/date';
 import Translate from '@components/Translate';
-import { SPORTS } from '@constants/data';
+import { SportEnum } from '@constants/enums';
 import Match from './components/Match';
 
 import mruImageSrc from '@assets/images/mru/matches.png';
 import wruImageSrc from '@assets/images/wru/matches.png';
 
 const IMAGES = {
-  [SPORTS.VALUES.MENS]: mruImageSrc,
-  [SPORTS.VALUES.WOMENS]: wruImageSrc,
+  [SportEnum.MENS]: mruImageSrc,
+  [SportEnum.WOMENS]: wruImageSrc,
 };
 
 export default function Matches({
   matches,
-  teams,
   sport,
   startDate,
   endDate,
@@ -50,12 +49,10 @@ export default function Matches({
         {matches.length ? (
           <Box>
             <List sx={{ p: 0 }}>
-              {' '}
               {matches.map(match => (
                 <ListItem sx={{ p: 1 }} key={match.matchId}>
                   <Match
                     match={match}
-                    teams={teams}
                     selectMatch={selectMatch}
                     removeMatch={removeMatch}
                   />

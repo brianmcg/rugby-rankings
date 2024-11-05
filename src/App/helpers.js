@@ -1,4 +1,4 @@
-function calculatePointsChanges(rankings, match) {
+const calculatePointsChanges = (rankings, match) => {
   let ratingGap;
   let ratingChange;
 
@@ -11,8 +11,32 @@ function calculatePointsChanges(rankings, match) {
     isWorldCup,
   } = match;
 
+  if (homeTeam === null) {
+    throw new Error('Home team is null');
+  }
+
+  if (awayTeam === null) {
+    throw new Error('Away team is null');
+  }
+
   const homeEntry = rankings.find(entry => entry.team.id === homeTeam.id);
   const awayEntry = rankings.find(entry => entry.team.id === awayTeam.id);
+
+  if (homeEntry === undefined) {
+    throw new Error('Cannot find home team in rankings');
+  }
+
+  if (awayEntry === undefined) {
+    throw new Error('Cannot find away team in rankings');
+  }
+
+  if (homeScore === null) {
+    throw new Error('Home score is null');
+  }
+
+  if (awayScore === null) {
+    throw new Error('Away score is null');
+  }
 
   if (isNeutralVenue) {
     ratingGap = homeEntry.pts - awayEntry.pts;
@@ -47,6 +71,7 @@ function calculatePointsChanges(rankings, match) {
       ...homeEntry,
       pts: homeEntry.pts + ratingChange,
     };
+
     const updatedAwayEntry = {
       ...awayEntry,
       pts: awayEntry.pts - ratingChange,
@@ -79,9 +104,9 @@ function calculatePointsChanges(rankings, match) {
 
     return entry;
   });
-}
+};
 
-export function calculateRankingChange(rankings, matches = []) {
+export const calculateRankingChange = (rankings, matches = []) => {
   return matches
     .reduce((memo, match) => {
       if (match.isComplete) {
@@ -93,4 +118,4 @@ export function calculateRankingChange(rankings, matches = []) {
       return entryB.pts - entryA.pts;
     })
     .map((entry, i) => ({ ...entry, pos: i + 1 }));
-}
+};
