@@ -10,70 +10,63 @@ const isMatchComplete = ({ homeTeam, awayTeam, homeScore, awayScore }) => {
   );
 };
 
+const onChangeHomeTeam = (match, action) => {
+  const changedMatch = { ...match, homeTeam: action.payload.team };
+  const isComplete = isMatchComplete(changedMatch);
+
+  return { ...changedMatch, isComplete };
+};
+
+const onChangeAwayTeam = (match, action) => {
+  const changedMatch = { ...match, awayTeam: action.payload.team };
+  const isComplete = isMatchComplete(changedMatch);
+
+  return { ...changedMatch, isComplete };
+};
+
+const onChangeHomeScore = (match, action) => {
+  const changedMatch = { ...match, homeScore: action.payload.score };
+  const isComplete = isMatchComplete(changedMatch);
+
+  return { ...changedMatch, isComplete };
+};
+
+const onChangeAwayScore = (match, action) => {
+  const changedMatch = { ...match, awayScore: action.payload.score };
+  const isComplete = isMatchComplete(changedMatch);
+
+  return { ...changedMatch, isComplete };
+};
+
+const onChangeIsNetralVenue = (match, action) => {
+  const { isSelected: isNeutralVenue } = action.payload;
+  const isComplete = isMatchComplete(match);
+
+  return { ...match, isNeutralVenue, isComplete };
+};
+
+const onChangeIsWorldCup = (match, action) => {
+  const { isSelected: isWorldCup } = action.payload;
+  const isComplete = isMatchComplete(match);
+
+  return { ...match, isWorldCup, isComplete };
+};
+
 export const matchReducer = (match, action) => {
   switch (action.type) {
-    case ACTIONS.CHANGE_HOME_TEAM: {
-      const { team: homeTeam } = action.payload;
-      const { awayTeam, homeScore, awayScore } = match;
-      const isComplete = isMatchComplete({
-        homeTeam,
-        awayTeam,
-        homeScore,
-        awayScore,
-      });
-
-      return { ...match, homeTeam, isComplete };
-    }
-    case ACTIONS.CHANGE_AWAY_TEAM: {
-      const { team: awayTeam } = action.payload;
-      const { homeTeam, homeScore, awayScore } = match;
-      const isComplete = isMatchComplete({
-        homeTeam,
-        awayTeam,
-        homeScore,
-        awayScore,
-      });
-
-      return { ...match, awayTeam, isComplete };
-    }
-    case ACTIONS.CHANGE_HOME_SCORE: {
-      const { homeTeam, awayTeam, awayScore } = match;
-      const { score: homeScore } = action.payload;
-      const isComplete = isMatchComplete({
-        homeTeam,
-        awayTeam,
-        homeScore,
-        awayScore,
-      });
-
-      return { ...match, homeScore, isComplete };
-    }
-    case ACTIONS.CHANGE_AWAY_SCORE: {
-      const { homeTeam, awayTeam, homeScore } = match;
-      const { score: awayScore } = action.payload;
-      const isComplete = isMatchComplete({
-        homeTeam,
-        awayTeam,
-        homeScore,
-        awayScore,
-      });
-
-      return { ...match, awayScore, isComplete };
-    }
-    case ACTIONS.CHANGE_IS_NEUTRAL_VENUE: {
-      const { isSelected: isNeutralVenue } = action.payload;
-      const isComplete = isMatchComplete(match);
-
-      return { ...match, isNeutralVenue, isComplete };
-    }
-    case ACTIONS.CHANGE_IS_WORLD_CUP: {
-      const { isSelected: isWorldCup } = action.payload;
-      const isComplete = isMatchComplete(match);
-
-      return { ...match, isWorldCup, isComplete };
-    }
-    default: {
+    case ACTIONS.CHANGE_HOME_TEAM:
+      return onChangeHomeTeam(match, action);
+    case ACTIONS.CHANGE_AWAY_TEAM:
+      return onChangeAwayTeam;
+    case ACTIONS.CHANGE_HOME_SCORE:
+      return onChangeHomeScore(match, action);
+    case ACTIONS.CHANGE_AWAY_SCORE:
+      return onChangeAwayScore(match, action);
+    case ACTIONS.CHANGE_IS_NEUTRAL_VENUE:
+      return onChangeIsNetralVenue(match, action);
+    case ACTIONS.CHANGE_IS_WORLD_CUP:
+      return onChangeIsWorldCup(match, action);
+    default:
       return match;
-    }
   }
 };
